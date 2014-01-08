@@ -1,0 +1,26 @@
+<h3>Your commission percentage</h3>
+<p>Please choose from one of the two following options to set your commission rate. 
+You may either charge by percentage or set a fixed fee.</p>
+
+<form action="#" method="post">
+  <div>
+    <input checked="checked" id="commission_type_percentage" name="commission_type" type="checkbox" value="percentage">
+    <input id="commission_percentage" maxlength="5" name="commission_percentage" type="text">
+    <label for="commission_percentage">of transaction</label>
+  </div>
+
+  <div>
+    <input id="commission_type_fixed" name="commission_type" type="checkbox" value="fixed">
+    <input id="commission_fixed" maxlength="5" name="commission_fixed" type="text">
+    <select id="commission_fixed_currency" name="commission_fixed_currency">
+      <option value="USD">$</option>
+      <option value="EUR">€</option>
+      <option value="GBP">£</option>
+      <option value="YEN">¥</option>
+    </select>
+    <label for="commission_fixed">fixed fee</label>
+  </div>
+  <br/>
+  <br/>
+  <p>Displayed price: $103.4 + $0.5</p>
+</form>
