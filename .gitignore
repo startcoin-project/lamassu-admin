@@ -21,5 +21,4 @@ dist
 .tmp
 .sass-cache
 app/bower_components
-options.mine.js
 .DS_Store
