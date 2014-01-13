@@ -1,26 +1,112 @@
-<h3>Your commission percentage</h3>
-<p>Please choose from one of the two following options to set your commission rate. 
-You may either charge by percentage or set a fixed fee.</p>
-
-<form action="#" method="post">
-  <div>
-    <input checked="checked" id="commission_type_percentage" name="commission_type" type="checkbox" value="percentage">
-    <input id="commission_percentage" maxlength="5" name="commission_percentage" type="text">
-    <label for="commission_percentage">of transaction</label>
+<div id='page-commissions' class='page main  panel' role='main'>
+  <div class='panel__header'>
+    <div class='block'>
+      <div class='copy'>
+        <div>
+          <h2 class='panel__header__title'>Commissions</h2>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div>
-    <input id="commission_type_fixed" name="commission_type" type="checkbox" value="fixed">
-    <input id="commission_fixed" maxlength="5" name="commission_fixed" type="text">
-    <select id="commission_fixed_currency" name="commission_fixed_currency">
-      <option value="USD">$</option>
-      <option value="EUR">€</option>
-      <option value="GBP">£</option>
-      <option value="YEN">¥</option>
-    </select>
-    <label for="commission_fixed">fixed fee</label>
+  <div class='block'>
+    <form action='#' method='post'>
+      <article class='module'>
+      <div class='copy'>
+        <h1 class='as-h4'>Your commission percentage</h1>
+      </div>
+      <div class='grid grid--form grid--form--midset cf'>
+        <div class='grid__unit'>
+          <div class='copy'>
+            <p>Please choose from one of the two following options to set your commission rate. You may either charge by percentage or set a fixed fee.</p>
+          </div>
+        </div>
+        <div class='grid__unit grid__unit--fields'>
+          <ul class='form-fields form-fields--multi toggle-field-group'>
+            <!--
+            <li class='is-invalid'></li>
+            -->
+            <li>
+            <div class='field-and-label toggle-field'>
+              <div class='field-and-label__field'>
+                <div class='toggle-field__checkbox'>
+                  <span class='checkbox-field'>
+                    <input checked='checked' id='commission_type_percentage' name='commission_type' type='checkbox' value='percentage'>
+                    <label for='commission_type_percentage'>
+                      <span class='is-hidden'>Percentage</span>
+                    </label>
+                  </span>
+                </div>
+                <div class='field-and-label__input'>
+                  <div class='form-field-wrap'>
+                    <div class='field-helper field-helper--percent'>
+                      <input id='commission_percentage' maxlength='5' name='commission_percentage' type='text'>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='field-and-label__label'>
+                <label for='commission_percentage'>of transaction</label>
+              </div>
+            </div>
+            </li>
+            <!--
+            <li class='is-invalid'></li>
+            -->
+            <li>
+            <div class='field-and-label toggle-field'>
+              <div class='field-and-label__field'>
+                <div class='toggle-field__checkbox'>
+                  <span class='checkbox-field'>
+                    <input id='commission_type_fixed' name='commission_type' type='checkbox' value='fixed'>
+                    <label for='commission_type_fixed'>
+                      <span class='is-hidden'>Amount</span>
+                    </label>
+                  </span>
+                </div>
+                <div class='field-and-label__input field-and-label__input--integer'>
+                  <div class='form-field-wrap'>
+                    <input id='commission_fixed' maxlength='5' name='commission_fixed' type='text'>
+                  </div>
+                </div>
+                <div class='field-and-label__input field-and-label__input--symbol'>
+                  <div class='form-field-wrap'>
+                    <div class='custom-select-wrap'>
+                      <div class='custom-select-wrap__inner'>
+                        <div class='custom-select'>
+                          <select id='commission_fixed_currency' name='commission_fixed_currency'>
+                            <option value='USD'>&dollar;</option>
+                            <option value='EUR'>&euro;</option>
+                            <option value='GBP'>&pound;</option>
+                            <option value='YEN'>&yen;</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='field-and-label__label'>
+                <label for='commission_fixed'>fixed fee</label>
+              </div>
+            </div>
+            </li>
+          </ul>
+          <!--
+          <div class='copy'>
+            <strong class='error-flash'>
+              <span>&#10006;</span>
+              You haven't selected a commission!
+            </strong>
+          </div>
+          -->
+        </div>
+      </div>
+      <div class='island island--bordered text--centered push-top'>
+        <div class='copy'>
+          <p class='as-h4'>Displayed price: $103.4 + $0.5</p>
+        </div>
+      </div>
+      </article>
+    </form>
   </div>
-  <br/>
-  <br/>
-  <p>Displayed price: $103.4 + $0.5</p>
-</form>
+</div>

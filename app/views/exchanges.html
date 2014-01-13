@@ -1,41 +1,198 @@
-<h3>Set your exchange methods</h3>
-<p>You can set up to three different methods in order of priority.</p>
-
-<form action="#" method="post">
-  <div class="method">
-    <label for="method_1_type">1</label>
-    
-    <select id="method_1_type" name="method_1_type">
-      <option value="MtGox">Mt.Gox</option>
-      <option value="Paypal">Paypal</option>
-      <option value="BitPay">BitPay</option>
-    </select>
-
-    <input id="method_1_key" name="method_1_key" placeholder="API Key">
+<!-- Exchanges -->
+<div id='page-exchanges' class='page main  panel' role='main'>
+  <div class='panel__header'>
+    <div class='block'>
+      <div class='copy'>
+        <div>
+          <h2 class='panel__header__title'>Exchanges</h2>
+        </div>
+      </div>
+    </div>
   </div>
+  <div class='block'>
+    <form action='#' method='post'>
 
-  <div class="method">
-    <label for="method_2_type">2</label>
-    
-    <select id="method_2_type" name="method_1_type">
-      <option value="MtGox">Mt.Gox</option>
-      <option value="Paypal">Paypal</option>
-      <option value="BitPay">BitPay</option>
-    </select>
+      <article class='module' id='exchanges-ticker'>
+      <div class='copy'>
+        <h1 class='as-h4'>Price Ticker</h1>
+      </div>
+      <div class='grid grid--form grid--form--offset cf'>
+        <div class='grid__unit'>
+          <div class='copy'>
+            <p>Your Bitcoin price feed.</p>
+          </div>
+        </div>
+        <div class='grid__unit grid__unit--fields'>
+          <ul class='form-fields form-fields--multi'>
+            <li>
+            <div class='flag flag--form-field flag--form-field--bg'>
+              <div class='flag__body'>
+                <div class='grid grid--form-fields cf'>
+                  <div class='grid__unit'>
+                    <div class='form-field-wrap'>
+                      <select nid="ticker" name="ticker">
+                        <option value="bitpay">Bitpay</option>
+                        <option value="mtgox">Mt. Gox</option>
+                        <option value="bitstamp">Bitstamp</option>
+                        <option value="custom">Custom</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </li>
 
-    <input id="method_2_key" name="method_2_key" placeholder="API Key">
+          </ul>
+        </div>
+      </div>
+      </article>
+
+      <article class='module' id='exchanges-trade'>
+      <div class='copy'>
+        <h1 class='as-h4'>Trading Exchange <span class="optional">(optional)</span></h1>
+      </div>
+      <div class='grid grid--form grid--form--offset cf'>
+        <div class='grid__unit'>
+          <div class='copy'>
+            <p>Your Bitcoin exchange, for buying bitcoins to cover sales.</p>
+          </div>
+        </div>
+        <div class='grid__unit grid__unit--fields'>
+          <ul class='form-fields form-fields--multi'>
+            <li>
+            <div class='flag flag--form-field flag--form-field--bg'>
+              <div class='flag__body'>
+                <div class='grid grid--form-fields cf'>
+                  <div class='grid__unit'>
+                    <div class='form-field-wrap'>
+                      <select id="exchange" name="exchange">
+                        <option value="bitstamp">bitstamp</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </li>
+            <li>
+            <div class='flag flag--form-field flag--form-field--bg'>
+              <div class='flag__body'>
+                <div class='grid grid--form-fields cf'>
+                  <div class='grid__unit full-width'>
+                    <div class='form-field-wrap'>
+                      <input type="text" id="exchange_custId" name="exchange_custId" placeholder="Customer ID"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </li>
+            <li>
+            <div class='flag flag--form-field flag--form-field--bg'>
+              <div class='flag__body'>
+                <div class='grid grid--form-fields cf'>
+                  <div class='grid__unit full-width'>
+                    <div class='form-field-wrap'>
+                      <input type="text" id="exchange_apiKey" name="exchange_apiKey" placeholder="API Key"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </li>
+            <li>
+            <div class='flag flag--form-field flag--form-field--bg'>
+              <div class='flag__body'>
+                <div class='grid grid--form-fields cf'>
+                  <div class='grid__unit full-width'>
+                    <div class='form-field-wrap'>
+                      <input type="password" id="exchange_secret" name="exchange_secret" placeholder="Secret"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+      </article>
+
+      <article class='module' id='exchanges-transfer'>
+      <div class='copy'>
+        <h1 class='as-h4'>Bitcoin Wallet</h1>
+      </div>
+      <div class='grid grid--form grid--form--offset cf'>
+        <div class='grid__unit'>
+          <div class='copy'>
+            <p>Bitcoin reserve, for sending bitcoins to end user.</p>
+          </div>
+        </div>
+        <div class='grid__unit grid__unit--fields'>
+          <ul class='form-fields form-fields--multi'>
+
+            <li>
+            <div class='flag flag--form-field flag--form-field--bg'>
+              <div class='flag__body'>
+                <div class='grid grid--form-fields cf'>
+                  <div class='grid__unit'>
+                    <div class='form-field-wrap'>
+                      <select id="wallet" name="wallet">
+                        <option value="blockchain.info">Blockchain.info</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </li>
+            <li>
+            <div class='flag flag--form-field flag--form-field--bg'>
+              <div class='flag__body'>
+                <div class='grid grid--form-fields cf'>
+                  <div class='grid__unit full-width'>
+                    <div class='form-field-wrap'>
+                      <input type="text" id="wallet_guid" name="wallet_guid" placeholder="Guid"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </li>
+            <li>
+            <div class='flag flag--form-field flag--form-field--bg'>
+              <div class='flag__body'>
+                <div class='grid grid--form-fields cf'>
+                  <div class='grid__unit full-width'>
+                    <div class='form-field-wrap'>
+                      <input type="password" id="wallet_password" name="wallet_password" placeholder="Password"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </li>
+            <li>
+            <div class='flag flag--form-field flag--form-field--bg'>
+              <div class='flag__body'>
+                <div class='grid grid--form-fields cf'>
+                  <div class='grid__unit full-width'>
+                    <div class='form-field-wrap'>
+                      <input type="text" id="wallet_fromAddress" name="wallet_fromAddress" placeholder="From Address"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+      </article>
+
+    </form>
   </div>
-
-  <div class="method">
-    <label for="method_3_type">3</label>
-    
-    <select id="method_3_type" name="method_1_type">
-      <option value="MtGox">Mt.Gox</option>
-      <option value="Paypal">Paypal</option>
-      <option value="BitPay">BitPay</option>
-    </select>
-
-    <input id="method_3_key" name="method_3_key" placeholder="API Key">
-  </div>
-
-</form>
+</div>
