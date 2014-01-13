@@ -3,6 +3,7 @@
 var express = require('express');
 var path = require('path');
 var seneca = require('seneca')();
+var pg = require('pg'); 
 
 process.on('uncaughtException', function(err) {
   console.error('uncaughtException:', err.message);
@@ -53,6 +54,33 @@ seneca.ready(function(err) {
   var port = options.main.port || 3000;
   app.listen(port, function() {
     console.log('Express server listening on port %d in %s mode', port, app.get('env'));
+  });
+
+  app.get('/exchange', function(req, res) { 
+    res.json({
+      feed: 'mtgox',
+      exchange: {
+        name: 'bitstamp',
+        customerId: 'A customer',
+        apiKey: '',
+        secret: ''
+      },
+      wallet: {
+        service: 'blockchain.info',
+        guid: '123',
+        password: '',
+        fromAddress: ''
+      }
+    });
+  });
+
+  app.post('/exchange', function(req, res) { 
+  });
+
+  app.get('/commission', function(req, res) { 
+  });
+
+  app.post('/commission', function(req, res) { 
   });
 
   seneca.listen();
