@@ -58,18 +58,30 @@ seneca.ready(function(err) {
 
   app.get('/exchange', function(req, res) { 
     res.json({
-      feed: 'mtgox',
-      exchange: {
-        name: 'bitstamp',
-        customerId: 'A customer',
-        apiKey: '',
-        secret: ''
-      },
-      wallet: {
-        service: 'blockchain.info',
-        guid: '123',
-        password: '',
-        fromAddress: ''
+      "exchanges" : {
+        "settings": {
+          "commission": 1.0
+        },
+        "plugins" : {
+          "current": {
+            "ticker": "bitpay_ticker",
+            "trade": "bitstamp_trade",
+            "transfer": "blockchain"
+          },
+          "settings": {
+            "bitpay_ticker": {},
+            "bitstamp_trade" : {
+              "clientId": "",
+              "key": "",
+              "secret": ""
+            },
+            "blockchain": {
+              "guid": "",
+              "password": "",
+              "fromAddress": ""
+            },
+          }
+        }
       }
     });
   });

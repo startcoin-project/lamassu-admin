@@ -20,13 +20,12 @@ angular.module('myApp').controller('ExchangesCtrl', function ($scope, $http) {
       url: '/exchange',
       method: 'GET'
     }).success(function(data){
-      console.log(data);
-      console.log(data.wallet.guid);
       $scope.config = data;
     }).error(function() {
     });
   };
 
   $scope.getExchangeConfig();
+
 
 });

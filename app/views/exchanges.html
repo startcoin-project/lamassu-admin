@@ -30,11 +30,9 @@
                 <div class='grid grid--form-fields cf'>
                   <div class='grid__unit'>
                     <div class='form-field-wrap'>
-                      <select nid="ticker" name="ticker" ng-model="config.feed">
-                        <option value="bitpay">Bitpay</option>
-                        <option value="mtgox">Mt. Gox</option>
-                        <option value="bitstamp">Bitstamp</option>
-                        <option value="custom">Custom</option>
+                      <select nid="ticker" name="ticker" ng-model="config.exchanges.plugins.current.ticker">
+                        <option value="1">a</option>
+                        <option value="bitpay_ticker">Bitpay</option>
                       </select>
                     </div>
                   </div>
@@ -66,8 +64,8 @@
                 <div class='grid grid--form-fields cf'>
                   <div class='grid__unit'>
                     <div class='form-field-wrap'>
-                      <select id="exchange" name="exchange">
-                        <option value="bitstamp">bitstamp</option>
+                      <select id="trade" name="trade" ng-model="config.exchanges.plugins.current.trade">
+                        <option value="bitstamp_trade">bitstamp</option>
                       </select>
                     </div>
                   </div>
@@ -81,7 +79,8 @@
                 <div class='grid grid--form-fields cf'>
                   <div class='grid__unit full-width'>
                     <div class='form-field-wrap'>
-                      <input type="text" id="exchange_custId" name="exchange_custId" placeholder="Customer ID" ng-model="config.exchange.customerId" />
+                      <input type="text" id="clientId" name="clientId" 
+                        placeholder="Customer ID" ng-model="config.exchanges.settings.bitstamp_trade.clientId" />
                     </div>
                   </div>
                 </div>
@@ -94,7 +93,8 @@
                 <div class='grid grid--form-fields cf'>
                   <div class='grid__unit full-width'>
                     <div class='form-field-wrap'>
-                      <input type="text" id="exchange_apiKey" name="exchange_apiKey" placeholder="API Key" ng-model="config.exchange.apiKey"/>
+                      <input type="text" id="key" name="key" placeholder="API Key" 
+                        ng-model="config.exchanges.settings.bitstamp_trade.key"/>
                     </div>
                   </div>
                 </div>
@@ -107,7 +107,8 @@
                 <div class='grid grid--form-fields cf'>
                   <div class='grid__unit full-width'>
                     <div class='form-field-wrap'>
-                      <input type="password" id="exchange_secret" name="exchange_secret" placeholder="Secret" ng-model="config.exchange.secret" />
+                      <input type="password" id="exchange_secret" name="exchange_secret"
+                        placeholder="Secret" ng-model="config.exchanges.settings.bitstamp_trade.secret" />
                     </div>
                   </div>
                 </div>
@@ -139,8 +140,8 @@
                 <div class='grid grid--form-fields cf'>
                   <div class='grid__unit'>
                     <div class='form-field-wrap'>
-                      <select id="wallet" name="wallet" ng-model="config.wallet.service">
-                        <option value="blockchain.info">Blockchain.info</option>
+                      <select id="transfer" name="transfer" ng-model="config.exchanges.plugins.current.transfer">
+                        <option value="blockchain">Blockchain.info</option>
                       </select>
                     </div>
                   </div>
@@ -154,8 +155,8 @@
                 <div class='grid grid--form-fields cf'>
                   <div class='grid__unit full-width'>
                     <div class='form-field-wrap'>
-                      <input type="text" id="wallet_guid" name="wallet_guid" 
-                        placeholder="Guid" ng-model="config.wallet.guid" />
+                      <input type="text" id="guid" name="guid" 
+                        placeholder="Guid" ng-model="config.exchanges.settings.blockchain.guid" />
                     </div>
                   </div>
                 </div>
@@ -169,7 +170,7 @@
                   <div class='grid__unit full-width'>
                     <div class='form-field-wrap'>
                       <input type="password" id="wallet_password" name="wallet_password" 
-                        placeholder="Password" ng-model="config.wallet.password" />
+                        placeholder="Password" ng-model="config.exchanges.settings.blockchain.password" />
                     </div>
                   </div>
                 </div>
@@ -183,7 +184,7 @@
                   <div class='grid__unit full-width'>
                     <div class='form-field-wrap'>
                       <input type="text" id="wallet_fromAddress" name="wallet_fromAddress" 
-                        placeholder="From Address" ng-model="config.wallet.fromAddress"/>
+                        placeholder="From Address" ng-model="config.exchanges.settings.blockchain.fromAddress"/>
                     </div>
                   </div>
                 </div>
