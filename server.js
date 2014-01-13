@@ -57,36 +57,36 @@ seneca.ready(function(err) {
   });
 
   app.get('/exchange', function(req, res) { 
-    res.json({
-      "exchanges" : {
-        "settings": {
-          "commission": 1.0
-        },
-        "plugins" : {
-          "current": {
-            "ticker": "bitpay_ticker",
-            "trade": "bitstamp_trade",
-            "transfer": "blockchain"
-          },
-          "settings": {
-            "bitpay_ticker": {},
-            "bitstamp_trade" : {
-              "clientId": "",
-              "key": "",
-              "secret": ""
-            },
-            "blockchain": {
-              "guid": "",
-              "password": "",
-              "fromAddress": ""
-            },
-          }
-        }
-      }
+    var conString = "postgres://postgres:password@localhost/lamassu";
+    var client = new pg.Client(conString);
+
+    client.connect(function(err) {
+      client.query('SELECT * FROM user_config WHERE type = \'exchanges\'', function(err, results) {
+        console.log('error reading config');
+        console.dir(err);
+        console.dir(results);
+        res.json(JSON.parse(results.rows[0].data));
+      })
     });
   });
 
   app.post('/exchange', function(req, res) { 
+    var config = JSON.stringify(req.body);
+    var conString = "postgres://postgres:password@localhost/lamassu";
+    var client = new pg.Client(conString);
+
+    console.log(config);
+    console.log(req.body);
+
+    client.connect(function(err) {
+      console.log('Connect error')
+      console.dir(err)
+
+      client.query('UPDATE user_config SET data = \'' + config + '\'  WHERE type = \'exchanges\'', function(err, results) {
+        console.log('update error: ');
+        console.dir(err);
+      })
+    });
   });
 
   app.get('/commission', function(req, res) { 
