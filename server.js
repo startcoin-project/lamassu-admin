@@ -4,6 +4,8 @@ var express = require('express');
 var path = require('path');
 var seneca = require('seneca')();
 var pg = require('pg'); 
+var winston = require('winston');
+var logger = new (winston.Logger)({transports:[new (winston.transports.Console)()]});
 
 process.on('uncaughtException', function(err) {
   console.error('uncaughtException:', err.message);
@@ -61,12 +63,19 @@ seneca.ready(function(err) {
     var client = new pg.Client(conString);
 
     client.connect(function(err) {
-      client.query('SELECT * FROM user_config WHERE type = \'exchanges\'', function(err, results) {
-        console.log('error reading config');
-        console.dir(err);
-        console.dir(results);
-        res.json(JSON.parse(results.rows[0].data));
-      })
+      if(err) {
+        logger.log('Error connecting to database: %j', err);
+        res.json({ok:false, msg:'Failed to connect to database.'})
+      } else {
+        client.query('SELECT data FROM user_config WHERE type = \'exchanges\'', function(err, results) {
+          if(err) {
+            logger.log('Error reading configuration: %j', err);
+            res.json({ok:false, msg: 'Failed reading config.'});
+          } else {
+            res.json({ok:true, config: JSON.parse(results.rows[0].data)});
+          }
+        });
+      }
     });
   });
 
@@ -75,25 +84,29 @@ seneca.ready(function(err) {
     var conString = "postgres://postgres:password@localhost/lamassu";
     var client = new pg.Client(conString);
 
-    console.log(config);
-    console.log(req.body);
+    if(!config) {
+      logger.log('No congig supplied for update.');
+      res.json({ok:false, msg: 'No config suupplied.'});
+      return;
+    }
 
     client.connect(function(err) {
-      console.log('Connect error')
-      console.dir(err)
-
-      client.query('UPDATE user_config SET data = \'' + config + '\'  WHERE type = \'exchanges\'', function(err, results) {
-        console.log('update error: ');
-        console.dir(err);
-      })
+      if(err) {
+        logger.log('Error connecting to database: %j', err);
+        res.json({ok:false, msg: 'Failed to connect to database.'})
+      } else { 
+        client.query('UPDATE user_config SET data = \'' + config + '\'  WHERE type = \'exchanges\'', function(err, results) {
+          if(err)  {
+            logger.log('Error updating configuration: %j', err);
+            res.json({ok:false, msg:'Failed to update config'});
+          } else {
+            res.json({ok:true, msg: 'Config updated.'});
+          }
+        });
+      }
     });
   });
 
-  app.get('/commission', function(req, res) { 
-  });
-
-  app.post('/commission', function(req, res) { 
-  });
 
   seneca.listen();
 
