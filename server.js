@@ -5,6 +5,7 @@ var path = require('path');
 var seneca = require('seneca')();
 var pg = require('pg'); 
 var winston = require('winston');
+var config = require('lamassu-config');
 var logger = new (winston.Logger)({transports:[new (winston.transports.Console)()]});
 
 process.on('uncaughtException', function(err) {
@@ -59,52 +60,32 @@ seneca.ready(function(err) {
   });
 
   app.get('/exchange', function(req, res) { 
-    var conString = "postgres://postgres:password@localhost/lamassu";
-    var client = new pg.Client(conString);
-
-    client.connect(function(err) {
-      if(err) {
-        logger.log('Error connecting to database: %j', err);
-        res.json({ok:false, msg:'Failed to connect to database.'})
-      } else {
-        client.query('SELECT data FROM user_config WHERE type = \'exchanges\'', function(err, results) {
-          if(err) {
-            logger.log('Error reading configuration: %j', err);
-            res.json({ok:false, msg: 'Failed reading config.'});
-          } else {
-            res.json({ok:true, config: JSON.parse(results.rows[0].data)});
-          }
-        });
+    config.readExchangesConfig(function(err, config) {
+      if(err){
+        logger.log('error', 'Error while reading exchanges config: %j', err);
+        throw Error(err);
       }
+
+      res.json(config);
     });
   });
 
   app.post('/exchange', function(req, res) { 
     var config = JSON.stringify(req.body);
-    var conString = "postgres://postgres:password@localhost/lamassu";
-    var client = new pg.Client(conString);
 
     if(!config) {
-      logger.log('No congig supplied for update.');
+      logger.log('error', 'No congig supplied for update.');
       res.json({ok:false, msg: 'No config suupplied.'});
       return;
     }
 
-    client.connect(function(err) {
-      if(err) {
-        logger.log('Error connecting to database: %j', err);
-        res.json({ok:false, msg: 'Failed to connect to database.'})
-      } else { 
-        client.query('UPDATE user_config SET data = \'' + config + '\'  WHERE type = \'exchanges\'', function(err, results) {
-          if(err)  {
-            logger.log('Error updating configuration: %j', err);
-            res.json({ok:false, msg:'Failed to update config'});
-          } else {
-            res.json({ok:true, msg: 'Config updated.'});
-          }
-        });
+    config.saveExchangesConfig(function(err, result) {
+      if(err) { 
+        logger.log('error', 'Error while saving exchanges config: %j', err);
+        throw Error(err);
       }
-    });
+      res.json(result);
+    })
   });
 
 
