@@ -71,15 +71,15 @@ seneca.ready(function(err) {
   });
 
   app.post('/exchange', function(req, res) { 
-    var config = JSON.stringify(req.body);
+    var exchangesConfig = JSON.stringify(req.body);
 
-    if(!config) {
+    if(!exchangesConfig) {
       logger.log('error', 'No congig supplied for update.');
       res.json({ok:false, msg: 'No config suupplied.'});
       return;
     }
 
-    config.saveExchangesConfig(function(err, result) {
+    config.saveExchangesConfig(exchangesConfig, function(err, result) {
       if(err) { 
         logger.log('error', 'Error while saving exchanges config: %j', err);
         throw Error(err);
