@@ -23,8 +23,26 @@ ALTER TABLE public.user_config OWNER TO postgres;
 ALTER TABLE ONLY user_config ADD CONSTRAINT user_config_pkey PRIMARY KEY (id);
 
 COPY user_config (id, type, data) FROM stdin;
-1	exchanges	{"exchanges":{"settings":{"commission":1,"blockchain":{"guid":"1234"}},"plugins":{"current":{"ticker":"bitpay_ticker","trade":"bitstamp_trade","transfer":"blockchain"},"settings":{"bitpay_ticker":{},"bitstamp_trade":{"clientId":"","key":"","secret":""},"blockchain":{"guid":"","password":"","fromAddress":""}}}}}
+1	exchanges	{"exchanges" : {\
+    "settings": {\
+      "commission": 1.0\
+    },\
+    "plugins" : {\
+      "current": {\
+        "ticker": "bitpay_ticker",\
+        "trade": "bitstamp_trade",\
+        "transfer": "blockchain"\
+      },\
+      "settings": {\
+        "bitpay_ticker": {},\
+        "bitstamp_trade": {"currency": "USD", "key": "test", "secret": "test", "clientId": "test" },\
+        "blockchain" : {}\
+      }\
+    }\
+  }\
+}
 \.
+
 COPY user_config (id, type, data) FROM stdin;
 2	software	{"brain": {\
     "qrTimeout": 60000,\
@@ -100,11 +118,14 @@ COPY user_config (id, type, data) FROM stdin;
 
 -- Name: txlog ; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 CREATE TABLE txlog (
-    id integer NOT NULL,
+    id SERIAL,
     timestamp timestamp,
+    type character varying(10),
     exchange character varying(50),
     address character varying(50),
     satoshis integer not null,
+    currency character varying(10),
+    rate integer,
     status integer not null,
     errorMessage character varying
 );
