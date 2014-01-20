@@ -76,9 +76,9 @@ COPY user_config (id, type, data) FROM stdin;
     "settings": {\
       "fastPoll": 5000,\
       "fastPollLimit": 10,\
-      "tickerInterval": 60000,\
-      "balanceInterval": 60000,\
-      "tradeInterval": 10000,\
+      "tickerInterval": 5000,\
+      "balanceInterval": 5000,\
+      "tradeInterval": 5000,\
       "retryInterval": 5000,\
       "retries": 3,\
       "lowBalanceMargin": 1.05,\
@@ -125,8 +125,8 @@ CREATE TABLE txlog (
     address character varying(50),
     satoshis integer not null,
     currency character varying(10),
-    rate integer,
-    status integer not null,
+    rate float,
+    status character varying(20),
     errorMessage character varying
 );
 
