@@ -29,13 +29,13 @@ COPY user_config (id, type, data) FROM stdin;
     },\
     "plugins" : {\
       "current": {\
-        "ticker": "bitpay_ticker",\
-        "trade": "bitstamp_trade",\
+        "ticker": "bitpay",\
+        "trade": "bitstamp",\
         "transfer": "blockchain"\
       },\
       "settings": {\
-        "bitpay_ticker": {},\
-        "bitstamp_trade": {"currency": "USD", "key": "test", "secret": "test", "clientId": "test" },\
+        "bitpay": {},\
+        "bitstamp": {"currency": "USD", "key": "test", "secret": "test", "clientId": "test" },\
         "blockchain" : {}\
       }\
     }\
