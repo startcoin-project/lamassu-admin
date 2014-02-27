@@ -74,7 +74,7 @@ module.exports = Backbone.Model.extend({
 
     self.on('change:price', function(){
 
-      ss.rpc('update.price', self.get('price'), function(err, res){
+      ss.rpc('set.price', self.get('price'), function(err, res){
 
       })
 

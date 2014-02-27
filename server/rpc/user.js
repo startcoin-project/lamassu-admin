@@ -16,7 +16,7 @@ var user = {
 
 exports.actions = function(req, res, ss) {
 
-  req.use('session');
+  req.use('session')
 
   return {
 
