@@ -98,7 +98,7 @@ module.exports = Backbone.Model.extend({
 
     if (user != null) {
 
-      self.set(user)
+      self.set(user, {silent: true})
       self.set({authenticated: true})
 
     } else {
