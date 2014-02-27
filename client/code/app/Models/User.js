@@ -69,8 +69,7 @@ module.exports = Backbone.Model.extend({
 
     self.price_data = new PriceData()
 
-    ss.rpc('user.fetch', this.authenticate.bind(this))
-
+    ss.rpc('get.user', this.authenticate.bind(this))
 
     self.on('change:price', function(){
 
