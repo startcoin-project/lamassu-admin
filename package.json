@@ -12,7 +12,8 @@
     "ss-jade": "0.1.x",
     "ss-stylus": "0.1.x",
     "ss-hogan": "0.1.x",
-    "request": "^2.34.0"
+    "request": "^2.34.0",
+    "lamassu-config": "0.0.6"
   },
   "scripts": {
     "start": "node app.js"
