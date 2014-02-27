@@ -1,0 +1,401 @@
+// Example Stylus file
+//
+// Stylus docs:  http://learnboost.github.com/stylus/docs/js.html
+// Nib docs:     http://visionmedia.github.com/nib
+@import 'nib'
+@import './fonts'
+
+//dark_gray = #2d2d2d
+dark_blue = #1d2327
+light_blue = #3e4a52
+dark_gray = #1d2327
+light_gray = #3e4a52
+cream = #f6f6f4
+teal = #37e8d7
+teal_shadow = #31d0c1
+teal_film = #effffb
+teal_film_shadow = #e5f5f1
+
+body, html
+  height 100%
+  width 100%
+  overflow hidden
+
+body
+  position relative
+  font-family helvetica, sans-serif
+  min-width 960px
+  min-height 500px
+  font-size 15px
+
+  .panel
+    position absolute
+    left 0
+    top 0
+    bottom 0
+    width 200px
+    background dark_blue
+
+    .disbled
+      opacity 0.15
+      pointer-events none
+
+    .logo
+      position absolute 
+      top 0
+      left 0
+      right 0
+      height 75px
+      background url('/images/lamassu-logo.png') 45% 50% no-repeat
+      z-index 4
+
+    .menu
+      display none
+      position absolute 
+      top 75px
+      left 0
+      right 0
+      bottom 75px
+      background rgba(0,0,0,0.1)
+      z-index 2
+      overflow scroll
+
+
+      ul
+        color rgba(255,255,255,1)
+        z-index 2
+        cursor pointer
+        
+        li
+          position relative
+          height 50px
+          width 100%
+          border-top 1px solid rgba(0,0,0,0.3)
+          //text-align center
+          
+          .text
+            position absolute
+            padding-left 50px
+            padding-top 18px
+
+          .icon
+            position absolute
+            top 23px
+            left 23px
+            width 5px
+            height 5px
+
+            border-radius 50%
+            background teal
+
+        li:hover
+          color teal
+          transition all 0.30s ease-in-out
+
+        li:first-child
+          border-top none
+
+        li.selected
+          color teal
+
+    .display
+      display none
+      position absolute 
+      bottom 0 
+      height 75px
+      left 0
+      bottom 0
+      right 0
+      text-align center
+      z-index 4
+
+      .text
+        color white
+        font-size 10px
+        position absolute 
+        height 12px
+        bottom 10px
+        left 0px
+        right 0
+        text-transform uppercase
+        letter-spacing 4px
+        margin-right -4px
+
+      .price
+        color white
+        position absolute
+        font-size 28px
+        right 0px
+        left 0
+        top 16px
+        font-family Raleway
+        color teal
+        letter-spacing 2px
+
+        .currency 
+          position relative 
+          top -3px
+          font-size 17px
+          left -2px
+
+      .subtext
+        color teal
+        font-size 10px
+        position absolute 
+        height 12px
+        bottom 32px
+        left 0px
+        right 0
+        text-transform uppercase
+        display none
+
+        .currency
+          position relative 
+          top -1px
+          font-size 8px
+          left -2px
+
+
+
+
+
+
+
+  .dash
+    position absolute
+    right 0
+    top 0
+    bottom 0
+    left 200px
+    background cream
+    z-index 20
+
+    .login
+      position absolute 
+      top 0
+      left 0
+      right 0
+      bottom 0
+
+      input, textarea
+        transition all 0.30s ease-in-out
+        outline none
+        box-shadow inset 0 0 0px 1px rgba(55, 232, 215, 0)
+       
+      input:focus, textarea:focus
+        box-shadow inset 0 0 0px 1px rgba(55, 232, 215, 1)
+
+      .box
+        width 320px
+        height 180px
+        position absolute 
+        left 50%
+        margin-left -160px
+        top 50%
+        margin-top -120px
+        font-size 24px
+
+        input
+          display block
+          border 0
+          border-radius 0px
+          margin 0
+          padding 0
+          text-align center
+          font-size 24px
+          color light_gray
+          position absolute
+          width 100% 
+          top 0px
+          left 0px
+          right 0px
+          bottom 3px
+
+        .message
+          position absolute 
+          top 0
+          left 0
+          right 0
+          color light_gray
+          font-size 20px
+          text-align center
+
+        .email
+          position absolute 
+          top 40px
+          left 0
+          right 0
+          height 53px
+          background #f3f3f3
+          box-shadow 0px 1px 1px rgba(0,0,0,0.2)
+
+        .password
+          position absolute 
+          top 100px
+          left 0
+          right 0
+          height 53px
+          background #f3f3f3
+          box-shadow 0px 1px 1px rgba(0,0,0,0.2)
+
+        .submit
+          position absolute 
+          left 0
+          right 0
+          top 160px
+          height 41px
+          background teal
+          color white
+          text-align center
+          padding-top 14px
+          cursor pointer
+          box-shadow 0px 1px 1px rgba(0,0,0,0.2)
+
+        .shadow
+          position absolute 
+          bottom 0
+          left 0
+          right 0
+          height 3px
+          background teal_shadow
+
+     
+    .main
+      position absolute 
+      top 0
+      right 0
+      bottom 0
+      left 0
+
+      .links
+        height 15px
+        position absolute 
+        right 28px
+        top 20px
+        left 0
+        text-align right
+        font-size 12px
+        text-transform uppercase
+        color rgba(0,0,0,0.6)
+        font-weight bold
+
+        li
+          float right
+          margin-left 25px
+          cursor pointer
+
+      @import './price'
+
+      .card
+        position absolute 
+        top 50px
+        bottom 22px
+        left 25px
+        right 25px
+        background #f3f3f3
+        box-shadow 0px 1px 1px rgba(0,0,0,0.2)
+
+        input
+          display block
+          border 0
+          border-radius 0px
+          margin 0
+          padding 0
+          text-align center
+          font-size 20px
+          color light_gray
+          width 100% 
+          height 50px
+          margin-top 10px
+
+        input, textarea
+          transition all 0.30s ease-in-out
+          outline none
+          box-shadow inset 0 0 0px 1px light_gray
+         
+        input:focus, textarea:focus
+          box-shadow inset 0 0 0px 1px rgba(55, 232, 215, 1)
+
+        select
+          display block
+          font-size 20px
+          border 0
+          border-radius 0px
+          margin 0
+          padding 0
+          height 50px
+          width 100%
+          appearance none
+          outline 0
+          text-align center
+
+        .inner
+          background white
+          position absolute 
+          top 0
+          bottom 3px
+          right 0
+          left 0
+
+          .top
+            position absolute 
+            top -50px
+            left 0px
+            right 0
+            height 75px
+            border-bottom 1px solid rgba(0,0,0,0.1)
+            pointer-events none
+
+            .title 
+              position absolute 
+              top 16px
+              left 3px
+              color light_gray
+              font-size 20px
+
+
+          .mid
+            position absolute 
+            top 26px
+            left 0
+            right 0
+            bottom 51px
+            overflow scroll
+            padding 25px
+
+          .bot
+            position absolute 
+            bottom 0
+            left 0
+            right 0
+            height 50px
+            border-top 1px solid rgba(0,0,0,0.1)
+
+            .save
+              position absolute 
+              bottom -3px
+              height 54px
+              right 0px
+              text-align center
+              background teal
+              cursor pointer
+              box-shadow 0px 1px 1px rgba(0,0,0,0.2)
+              color white
+              font-size 24px
+              width 100px
+              z-index 60
+              left 50%
+              margin-left -50px
+
+              > .text
+                padding 12px
+                color white
+
+              .shadow
+                position absolute 
+                bottom 0
+                left 0
+                right 0
+                height 3px
+                background teal_shadow
+
