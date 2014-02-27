@@ -12,8 +12,7 @@ var App = Backbone.View.extend({
     self.user.on('change:authenticated', self.authenticated.bind(self))
 
     //update the display price on relevant changes
-    self.user.price_data.on('change', self.set_display.bind(self))
-    self.user.on('change', self.set_display.bind(self))
+
 
   },
 
@@ -46,6 +45,8 @@ var App = Backbone.View.extend({
 
     if (authenticated === true) {
       self.current = new Main()
+      self.user.price_data.on('change', self.set_display.bind(self))
+      self.user.on('change', self.set_display.bind(self))
     } else {
       self.current = new Login()
     }
