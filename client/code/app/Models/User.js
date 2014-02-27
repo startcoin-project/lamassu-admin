@@ -71,10 +71,21 @@ module.exports = Backbone.Model.extend({
 
     self.on('change:price', function(){
 
-      ss.rpc('set.price', self.get('price'), function(err, res){
+      ss.rpc('set.price', self.get('price'), function(err, res){})
 
-      })
+    })
 
+
+    self.on('change:wallet', function(){
+
+      ss.rpc('set.wallet', self.get('wallet'), function(err, res){})
+
+    })
+
+
+    self.on('change:exchange', function(){
+
+      ss.rpc('set.exchange', self.get('exchange'), function(err, res){})
 
     })
 

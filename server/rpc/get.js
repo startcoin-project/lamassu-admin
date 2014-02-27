@@ -27,7 +27,14 @@ var wallet_settings = function(){
 }
 
 var exchange_settings = function(){
-  return {}
+
+  return {
+    provider: 'bitstamp', 
+    id: '23423523', 
+    api_key: '*******',
+    secret: '******'
+  }
+
 }
 
 
