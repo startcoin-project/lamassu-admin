@@ -43,6 +43,20 @@ var Sources = Backbone.View.extend({
 
   },
 
+  capture_custom: function(){
+
+    var self = this
+
+    var url = self.$el.find('.custom_input input').val()
+
+    //vaidate url
+
+
+
+
+
+  },
+
   update_preview: function(){
 
     var self = this
@@ -78,25 +92,31 @@ var Sources = Backbone.View.extend({
 
       var index = $(this).index()
 
-      self.selected_source = self.sources[index]
-
-      self.update_preview()
-
       // highlight the item
       self.$el.find('ul li').removeClass('selected')
       self.$el.find('ul li').eq(index).addClass('selected')
 
       self.$el.removeClass('custom_selected')
 
-      if($(this).is(':last-child')){ //last child is always custom
+      if($(this).is(':last-child')){ //this is a custom source
+
+        self.selected_source = 'custom'
+        self.update_preview()
+
         self.$el.addClass('custom_selected')
         self.$el.find('.custom_input input').focus()
         self.$el.find('ul').animate({scrollTop: self.$el.find('ul')[0].scrollHeight}, 250)
+
+
+      }else{ //this is a non-custom source
+
+        
+        self.selected_source = self.sources[index]
+        self.update_preview()
+
       }
 
     })
-
-
 
   }
 
@@ -114,17 +134,15 @@ var Sources = Backbone.View.extend({
 
 var Commission = Backbone.View.extend({
 
-  initialize: function(){
+  initialize: function(options){
 
     var self = this
 
+    self.parent = options.parent
+
     var percentages = [1, 2, 3, 4, 5]
 
-
-
     self.selected_commission = self.user.get('price').commission
-
-
 
     //append percentage items to the list
     percentages.forEach(function(percentage, index){
@@ -153,8 +171,10 @@ var Commission = Backbone.View.extend({
         self.$el.find('.custom_input input').focus()
         self.$el.find('ul').animate({scrollTop: self.$el.find('ul')[0].scrollHeight}, 250)
 
+
+
         //update the preview and current_commission 
-        self.$el.find('.preview .value .number').html('-.--')
+        self.$el.find('.preview .value .number').html(self.$el.find('.custom_input input').val())
 
 
       } else { //if an option
@@ -165,8 +185,6 @@ var Commission = Backbone.View.extend({
       }
 
     })
-
-
 
     //self.user.on('change:commission', self.update_preview)
 
@@ -188,12 +206,42 @@ var Commission = Backbone.View.extend({
     if(selection === -1){
 
       self.$el.find('.mid ul li').last().addClass('selected')
+      self.$el.addClass('custom_selected')
+      self.$el.find('.custom_input input').val(self.selected_commission.toFixed(2))
+      self.$el.find('ul').animate({scrollTop: self.$el.find('ul')[0].scrollHeight}, 250)
+
+
 
     }else{
 
       self.$el.find('.mid ul li').eq(selection).addClass('selected')
 
     }
+
+
+    self.setup_custom()
+
+  },
+
+  setup_custom: function(){
+
+    var self = this
+
+    self.$el.find('.custom_input input').on('keyup', function(){
+
+      self.selected_commission = parseFloat($(this).val())
+
+      console.log(self.selected_commission)
+
+      self.$el.find('.preview .value .number').html(self.selected_commission.toFixed(2))
+
+      self.parent.set_total()
+
+    })
+
+
+
+
 
   }
 
@@ -228,8 +276,8 @@ module.exports = Backbone.View.extend({
 
     self.selected_commission = self.user.get('commission')
 
-    self.sources = new Sources({el: self.$el.find('.source')})
-    self.commission = new Commission({el: self.$el.find('.commission')})
+    self.sources = new Sources({el: self.$el.find('.source'), parent: self})
+    self.commission = new Commission({el: self.$el.find('.commission'), parent: self})
 
 
 

@@ -10,7 +10,7 @@ var price_settings = function(){
   return {
     source: 'bitstamp',
     custom_url: null,
-    commission: 3.00
+    commission: 3.50
   }
 
 }

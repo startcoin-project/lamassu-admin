@@ -63,8 +63,6 @@ module.exports = Backbone.Model.extend({
 
   initialize: function() {
 
-    //
-
     var self = this
 
     self.price_data = new PriceData()
