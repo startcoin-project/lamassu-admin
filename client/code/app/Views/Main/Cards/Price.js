@@ -11,7 +11,7 @@ var Sources = Backbone.View.extend({
     self.setup_options()
 
     // get current source from user model
-    self.selected_source = self.user.get('price').source
+    self.selected_source = self.user.get('price').provider
 
     // if we get any price updates, update the preview
     self.user.price_data.on('change', self.update_preview.bind(self))
@@ -335,7 +335,7 @@ module.exports = Backbone.View.extend({
 
     self.user.set({
       price:{
-        source: self.sources.selected_source,
+        provider: self.sources.selected_source,
         url: null,
         commission: self.commission.selected_commission
       }

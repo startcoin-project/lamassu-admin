@@ -25,8 +25,8 @@ module.exports = Backbone.View.extend({
     self.$el.find('.save').on('click', function(){
       var new_exchange = {
         provider: self.$el.find('.mid ul li').eq(0).find('input').val(),
-        id: self.$el.find('.mid ul li').eq(1).find('input').val(),
-        api_key: self.$el.find('.mid ul li').eq(2).find('input').val(),
+        clientId: self.$el.find('.mid ul li').eq(1).find('input').val(),
+        key: self.$el.find('.mid ul li').eq(2).find('input').val(),
         secret: self.$el.find('.mid ul li').eq(3).find('input').val()
       }
 
@@ -47,8 +47,8 @@ module.exports = Backbone.View.extend({
     var exchange = self.user.get('exchange')
 
     self.$el.find('.preview ul li').eq(0).find('.value').html(exchange.provider)
-    self.$el.find('.preview ul li').eq(1).find('.value').html(exchange.id)
-    self.$el.find('.preview ul li').eq(2).find('.value').html(exchange.api_key)
+    self.$el.find('.preview ul li').eq(1).find('.value').html(exchange.clientId)
+    self.$el.find('.preview ul li').eq(2).find('.value').html(exchange.key)
     self.$el.find('.preview ul li').eq(3).find('.value').html(exchange.secret)
 
   },
