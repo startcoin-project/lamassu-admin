@@ -1,40 +1,49 @@
+var async = require('async');
+var config = require('lamassu-config');
 
-var fetch_user = function(){
-  return {
+var psql = process.env.DATABASE_URL || 'postgres://lamassu:lamassu@localhost/lamassu';
+
+var fetch_user = function(callback){
+  callback(null, {
     id: '1'
-  }
+  });
 }
 
-var price_settings = function(){
-
-  return {
-    source: 'bitstamp',
-    custom_url: null,
-    commission: 3.50
-  }
-
+var price_settings = function(callback){
+  config.load(psql, function(err, results) {
+    if (err) return callback(err);
+    callback(null, {
+      provider: results.config.exchanges.plugins.current.ticker,
+      commission: results.config.exchanges.settings.commission,
+      custom_url: null
+    });
+  });
 }
 
-var wallet_settings = function(){
+var wallet_settings = function(callback){
+  config.load(psql, function(err, results) {
+    if (err) return callback(err);
 
-  return {
-    provider: 'blockchain.info', 
-    guid: 'GGGGG', 
-    password: 'PPPPP',
-    from_address: 'FFFFF'
-  }
-
+    var provider = results.config.exchanges.plugins.current.transfer;
+    var settings = results.config.exchanges.plugins.settings[provider];
+    settings.provider = provider;
+    callback(null, settings);
+  });
 }
 
-var exchange_settings = function(){
+var exchange_settings = function(callback){
+  config.load(psql, function(err, results) {
+    if (err) return callback(err);
 
-  return {
-    provider: 'bitstamp', 
-    id: '23423523', 
-    api_key: '*******',
-    secret: '******'
-  }
+    var provider = results.config.exchanges.plugins.current.trade;
+    if (!provider) {
+      return callback(null, null);
+    }
 
+    var settings = results.config.exchanges.plugins.settings[provider];
+    settings.provider = provider;
+    callback(null, settings);
+  });
 }
 
 
@@ -48,37 +57,39 @@ exports.actions = function(req, res, ss) {
     price: function() {
 
       //return price settings to the client
-      res(null, price_settings())
+      price_settings(res);
 
     }, 
     
     wallet: function(){
 
       //return wallet settings to the client
-      res(null, wallet_settings())
+      wallet_settings(res);
 
     }, 
     
     exchange: function(){
 
       //return exchange settings to the client
-      res(null, exchange_settings())
+      exchange_settings(res);
 
     },
 
     user: function(){
-
-      //get base user info
-      var user = fetch_user()
-
-      //fill user with price/wallet/exhange data
-      user['price'] = price_settings()
-      user['wallet'] = wallet_settings()
-      user['exchange'] = exchange_settings()
-
-      //return user to the client
-      res(null, user)
-
+      async.parallel({
+        user: fetch_user,
+        price: price_settings,
+        wallet: wallet_settings,
+        exchange: exchange_settings
+      }, function(err, results) {
+        var user = results.user;
+        //fill user with price/wallet/exhange data
+        user.price = results.price;
+        user.wallet = results.wallet;
+        user.exchange = results.exchange;
+        //return user to the client
+        res(null, user)
+      });
     }
   }
 }
