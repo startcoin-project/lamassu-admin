@@ -19,8 +19,8 @@
     left 0
     right 0
     height 28px
-    background #f3f3f3
-    box-shadow 0px 1px 1px rgba(0,0,0,0.2)
+    //background #f3f3f3
+    //box-shadow 0px 1px 1px rgba(0,0,0,0.2)
     z-index 1
     text-transform uppercase
 
@@ -30,7 +30,7 @@
       left 0
       bottom 3px
       right 0
-      background white
+      //background white
       text-align center
       font-weight bold
       font-size 12px
@@ -74,12 +74,30 @@
         padding-right 10px
 
         li 
-          height calc(20% - 1px)
+          height 20%
           min-height 50px
           text-align center
-          border-top 1px solid rgba(0,0,0,0.1)
           cursor pointer
           position relative
+
+          .bg
+            position absolute 
+            top 0
+            bottom 0
+            left 0
+            right 0
+            border-top 1px solid rgba(0,0,0,0.1)
+
+          .bg_selected
+            display none
+            position absolute 
+            top 0
+            bottom 0
+            left 0
+            right 0
+            border 1px solid teal
+            //border-top 1px solid rgba(0,0,0,0.1)
+
 
           .choice_text
             width 80%
@@ -103,7 +121,12 @@
 
         .selected
           color teal
-          background teal_film
+
+          .bg
+            display none
+
+          .bg_selected
+            display block
 
   .custom_input
     position absolute
@@ -226,11 +249,14 @@
 
   .total
     position absolute 
-    top 0
+    top 0px
     left calc(66% + 20px)
     bottom 0px
     width calc(33% - 10px)
     background rgba(0,0,0,0.02)
+
+    .description
+      display none
 
     .preview
       position absolute

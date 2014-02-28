@@ -79,8 +79,15 @@ var Sources = Backbone.View.extend({
 
     // append sources to the list
     self.sources.forEach(function(source, index){
-      var source_item = ss.tmpl['main-price_sources_item'].render({source: source})
+      var source_item = ss.tmpl['main-price_sources_item'].render({source: ''})
       self.$el.find('.mid ul li').eq(index).before(source_item)
+
+      self.$el.find('.mid ul li').eq(index).find('.bg').css({background: 'url(/images/'+source+'-blue.png) center center no-repeat'})
+
+      self.$el.find('.mid ul li').eq(index).find('.bg_selected').css({background: 'url(/images/'+source+'-teal.png) center center no-repeat'})
+
+
+
     })
 
     // set height for list items
@@ -174,7 +181,16 @@ var Commission = Backbone.View.extend({
 
 
         //update the preview and current_commission 
-        self.$el.find('.preview .value .number').html(self.$el.find('.custom_input input').val())
+        if(isNaN(self.$el.find('.custom_input input').val()) || self.$el.find('.custom_input input').val() === '' ) {
+          var fill = '-.--'
+        }else{
+          var fill = parseFloat(self.$el.find('.custom_input input').val()).toFixed(2)
+        }
+
+        self.$el.find('.preview .value .number').html(fill)
+
+
+        
 
 
       } else { //if an option
@@ -229,11 +245,15 @@ var Commission = Backbone.View.extend({
 
     self.$el.find('.custom_input input').on('keyup', function(){
 
-      self.selected_commission = parseFloat($(this).val())
+      if(isNaN($(this).val()) || $(this).val() === '' ) {
+        var fill = '-.--'
+      }else{
+        var commission = parseFloat($(this).val())
+        var fill = commission.toFixed(2)
+        self.selected_commission = commission
+      }
 
-      console.log(self.selected_commission)
-
-      self.$el.find('.preview .value .number').html(self.selected_commission.toFixed(2))
+      self.$el.find('.preview .value .number').html(fill)
 
       self.parent.set_total()
 

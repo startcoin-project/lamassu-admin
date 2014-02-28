@@ -2,9 +2,12 @@
 
 var ss = require('socketstream')
 var request = require('request')
+var _ = require('lodash')
 
 setInterval(function(){
 
+
+  //get bitstamp
   request.get("https://www.bitstamp.net/api/transactions?timedelta=5", function(error, response, body){
 
     if (error || response.statusCode != 200) { return }
@@ -28,10 +31,35 @@ setInterval(function(){
 
     ss.api.publish.all('latest_price:bitstamp', latest_price)
 
-    //faux broadcast of other sources
-    ss.api.publish.all('latest_price:bitpay', Math.round(latest_price * 0.97) )
+  })
+
+  //get bitpay
+  request.get("https://bitpay.com/api/rates", function(error, response, body){
+
+    if (error || response.statusCode != 200) { return }
+
+    var rates = null
+
+    try{
+
+      rates = JSON.parse(body)
+
+    }
+    catch (e) {
+
+      console.log("Error parsing BitPay response: " + e)
+
+      return
+
+    }
+
+    var usd = (_.filter(rates, {code: 'USD'}))[0]
+
+    var latest_price = Math.round(usd.rate * 100)
+
+    ss.api.publish.all('latest_price:bitpay', latest_price)
 
   })
 
 
-}, 3000)
+}, 2500)

@@ -20,7 +20,7 @@ var App = Backbone.View.extend({
 
     var self = this
 
-    var price_source = self.user.get('price').source
+    var price_source = self.user.get('price').provider
     var price = self.user.price_data.get(price_source)
     var comm_per = self.user.get('price').commission
     var comm_multiplier = 1 + (comm_per / 100)
