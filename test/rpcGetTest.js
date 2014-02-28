@@ -26,4 +26,23 @@ describe('lamassu-admin/rpc/get', function() {
       done();
     });
   });
+
+  it('should return correct exchange settings', function(done) {
+    ss.rpc('get.exchange', function(params) {
+      assert(!params[0]);
+
+      if (!params[1]) {
+        // No trade exchange configured, skip this (TODO: until we resolve
+        // https://github.com/lamassu/lamassu-admin/issues/3 and can change
+        // the config in tests).
+        return done();
+      }
+      assert.equal(params[1].provider, 'bitstamp');
+      assert(params[1].key);
+      assert(params[1].secret);
+      assert(params[1].clientId);
+
+      done();
+    });
+  });
 });

@@ -31,15 +31,19 @@ var wallet_settings = function(callback){
   });
 }
 
-var exchange_settings = function(){
+var exchange_settings = function(callback){
+  config.load(psql, function(err, results) {
+    if (err) return callback(err);
 
-  return {
-    provider: 'bitstamp', 
-    id: '23423523', 
-    api_key: '*******',
-    secret: '******'
-  }
+    var provider = results.config.exchanges.plugins.current.trade;
+    if (!provider) {
+      return callback(null, null);
+    }
 
+    var settings = results.config.exchanges.plugins.settings[provider];
+    settings.provider = provider;
+    callback(null, settings);
+  });
 }
 
 
