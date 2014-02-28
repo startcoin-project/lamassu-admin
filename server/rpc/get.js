@@ -1,3 +1,7 @@
+var async = require('async');
+var config = require('lamassu-config');
+
+var psql = process.env.DATABASE_URL || 'postgres://lamassu:lamassu@localhost/lamassu';
 
 var fetch_user = function(){
   return {
@@ -5,14 +9,15 @@ var fetch_user = function(){
   }
 }
 
-var price_settings = function(){
-
-  return {
-    source: 'bitstamp',
-    custom_url: null,
-    commission: 3.50
-  }
-
+var price_settings = function(callback){
+  config.load(psql, function(err, results) {
+    if (err) return callback(err);
+    callback(null, {
+      provider: results.config.exchanges.plugins.current.ticker,
+      commission: results.config.exchanges.settings.commission,
+      custom_url: null
+    });
+  });
 }
 
 var wallet_settings = function(){
@@ -48,21 +53,21 @@ exports.actions = function(req, res, ss) {
     price: function() {
 
       //return price settings to the client
-      res(null, price_settings())
+      price_settings(res);
 
     }, 
     
     wallet: function(){
 
       //return wallet settings to the client
-      res(null, wallet_settings())
+      wallet_settings(res);
 
     }, 
     
     exchange: function(){
 
       //return exchange settings to the client
-      res(null, exchange_settings())
+      exchange_settings(res);
 
     },
 
