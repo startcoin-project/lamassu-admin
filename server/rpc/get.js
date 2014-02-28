@@ -3,12 +3,6 @@ var config = require('lamassu-config');
 
 var psql = process.env.DATABASE_URL || 'postgres://lamassu:lamassu@localhost/lamassu';
 
-var fetch_user = function(callback){
-  callback(null, {
-    id: '1'
-  });
-}
-
 var price_settings = function(callback){
   config.load(psql, function(err, results) {
     if (err) return callback(err);
@@ -76,18 +70,18 @@ exports.actions = function(req, res, ss) {
     },
 
     user: function(){
+      //grabs all price/wallet/exhange data
       async.parallel({
-        user: fetch_user,
         price: price_settings,
         wallet: wallet_settings,
         exchange: exchange_settings
       }, function(err, results) {
-        var user = results.user;
-        //fill user with price/wallet/exhange data
-        user.price = results.price;
-        user.wallet = results.wallet;
-        user.exchange = results.exchange;
-        //return user to the client
+        var user = {
+          price: results.price,
+          wallet: results.wallet,
+          exchange: results.exchange     
+        }
+        //return data to the client
         res(null, user)
       });
     }
