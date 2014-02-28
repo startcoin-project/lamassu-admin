@@ -16,7 +16,7 @@ module.exports = Backbone.View.extend({
 
     self.$el.html(ss.tmpl['main-trading'].render()).appendTo('.dash .main').addClass('animated fadeInUp')
 
-  
+
     self.user.on('change:exchange', self.fill_preview.bind(self))
 
     self.fill_preview()
@@ -46,10 +46,12 @@ module.exports = Backbone.View.extend({
 
     var exchange = self.user.get('exchange')
 
-    self.$el.find('.preview ul li').eq(0).find('.value').html(exchange.provider)
-    self.$el.find('.preview ul li').eq(1).find('.value').html(exchange.clientId)
-    self.$el.find('.preview ul li').eq(2).find('.value').html(exchange.key)
-    self.$el.find('.preview ul li').eq(3).find('.value').html(exchange.secret)
+    if (exchange) {
+      self.$el.find('.preview ul li').eq(0).find('.value').html(exchange.provider)
+      self.$el.find('.preview ul li').eq(1).find('.value').html(exchange.clientId)
+      self.$el.find('.preview ul li').eq(2).find('.value').html(exchange.key)
+      self.$el.find('.preview ul li').eq(3).find('.value').html(exchange.secret)
+    }
 
   },
 

@@ -20,11 +20,15 @@ var App = Backbone.View.extend({
 
     var self = this
 
-    var price_source = self.user.get('price').provider
-    var price = self.user.price_data.get(price_source)
-    var comm_per = self.user.get('price').commission
-    var comm_multiplier = 1 + (comm_per / 100)
-    var display = Math.round(price * comm_multiplier) / 100 
+    var userPrice = self.user.get('price')
+    var price_source = userPrice && userPrice.provider
+    if (price_source)
+      var price = self.user.price_data.get(price_source)
+    var comm_per = userPrice && userPrice.commission
+    if (comm_per)
+      var comm_multiplier = 1 + (comm_per / 100)
+    if (comm_multiplier)
+      var display = Math.round(price * comm_multiplier) / 100
 
     if(isNaN(display)){
       $('.display .price .number').html('---.--')
@@ -39,8 +43,8 @@ var App = Backbone.View.extend({
 
     var self = this
 
-    if(self.current != null){ 
-      self.current.clear() 
+    if(self.current != null){
+      self.current.clear()
     }
 
     if (authenticated === true) {
