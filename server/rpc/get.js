@@ -20,15 +20,15 @@ var price_settings = function(callback){
   });
 }
 
-var wallet_settings = function(){
+var wallet_settings = function(callback){
+  config.load(psql, function(err, results) {
+    if (err) return callback(err);
 
-  return {
-    provider: 'blockchain.info', 
-    guid: 'GGGGG', 
-    password: 'PPPPP',
-    from_address: 'FFFFF'
-  }
-
+    var provider = results.config.exchanges.plugins.current.transfer;
+    var settings = results.config.exchanges.plugins.settings[provider];
+    settings.provider = provider;
+    callback(null, settings);
+  });
 }
 
 var exchange_settings = function(){

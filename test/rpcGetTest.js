@@ -13,4 +13,17 @@ describe('lamassu-admin/rpc/get', function() {
       done();
     });
   });
+
+  it('should return correct wallet settings', function(done) {
+    ss.rpc('get.wallet', function(params) {
+      assert(!params[0]);
+
+      assert.equal(params[1].provider, 'blockchain');
+      assert(params[1].guid);
+      assert(params[1].password);
+      assert(params[1].fromAddress);
+
+      done();
+    });
+  });
 });
