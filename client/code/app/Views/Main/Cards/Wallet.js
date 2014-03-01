@@ -39,7 +39,7 @@ module.exports = Backbone.View.extend({
     self.$el.find('.preview ul li').eq(0).find('.value').html(wallet.provider)
     self.$el.find('.preview ul li').eq(1).find('.value').html(wallet.guid)
     self.$el.find('.preview ul li').eq(2).find('.value').html(wallet.password)
-    self.$el.find('.preview ul li').eq(3).find('.value').html(wallet.from_address)
+    self.$el.find('.preview ul li').eq(3).find('.value').html(wallet.fromAddress)
 
 
   },
