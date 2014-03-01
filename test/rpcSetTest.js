@@ -10,9 +10,8 @@ describe('lamassu-admin/rpc/set', function() {
         assert(!getResult[0], 'getting price after setting should succeed');
 
         assert.equal(getResult[1].commission, 1.5, 'commission should be set properly');
+        done();
       });
-
-      done();
     });
   });
 
@@ -29,9 +28,8 @@ describe('lamassu-admin/rpc/set', function() {
 
         assert.equal(getResult[1].guid, 'foo', 'guid should be set correctly');
         assert.equal(getResult[1].password, 'bar', 'password should be set correctly');
+        done();
       });
-
-      done();
     });
   });
 });
