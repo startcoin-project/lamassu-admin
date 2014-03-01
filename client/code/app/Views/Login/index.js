@@ -52,9 +52,7 @@ module.exports = Backbone.View.extend({
 
     var self = this
 
-    self.user.authenticate(null, true)
-
-    //sent data 
+    self.user.login() 
 
   },
 

@@ -90,10 +90,14 @@ module.exports = Backbone.Model.extend({
     })
 
 
+  },
 
+  login: function(){
 
-    //self.authenticate()
+    //login and return user
 
+    //for now just get the user
+    ss.rpc('get.user', this.authenticate.bind(this))
 
   },
 
@@ -101,9 +105,9 @@ module.exports = Backbone.Model.extend({
 
     var self = this
 
-    if (err) {
-      console.log(err)
-    }
+    if (err)
+      //needs to be handled differently in the future
+      alert('Error returned from user.get: \n\n' + JSON.stringify(err, null, '  '))
 
     if (user != null) {
 
