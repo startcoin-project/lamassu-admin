@@ -14,15 +14,23 @@ exports.actions = function(req, res, ss) {
         if (err) return res(err);
         results.config.exchanges.settings.commission = data.commission;
         results.config.exchanges.plugins.current.ticker = data.provider;
-        config._updateConfig(undefined, results.config, res);
+        config.saveExchangesConfig(results.config, res);
       });
     }, 
     
     wallet: function(data){
+      config.load(function(err, results) {
+        if (err) return callback(err);
 
-      console.log('set new wallet data')
-      console.log(data)
+        var provider = data.provider;
+        var settings = results.config.exchanges.plugins.settings[provider];
+        Object.keys(data).forEach(function(key) {
+          if (key !== 'provider')
+            settings[data][key] = data[key];
+        });
 
+        config.saveExchangesConfig(results.config, callback);
+      });
     }, 
 
     exchange: function(data){
