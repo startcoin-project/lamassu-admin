@@ -35,10 +35,19 @@ exports.actions = function(req, res, ss) {
     }, 
 
     exchange: function(data){
+      config.load(function(err, results) {
+        if (err) return callback(err);
 
-      console.log('set new exchange data')
-      console.log(data)
+        var provider = data.provider;
+        var settings = results.config.exchanges.plugins.settings[provider];
+        results.config.exchanges.plugins.current.trade = provider;
+        Object.keys(data).forEach(function(key) {
+          if (key !== 'provider')
+            settings[key] = data[key];
+        });
 
+        config.saveExchangesConfig(results.config, res);
+      });
     }
 
   }
