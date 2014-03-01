@@ -18,7 +18,7 @@ exports.actions = function(req, res, ss) {
       });
     }, 
     
-    wallet: function(data){
+    wallet: function(data) {
       config.load(function(err, results) {
         if (err) return callback(err);
 
@@ -27,10 +27,10 @@ exports.actions = function(req, res, ss) {
         results.config.exchanges.plugins.current.wallet = provider;
         Object.keys(data).forEach(function(key) {
           if (key !== 'provider')
-            settings[data][key] = data[key];
+            settings[key] = data[key];
         });
 
-        config.saveExchangesConfig(results.config, callback);
+        config.saveExchangesConfig(results.config, res);
       });
     }, 
 
