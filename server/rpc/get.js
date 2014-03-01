@@ -76,11 +76,16 @@ exports.actions = function(req, res, ss) {
         wallet: wallet_settings,
         exchange: exchange_settings
       }, function(err, results) {
+
+        if (err) //if err don't try to return data
+          return res(err)
+
         var user = {
           price: results.price,
           wallet: results.wallet,
           exchange: results.exchange     
         }
+
         //return data to the client
         res(null, user)
       });
