@@ -30,7 +30,22 @@ describe('lamassu-admin/rpc/set', function() {
       assert(!setResult[0], 'setting commission should succeed');
 
       ss.rpc('get.wallet', function(getResult) {
-        assert(!getResult[0], 'getting price after setting should succeed');
+        assert(!getResult[0], 'getting wallet after setting should succeed');
+
+        assert.equal(getResult[1].guid, blockchain.guid, 'guid should be set correctly');
+        assert.equal(getResult[1].password, blockchain.password, 'password should be set correctly');
+        assert.equal(getResult[1].fromAddress, blockchain.fromAddress, 'fromAddress should be set correctly');
+        done();
+      });
+    });
+  });
+
+  it('should set correct exchange settings', function(done) {
+    ss.rpc('set.exchange', blockchain, function(setResult) {
+      assert(!setResult[0], 'setting commission should succeed');
+
+      ss.rpc('get.exchange', function(getResult) {
+        assert(!getResult[0], 'getting exchange after setting should succeed');
 
         assert.equal(getResult[1].guid, blockchain.guid, 'guid should be set correctly');
         assert.equal(getResult[1].password, blockchain.password, 'password should be set correctly');
