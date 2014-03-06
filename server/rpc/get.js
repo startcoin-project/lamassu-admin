@@ -70,6 +70,13 @@ exports.actions = function(req, res, ss) {
 
     },
 
+    currency: function(){
+
+      //defaults to usd for now
+      res({type:'USD', symbol:'$'})
+
+    },
+
     user: function(){
       //grabs all price/wallet/exhange data
       async.parallel({

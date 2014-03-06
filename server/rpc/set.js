@@ -48,7 +48,17 @@ exports.actions = function(req, res, ss) {
 
         config.saveExchangesConfig(results.config, res);
       });
-    }
+    }, 
+
+    currency: function(data){
+
+      //data example: {type:'USD'}
+
+      //set the data in the database
+
+      //return the object (with symbol) like we would get from get.currency, example: {type:'USD', symbol:'$'}
+
+    },
 
   }
 
