@@ -37,4 +37,4 @@ time.
 node app.js
 ```
 
-Then, [open it](http://localhost:3000).
+Then, [open it](http://localhost:8080).
