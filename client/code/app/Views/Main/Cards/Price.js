@@ -357,7 +357,7 @@ module.exports = Backbone.View.extend({
       price:{
         provider: self.sources.selected_source,
         url: null,
-        commission: self.commission.selected_commission
+        commission: (0.01 * self.commission.selected_commission) + 1
       }
     })
 

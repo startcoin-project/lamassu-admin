@@ -26,11 +26,7 @@ ss.client.templateEngine.use(require('ss-hogan'))
 // start server
 var server = http.Server(ss.http.middleware)
 
-if(process.env.PRODUCTION){
-  server.listen(80)
-}else{
-  server.listen(3000)
-}
+server.listen(process.env.PORT || 8080)
 
 
 // start socketstream
