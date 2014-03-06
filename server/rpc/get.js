@@ -77,8 +77,35 @@ exports.actions = function(req, res, ss) {
 
     },
 
-    user: function(){
-      //grabs all price/wallet/exhange data
+    compliance: function(){
+
+
+      //return compliance settings
+
+
+      compliance_settings = {
+        base: {
+          limit: 100,
+          type: 'drivers_license'
+        },
+        extended: {
+          limit: 400, 
+          type: 'smartphone'
+        },
+        currency: 'USD',
+        verification: {
+          service: 'idology',
+          username: 'default_user'
+        }
+      }
+
+      res(compliance_settings)
+
+
+    },
+
+    user: function(){ //grabs all price/wallet/exhange data
+      
       async.parallel({
         price: price_settings,
         wallet: wallet_settings,
