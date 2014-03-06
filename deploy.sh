@@ -17,4 +17,4 @@ echo "Seeding Postgres..."
 heroku pg:psql < database/lamassu.sql
 
 echo "Deploying..."
-git push heroku heroku:master
+git push heroku newnew:master
