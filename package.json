@@ -13,8 +13,9 @@
     "ss-stylus": "0.1.x",
     "ss-hogan": "0.1.x",
     "request": "^2.34.0",
-    "lamassu-config": "0.0.6",
-    "async": "~0.2.10"
+    "lamassu-config": "git+https://github.com/lamassu/lamassu-config#master",
+    "async": "~0.2.10",
+    "lodash": "~2.4.1"
   },
   "scripts": {
     "start": "node app.js",

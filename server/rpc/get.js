@@ -1,10 +1,11 @@
 var async = require('async');
-var config = require('lamassu-config');
+var LamassuConfig = require('lamassu-config');
 
 var psql = process.env.DATABASE_URL || 'postgres://lamassu:lamassu@localhost/lamassu';
+var config = new LamassuConfig(psql);
 
 var price_settings = function(callback){
-  config.load(psql, function(err, results) {
+  config.load(function(err, results) {
     if (err) return callback(err);
     callback(null, {
       provider: results.config.exchanges.plugins.current.ticker,
@@ -15,7 +16,7 @@ var price_settings = function(callback){
 }
 
 var wallet_settings = function(callback){
-  config.load(psql, function(err, results) {
+  config.load(function(err, results) {
     if (err) return callback(err);
 
     var provider = results.config.exchanges.plugins.current.transfer;
@@ -26,7 +27,7 @@ var wallet_settings = function(callback){
 }
 
 var exchange_settings = function(callback){
-  config.load(psql, function(err, results) {
+  config.load(function(err, results) {
     if (err) return callback(err);
 
     var provider = results.config.exchanges.plugins.current.trade;
