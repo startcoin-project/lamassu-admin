@@ -30,7 +30,7 @@ clone_or_update lamassu-server master
 echo "Deploying lamassu-admin"
 cd lamassu-admin
 ./deploy.sh
-db=$(heroku config:get DATABASE_URI)
+db=$(heroku config:get DATABASE_URL)
 
 cd ../lamassu-server
 heroku config:set DATABASE_URL="$db"
