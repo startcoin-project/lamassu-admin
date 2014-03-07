@@ -33,6 +33,5 @@ cd lamassu-admin
 db=$(heroku config:get DATABASE_URL)
 
 cd ../lamassu-server
-heroku config:set DATABASE_URL="$db"
-./deploy.sh
+DATABASE_URL="$db" ./deploy.sh
 cd ..
