@@ -45,10 +45,27 @@ var compliance_settings = function(callback) {
   config.load(function(err, results) {
     if (err) return callback(err);
 
-    var compliance = results.config.exchanges.compliance;
-    if (!compliance) {
-      return callback(null, null);
-    }
+    var default_settings =  {
+      base: {
+        limit: 100,
+        verify_type: 'drivers_license'
+      },
+      extended: {
+        limit: 400,
+        verify_type: 'smartphone'
+      },
+      maximum: {
+        limit: 500
+      },
+      verification: {
+        service: 'idology',
+        username: 'default_user',
+        password: '********'
+      }
+    };
+
+    var compliance = results.config.exchanges.settings.compliance || default_settings;
+
     callback(null, compliance);
   });
 };

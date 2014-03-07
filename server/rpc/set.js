@@ -65,7 +65,7 @@ exports.actions = function(req, res, ss) {
       config.load(function(err, results) {
         if (err) return callback(err);
         // validate elements???
-        results.config.exchanges.compliance = data;
+        results.config.exchanges.settings.compliance = data;
         // res { ok: true }
         config.saveExchangesConfig(results.config, res);
       });
