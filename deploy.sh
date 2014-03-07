@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-echo "Creating Heroku application..."
-heroku apps:create
+git remote | grep heroku
+if [ $? -ne 0 ]; then
+  echo "Creating Heroku application..."
+  heroku apps:create
+fi
 
 echo "Creating Postgres addon..."
 db=$(heroku addons:add heroku-postgresql:dev | awk '/Attached as ([A-Z]+)/ { print $3 }')
