@@ -1,0 +1,337 @@
+.main_price
+  position absolute
+  top 50px
+  left 20px
+  bottom 20px
+  right 20px
+  color light_blue
+
+  .main_title 
+    position absolute
+    font-size 20px
+    top -35px
+    left 5px
+    color rgba(0,0,0,0.6)
+
+  .top
+    position absolute
+    top 0px
+    left 0
+    right 0
+    height 28px
+    //background #f3f3f3
+    //box-shadow 0px 1px 1px rgba(0,0,0,0.2)
+    z-index 1
+    text-transform uppercase
+
+    .inner
+      position absolute 
+      top 0
+      left 0
+      bottom 3px
+      right 0
+      //background white
+      text-align center
+      font-weight bold
+      font-size 12px
+
+      .title
+        padding-top 8px
+
+  .description
+    position absolute
+    top 140px
+    left 6%
+    height 75px
+    right 6%
+    text-align center
+    //font-size 14px
+
+
+  .mid
+    position absolute
+    top 185px
+    left 20px
+    bottom 20px
+    right 20px
+    background #f3f3f3
+    box-shadow 0px 1px 1px rgba(0,0,0,0.2)
+    z-index 1
+    transition bottom 0.1s linear
+
+    .inner
+      position absolute 
+      top 0
+      left 0
+      bottom 3px
+      right 0
+      background white
+
+      ul
+        height 100%
+        width 100%
+        overflow scroll
+        padding-right 10px
+
+        li 
+          height 20%
+          min-height 50px
+          text-align center
+          cursor pointer
+          position relative
+
+          .bg
+            position absolute 
+            top 0
+            bottom 0
+            left 0
+            right 0
+            border-top 1px solid rgba(0,0,0,0.1)
+
+          .bg_selected
+            display none
+            position absolute 
+            top 0
+            bottom 0
+            left 0
+            right 0
+            border 1px solid teal
+            //border-top 1px solid rgba(0,0,0,0.1)
+
+
+          .choice_text
+            width 80%
+            right 10%
+            height 24px
+            top 50%
+            margin-top -12px
+            position absolute
+            user-select none
+            font-size 24px
+
+            .symbol
+              font-size 16px
+              position relative
+              top -2px
+              left -3px
+
+        li:first-child
+          border-top none
+          height 20%
+
+        .selected
+          color teal
+
+          .bg
+            display none
+
+          .bg_selected
+            display block
+
+  .custom_input
+    position absolute
+    left 20px
+    right 20px
+    bottom 20px
+    height 100px
+
+    input
+      display block
+      position absolute 
+      bottom 35px
+      top 30px
+      left 10px
+      right 10px
+      border 0
+      outline 0
+      margin 0
+      padding 0
+      width calc(100% - 20px)
+      background transparent
+      border-bottom 1px dotted rgba(0,0,0,0.8)
+      text-align center
+      font-size 24px
+      color light_blue
+      font-family helvetica
+
+    .input_text
+      position absolute
+      bottom 15px 
+      left 0
+      right 0
+      height 12px
+      text-align center
+      font-weight bold
+      font-size 12px
+      text-transform uppercase
+
+    .update
+      display none
+      position absolute 
+      bottom 1px
+      left 30%
+      right 30%
+      padding 5px
+      text-align center
+      font-size 12px
+      text-transform uppercase
+      border 1px solid light_blue
+      font-weight bold
+      cursor pointer
+
+
+  .preview
+    position absolute
+    left 0
+    top 26px
+    right 0
+    height 103px
+    background #f3f3f3
+    box-shadow 0px 1px 1px rgba(0,0,0,0.2)
+    z-index 3
+    text-align center
+
+    .inner
+      position absolute 
+      top 0
+      left 0
+      bottom 3px
+      right 0
+      background white
+
+      .value
+        font-family leaguegothic
+        font-size 60px
+        position relative
+        left -5px
+        top 5px
+        padding-top 10px
+        display none
+        
+        .symbol
+          font-size 30px
+          position relative
+          top -10px
+          left -5px
+
+      .subtext
+        font-size 12px
+        text-transform uppercase
+        font-weight bold
+        display none
+
+
+
+
+
+
+
+  .source
+    position absolute 
+    top 0
+    left 0
+    bottom 0px
+    width calc(33% - 10px)
+    background rgba(0,0,0,0.02)
+
+  .commission
+    position absolute 
+    top 0
+    left calc(33% + 10px)
+    bottom 0px
+    width calc(33% - 10px)
+    background rgba(0,0,0,0.02)
+
+  .custom_selected
+    .mid
+      bottom 115px
+      //background teal_shadow
+
+  .total
+    position absolute 
+    top 0px
+    left calc(66% + 20px)
+    bottom 0px
+    width calc(33% - 10px)
+    background rgba(0,0,0,0.02)
+
+    .description
+      display none
+
+    .preview
+      position absolute
+      left 0
+      top 0px
+      right 0
+      height 128px
+      background #f3f3f3
+      box-shadow 0px 1px 1px rgba(0,0,0,0.2)
+      z-index 3
+      text-align center
+
+      .inner
+        position absolute 
+        top 0
+        left 0
+        bottom 3px
+        right 0
+        background white
+        //border 10px solid teal
+
+        .value
+          font-family leaguegothic
+          font-size 80px
+          position relative
+          left -5px
+          top 7px
+          padding-top 12px
+
+          .symbol
+            font-size 40px
+            position relative
+            top -15px
+            left -5px
+
+        .subtext
+          font-size 12px
+          text-transform uppercase
+          font-weight bold
+
+
+  .save
+    position absolute
+    left calc(66% + 20px)
+    top 126px
+    height 53px
+    width calc(33% - 10px)
+    background teal_shadow
+    box-shadow 0px 1px 1px rgba(0,0,0,0.2)
+    z-index 4
+    cursor pointer
+    user-select none
+
+    .inner
+      position absolute 
+      top 0
+      left 0
+      bottom 3px
+      right 0
+      background teal
+      color white
+
+      .save_text
+        position absolute 
+        left 2px
+        right 0
+        text-align center
+        height 20px
+        font-size 24px
+        top 50%
+        margin-top -12px
+
+
+
+  .save:active 
+    top 128px
+    box-shadow 0px 1px 0px rgba(0,0,0,0.05)
+

@@ -1,0 +1,51 @@
+!!! 5
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    != SocketStream
+    title Lamassu Admin Panel
+  body
+    .panel
+      .logo
+
+      .menu
+
+        ul.items
+          li.disbled 
+            .text Dashboard
+            .icon
+          li.disbled
+            .text Notifications
+            .icon
+          li 
+            .text Price
+            .icon
+          li 
+            .text Wallet
+            .icon
+          li
+            .text Trading
+            .icon
+          li
+            .text Compliance
+            .icon
+          li.disbled 
+            .text Limits
+            .icon
+          li.disbled 
+            .text Languages
+            .icon
+          li.disbled
+            .text System
+            .icon
+
+
+      .display
+
+        .price
+          span.currency $
+          span.number ---.--
+        .text Display Price
+        .subtext ( $---.-- + 3.00% )
+
+    .dash
