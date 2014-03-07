@@ -8,6 +8,22 @@ var blockchain = {
   fromAddress: '31uEbMgunupShBVTewXjtqbBv5MndwfXhb'
 };
 
+var compliance =  {
+  base: {
+    limit: 100,
+    type: 'drivers_license'
+  },
+  extended: {
+    limit: 400,
+    type: 'smartphone'
+  },
+  currency: 'USD',
+  verification: {
+    service: 'idology',
+    username: 'default_user'
+  }
+};
+
 describe('lamassu-admin/rpc/set', function() {
   it('should set correct price settings', function(done) {
     ss.rpc('set.price', {
@@ -50,6 +66,25 @@ describe('lamassu-admin/rpc/set', function() {
         assert.equal(getResult[1].guid, blockchain.guid, 'guid should be set correctly');
         assert.equal(getResult[1].password, blockchain.password, 'password should be set correctly');
         assert.equal(getResult[1].fromAddress, blockchain.fromAddress, 'fromAddress should be set correctly');
+        done();
+      });
+    });
+  });
+
+  it('should set correct compliance settings', function(done) {
+    ss.rpc('set.compliance', compliance, function(setResult) {
+      assert(!setResult[0], 'setting compliance should succeed');
+
+      ss.rpc('get.compliance', function(getResult) {
+        assert(!getResult[0], 'getting compliance after setting should succeed');
+
+        assert(getResult[1].base, 'get base limit');
+        assert.equal(getResult[1].base.type, 'drivers_license');
+        assert(getResult[1].extended, 'get extended limit');
+        assert.equal(getResult[1].extended.type, 'smartphone');
+        assert.equal(getResult[1].base.limit < getResult[1].extended.limit, true, 'base limit should be smaller than extended limit');
+        assert(getResult[1].currency, '');
+        assert(getResult[1].verification);
         done();
       });
     });

@@ -4,7 +4,7 @@ var LamassuConfig = require('lamassu-config');
 var psql = process.env.DATABASE_URL || 'postgres://lamassu:lamassu@localhost/lamassu';
 var config = new LamassuConfig(psql);
 
-var price_settings = function(callback){
+var price_settings = function(callback) {
   config.load(function(err, results) {
     if (err) return callback(err);
     callback(null, {
@@ -13,9 +13,9 @@ var price_settings = function(callback){
       custom_url: null
     });
   });
-}
+};
 
-var wallet_settings = function(callback){
+var wallet_settings = function(callback) {
   config.load(function(err, results) {
     if (err) return callback(err);
 
@@ -24,9 +24,9 @@ var wallet_settings = function(callback){
     settings.provider = provider;
     callback(null, settings);
   });
-}
+};
 
-var exchange_settings = function(callback){
+var exchange_settings = function(callback) {
   config.load(function(err, results) {
     if (err) return callback(err);
 
@@ -40,6 +40,18 @@ var exchange_settings = function(callback){
     callback(null, settings);
   });
 }
+
+var compliance_settings = function(callback) {
+  config.load(function(err, results) {
+    if (err) return callback(err);
+
+    var compliance = results.config.exchanges.compliance;
+    if (!compliance) {
+      return callback(null, null);
+    }
+    callback(null, compliance);
+  });
+};
 
 
 
@@ -63,48 +75,28 @@ exports.actions = function(req, res, ss) {
 
     }, 
     
-    exchange: function(){
+    exchange: function() {
 
       //return exchange settings to the client
       exchange_settings(res);
 
     },
 
-    currency: function(){
+    currency: function() {
 
       //defaults to usd for now
       res({type:'USD', symbol:'$'})
 
     },
 
-    compliance: function(){
-
+    compliance: function() {
 
       //return compliance settings
-
-
-      compliance_settings = {
-        base: {
-          limit: 100,
-          type: 'drivers_license'
-        },
-        extended: {
-          limit: 400, 
-          type: 'smartphone'
-        },
-        currency: 'USD',
-        verification: {
-          service: 'idology',
-          username: 'default_user'
-        }
-      }
-
-      res(compliance_settings)
-
+      compliance_settings(res);
 
     },
 
-    user: function(){ //grabs all price/wallet/exhange data
+    user: function() { //grabs all price/wallet/exhange data
       
       async.parallel({
         price: price_settings,

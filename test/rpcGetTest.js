@@ -45,4 +45,21 @@ describe('lamassu-admin/rpc/get', function() {
       done();
     });
   });
+
+  it('should return correct compliance settings', function(done) {
+    ss.rpc('get.compliance', function(params) {
+      assert(!params[0]);
+
+      assert(params[1]);
+      assert(params[1].base);
+      assert.equal(params[1].base.type, 'drivers_license');
+      assert(params[1].extended);
+      assert.equal(params[1].extended.type, 'smartphone');
+      assert.equal(params[1].base.limit < params[1].extended.limit, true);
+      assert(params[1].currency);
+      assert(params[1].verification);
+
+      done();
+    });
+  });
 });

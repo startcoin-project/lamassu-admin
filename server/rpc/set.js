@@ -3,6 +3,7 @@ var LamassuConfig = require('lamassu-config');
 var psql = process.env.DATABASE_URL || 'postgres://lamassu:lamassu@localhost/lamassu';
 var config = new LamassuConfig(psql);
 
+
 exports.actions = function(req, res, ss) {
 
   req.use('session')
@@ -16,7 +17,7 @@ exports.actions = function(req, res, ss) {
         results.config.exchanges.plugins.current.ticker = data.provider;
         config.saveExchangesConfig(results.config, res);
       });
-    }, 
+    },
     
     wallet: function(data) {
       config.load(function(err, results) {
@@ -32,9 +33,9 @@ exports.actions = function(req, res, ss) {
 
         config.saveExchangesConfig(results.config, res);
       });
-    }, 
+    },
 
-    exchange: function(data){
+    exchange: function(data) {
       config.load(function(err, results) {
         if (err) return callback(err);
 
@@ -48,9 +49,9 @@ exports.actions = function(req, res, ss) {
 
         config.saveExchangesConfig(results.config, res);
       });
-    }, 
+    },
 
-    currency: function(data){
+    currency: function(data) {
 
       //data example: {type:'USD'}
 
@@ -60,37 +61,14 @@ exports.actions = function(req, res, ss) {
 
     },
 
-    compliance: function(data){
-
-
-      //set compliance settings
-
-      /*
-      example_data = {
-        base: {
-          limit: 100,
-          type: 'drivers_license'
-        },
-        extended: {
-          limit: 400, 
-          type: 'smartphone'
-        },
-        currency: 'USD',
-        verification: {
-          service: 'idology',
-          username: 'default_user'
-        }
-      }
-      */
-
-      //set data in database
-
-      //res new settings
-
-      //res(compliance_settings)
-
+    compliance: function(data) {
+      config.load(function(err, results) {
+        if (err) return callback(err);
+        // validate elements???
+        results.config.exchanges.compliance = data;
+        // res { ok: true }
+        config.saveExchangesConfig(results.config, res);
+      });
     }
-
-  }
-
-}
+  };
+};
