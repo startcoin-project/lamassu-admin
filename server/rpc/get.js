@@ -101,7 +101,8 @@ exports.actions = function(req, res, ss) {
       async.parallel({
         price: price_settings,
         wallet: wallet_settings,
-        exchange: exchange_settings
+        exchange: exchange_settings,
+        compliance: compliance_settings
       }, function(err, results) {
 
         if (err) //if err don't try to return data
@@ -110,11 +111,12 @@ exports.actions = function(req, res, ss) {
         var user = {
           price: results.price,
           wallet: results.wallet,
-          exchange: results.exchange     
-        }
+          exchange: results.exchange,
+          compliance: results.compliance
+        };
 
         //return data to the client
-        res(null, user)
+        res(null, user);
       });
     }
   }

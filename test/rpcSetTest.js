@@ -11,16 +11,19 @@ var blockchain = {
 var compliance =  {
   base: {
     limit: 100,
-    type: 'drivers_license'
+    verify_type: 'drivers_license'
   },
   extended: {
     limit: 400,
-    type: 'smartphone'
+    verify_type: 'smartphone'
   },
-  currency: 'USD',
+  maximum: {
+    limit: 1000
+  },
   verification: {
     service: 'idology',
-    username: 'default_user'
+    username: 'default_user',
+    password: '********'
   }
 };
 
@@ -79,12 +82,17 @@ describe('lamassu-admin/rpc/set', function() {
         assert(!getResult[0], 'getting compliance after setting should succeed');
 
         assert(getResult[1].base, 'get base limit');
-        assert.equal(getResult[1].base.type, 'drivers_license');
+        assert.equal(getResult[1].base.verify_type, 'drivers_license');
         assert(getResult[1].extended, 'get extended limit');
-        assert.equal(getResult[1].extended.type, 'smartphone');
+        assert.equal(getResult[1].extended.verify_type, 'smartphone');
         assert.equal(getResult[1].base.limit < getResult[1].extended.limit, true, 'base limit should be smaller than extended limit');
-        assert(getResult[1].currency, '');
+        assert(getResult[1].maximum);
         assert(getResult[1].verification);
+        assert.equal(getResult[1].verification.service, 'idology', 'verification service must be idology');
+        assert(getResult[1].verification.username);
+        assert(getResult[1].verification.password);
+
+
         done();
       });
     });

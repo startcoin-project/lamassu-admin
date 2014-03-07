@@ -52,12 +52,15 @@ describe('lamassu-admin/rpc/get', function() {
 
       assert(params[1]);
       assert(params[1].base);
-      assert.equal(params[1].base.type, 'drivers_license');
+      assert.equal(params[1].base.verify_type, 'drivers_license');
       assert(params[1].extended);
-      assert.equal(params[1].extended.type, 'smartphone');
+      assert.equal(params[1].extended.verify_type, 'smartphone');
       assert.equal(params[1].base.limit < params[1].extended.limit, true);
-      assert(params[1].currency);
+      assert(params[1].maximum);
       assert(params[1].verification);
+      assert.equal(params[1].verification.service, 'idology', 'verification service must be idology');
+      assert(params[1].verification.username);
+      assert(params[1].verification.password);
 
       done();
     });
