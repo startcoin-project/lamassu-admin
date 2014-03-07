@@ -86,11 +86,14 @@ exports.actions = function(req, res, ss) {
       compliance_settings = {
         base: {
           limit: 100,
-          type: 'drivers_license'
+          verify_type: 'drivers_license'
         },
         extended: {
           limit: 400, 
-          type: 'smartphone'
+          verify_type: 'smartphone'
+        },
+        maximum: {
+          limit: 1000
         },
         currency: 'USD',
         verification: {
@@ -118,7 +121,26 @@ exports.actions = function(req, res, ss) {
         var user = {
           price: results.price,
           wallet: results.wallet,
-          exchange: results.exchange     
+          exchange: results.exchange,
+          compliance: {
+            base: {
+              limit: 100,
+              verify_type: 'drivers_license'
+            },
+            extended: {
+              limit: 400, 
+              verify_type: 'smartphone'
+            },
+            maximum: {
+              limit: 1000
+            },
+            currency: 'USD',
+            verification: {
+              service: 'idology',
+              username: 'default_user',
+              password: '********'
+            }
+          }    
         }
 
         //return data to the client

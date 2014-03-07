@@ -62,6 +62,10 @@ exports.actions = function(req, res, ss) {
 
     compliance: function(data){
 
+      console.log('need to set compliance settings')
+
+      console.log(data)
+
 
       //set compliance settings
 
@@ -69,16 +73,20 @@ exports.actions = function(req, res, ss) {
       example_data = {
         base: {
           limit: 100,
-          type: 'drivers_license'
+          verify_type: 'drivers_license'
         },
         extended: {
           limit: 400, 
-          type: 'smartphone'
+          verify_type: 'smartphone'
+        },
+        maximum: {
+          limit: 1000
         },
         currency: 'USD',
         verification: {
           service: 'idology',
-          username: 'default_user'
+          username: 'default_user',
+          password: '********'
         }
       }
       */

@@ -89,6 +89,13 @@ module.exports = Backbone.Model.extend({
 
     })
 
+    self.on('change:compliance', function(){
+
+      ss.rpc('set.compliance', self.get('compliance'), function(err, res){})
+
+    })
+
+
 
   },
 
