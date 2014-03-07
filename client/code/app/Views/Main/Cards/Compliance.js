@@ -24,9 +24,10 @@ module.exports = Backbone.View.extend({
 
     self.fill_view()
 
-
     self.$el.find('.save').on('click', function(){
 
+
+      //define settings object
       var compliance_settings = {
         base: {
           limit: self.$base_limit.val(),
@@ -48,15 +49,13 @@ module.exports = Backbone.View.extend({
         }
       }
 
-      console.log(compliance_settings)
-
       self.user.set('compliance',  compliance_settings)
 
     })
 
   },
 
-  fill_view: function(){
+  fill_view: function(){ //fill feilds with current settings
 
     var self = this
 
@@ -72,7 +71,6 @@ module.exports = Backbone.View.extend({
     self.$verify_username.val(self.user.get('compliance').verification.username)
     self.$verify_password.val('********')
 
-    //fill the current fields with compliance data
   },
 
   clear: function(){

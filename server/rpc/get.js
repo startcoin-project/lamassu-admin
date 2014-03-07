@@ -79,31 +79,7 @@ exports.actions = function(req, res, ss) {
 
     compliance: function(){
 
-
-      //return compliance settings
-
-
-      compliance_settings = {
-        base: {
-          limit: 100,
-          verify_type: 'drivers_license'
-        },
-        extended: {
-          limit: 400, 
-          verify_type: 'smartphone'
-        },
-        maximum: {
-          limit: 1000
-        },
-        currency: 'USD',
-        verification: {
-          service: 'idology',
-          username: 'default_user'
-        }
-      }
-
-      res(compliance_settings)
-
+      //get current compliance settings
 
     },
 
