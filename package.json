@@ -24,5 +24,8 @@
   "devDependencies": {
     "mocha": "~1.17.1"
   },
-  "license": "unlicense"
+  "license": "unlicense",
+  "bin": {
+    "lamassu-admin": "./lib/app.js"
+  }
 }
