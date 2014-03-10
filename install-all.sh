@@ -69,8 +69,9 @@ fi
 
 # Set up users and databases in Postgres.
 # Remark: do we want lamassu to be a super user?
+password=$(dd if=/dev/urandom bs=30 count=1 | base64)
 su - postgres <<EOF
-  createuser -s lamassu
+  psql -c "create user lamassu password '$password';"
   createdb -O lamassu lamassu
 EOF
 
@@ -95,4 +96,8 @@ fi
 # XXX: this is a bit of a hack since it relies on `database/lamassu.sql` being
 # in `lamassu-admin` package. We should find a better way (for example running
 # `lamassu-admin bootstrap`).
-npm explore -g lamassu-admin 'cat database/lamassu.sql' | psql lamassu lamassu
+# We also have to use `-h 127.0.0.1` because the default type of authentication
+# for `local` connection is `peer`, which checks username of the user running
+# `psql` command.
+npm explore -g lamassu-admin 'cat database/lamassu.sql' |
+  PGPASSWORD="$password" psql -h 127.0.0.1 lamassu lamassu
