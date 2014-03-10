@@ -2,8 +2,7 @@
   "name": "lamassu-admin",
   "description": "",
   "version": "0.1.0",
-  "author": "",
-  "private": true,
+  "author": "Lamassu (https://lamassu.is)",
   "engines": {
     "node": "0.10.x"
   },
