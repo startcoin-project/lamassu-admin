@@ -1,7 +1,7 @@
 {
   "name": "lamassu-admin",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Lamassu (https://lamassu.is)",
   "engines": {
     "node": "0.10.x"
