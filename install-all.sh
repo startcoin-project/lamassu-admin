@@ -78,7 +78,7 @@ EOF
 echo "Okay, now fetching and installing Node.js"
 
 # Install node in $prefix
-curl "$node" | tar -C"$prefix" -zxf-
+curl "$node" | tar -C"$prefix" --strip-components=1 -zxf-
 
 if [ $? -ne 0 ]; then
   fail "Node.js installation failed"
