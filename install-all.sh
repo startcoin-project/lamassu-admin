@@ -71,6 +71,8 @@ fi
 # Remark: do we want lamassu to be a super user?
 password=$(dd if=/dev/urandom bs=30 count=1 | base64)
 su - postgres <<EOF
+  dropdb lamassu
+  dropuser lamassu
   psql -c "CREATE ROLE lamassu WITH SUPERUSER PASSWORD '$password';"
   createdb -O lamassu lamassu
 EOF
