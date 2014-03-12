@@ -130,7 +130,7 @@ ip=$(ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
 
 echo
 echo "Done! Now it's time to configure Lamassu stack."
-echo "Open $ip:8080 in your browser to access "
+echo "Open http://$ip:8080 in your browser to access "
 echo "your admin panel."
-echo "When you're done there, run \`start lamassu-server\` "
+echo "When you're done there, run 'start lamassu-server' "
 echo "and follow instructions about configuring your ATM."
