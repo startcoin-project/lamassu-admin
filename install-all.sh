@@ -86,8 +86,8 @@ $install >> $debug 2>&1
 # Remark: do we want lamassu to be a super user?
 password=$(openssl rand -hex 32)
 su - postgres >> $debug 2>&1 <<EOF
-  dropdb lamassu 2>/dev/null
-  dropuser lamassu 2>/dev/null
+  dropdb lamassu
+  dropuser lamassu
   psql -c "CREATE ROLE lamassu WITH LOGIN SUPERUSER PASSWORD '$password';"
   createdb -O lamassu lamassu
 EOF
