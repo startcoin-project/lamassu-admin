@@ -6,7 +6,8 @@ function exists() {
 
 function fail() {
   echo $1
-  echo "Please contact Lamassu support (support@lamassu.is), including command output"
+  echo "Please contact Lamassu support (support@lamassu.is), including "
+  echo "command output and lamassu-debug.log file"
   exit 4
 }
 
@@ -23,13 +24,15 @@ chdir $(npm -g explore $2 pwd)
 EOF
 }
 
-echo "Hello! This script will install Lamassu stack, including PostgreSQL on this machine."
+echo "Hello! This script will install Lamassu stack, including "
+echo "PostgreSQL on this machine."
 
 if [ "$(whoami)" != "root" ]; then
   echo "This script has to be run as \`root\`"
   exit 3
 fi
 
+debug="lamassu-debug.log"
 prefix="/usr/local"
 node="http://nodejs.org/dist/v0.10.26/node-v0.10.26-linux-x64.tar.gz"
 
@@ -63,12 +66,14 @@ if [ -z "$service" ]; then
   exit 2
 fi
 
-echo "Updating your system"
-$update
+echo "Updating your system (this might take a while)..."
+$update >> $debug 2>&1
+
+[ $? -ne 0 ] && fail "Updating your system failed"
 
 # Install PostgreSQL with the package manager we found.
-echo "Okay, running: $install"
-$install
+echo "Installing PostgreSQL (this might take a while)..."
+$install >> $debug 2>&1
 
 if [ $? -ne 0 ]; then
   fail "PostgreSQL installation failed"
@@ -77,14 +82,14 @@ fi
 # Set up users and databases in Postgres.
 # Remark: do we want lamassu to be a super user?
 password=$(openssl rand -hex 32)
-su - postgres <<EOF
+su - postgres >> $debug 2>&1 <<EOF
   dropdb lamassu 2>/dev/null
   dropuser lamassu 2>/dev/null
   psql -c "CREATE ROLE lamassu WITH LOGIN SUPERUSER PASSWORD '$password';"
   createdb -O lamassu lamassu
 EOF
 
-echo "Okay, now fetching and installing Node.js"
+echo "Fetching and installing node.js..."
 
 # Install node in $prefix
 curl "$node" | tar -C"$prefix" --strip-components=1 -zxf-
@@ -93,9 +98,11 @@ if [ $? -ne 0 ]; then
   fail "Node.js installation failed"
 fi
 
+echo "Installing Lamassu stack (this might take a while)..."
 # Install Lamassu stack
-npm -g install lamassu-server lamassu-admin
+npm -g install lamassu-server lamassu-admin >> $debug 2>&1
 
+echo "Installing Lamassu services..."
 if [ "$service" == "upstart" ]; then
   upstart "lamassu-server" "lamassu-server"
   upstart "lamassu-admin" "lamassu-admin"
@@ -108,5 +115,8 @@ fi
 # We also have to use `-h 127.0.0.1` because the default type of authentication
 # for `local` connection is `peer`, which checks username of the user running
 # `psql` command.
+echo "Bootstrapping PostgreSQL..."
 npm explore -g lamassu-admin 'cat database/lamassu.sql' |
-  PGPASSWORD="$password" psql -h 127.0.0.1 lamassu lamassu
+  PGPASSWORD="$password" psql -h 127.0.0.1 lamassu lamassu >> $debug 2>&1
+
+[ $? -ne 0 ] && fail "Bootstrapping PostgreSQL failed"
