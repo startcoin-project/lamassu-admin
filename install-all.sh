@@ -43,7 +43,8 @@ install=""
 rm -f lamassu-debug.log
 
 if exists apt-get; then
-  update="apt-get update -y && apt-get upgrade -y"
+  update="apt-get update -y"
+  upgrade="apt-get upgrade -y"
   install="apt-get install -y postgresql-9.1 libpq-dev git build-essential"
 fi
 
@@ -70,6 +71,7 @@ fi
 
 echo "Updating your system (this might take a while)..."
 $update >> $debug 2>&1
+$upgrade >> $debug 2>&1
 
 [ $? -ne 0 ] && fail "Updating your system failed"
 
