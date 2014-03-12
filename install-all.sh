@@ -40,6 +40,8 @@ node="http://nodejs.org/dist/v0.10.26/node-v0.10.26-linux-x64.tar.gz"
 update=""
 install=""
 
+rm -f lamassu-debug.log
+
 if exists apt-get; then
   update="apt-get update -y && apt-get upgrade -y"
   install="apt-get install -y postgresql-9.1 libpq-dev git build-essential"
