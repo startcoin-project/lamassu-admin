@@ -126,9 +126,11 @@ echo "Starting lamassu-admin..."
 start lamassu-admin >> lamassu-debug.log
 [ $? -ne 0 ] && fail "Starting lamassu-admin failed"
 
+ip=$(ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
+
 echo
 echo "Done! Now it's time to configure Lamassu stack."
-echo "Open <machine-ip>:8080 in your browser to access "
+echo "Open $ip:8080 in your browser to access "
 echo "your admin panel."
 echo "When you're done there, run \`start lamassu-server\` "
 echo "and follow instructions about configuring your ATM."
