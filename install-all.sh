@@ -120,3 +120,13 @@ npm explore -g lamassu-admin 'cat database/lamassu.sql' |
   PGPASSWORD="$password" psql -h 127.0.0.1 lamassu lamassu >> $debug 2>&1
 
 [ $? -ne 0 ] && fail "Bootstrapping PostgreSQL failed"
+
+echo "Starting lamassu-admin..."
+start lamassu-admin >> lamassu-debug.log
+[ $? -ne 0 ] && fail "Starting lamassu-admin failed"
+
+echo "Done! Now it's time to configure Lamassu stack."
+echo "Open <machine-ip>:8080 in your browser to access "
+echo "your admin panel."
+echo "When you're done there, run \`start lamassu-server\` "
+echo "and follow instructions about configuring your ATM."
