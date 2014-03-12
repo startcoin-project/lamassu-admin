@@ -14,10 +14,11 @@ function upstart() {
   service=$1
   cmd=$2
 
-  cat > "/etc/init/$service" <<EOF
+  cat > "/etc/init/$service"".conf" <<EOF
 exec $2
 respawn
 start on startup
+env DATABASE_URL=postgres://lamassu:$password@localhost/lamassu
 EOF
 }
 
@@ -69,7 +70,7 @@ fi
 
 # Set up users and databases in Postgres.
 # Remark: do we want lamassu to be a super user?
-password=$(dd if=/dev/urandom bs=30 count=1 | base64)
+password=$(openssl rand -hex 32)
 su - postgres <<EOF
   dropdb lamassu
   dropuser lamassu
