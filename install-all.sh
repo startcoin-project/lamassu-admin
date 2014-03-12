@@ -34,9 +34,11 @@ prefix="/usr/local"
 node="http://nodejs.org/dist/v0.10.26/node-v0.10.26-linux-x64.tar.gz"
 
 # First detect our package manager. Fail early if we don't support it.
+update=""
 install=""
 
 if exists apt-get; then
+  update="apt-get update -y && apt-get upgrade -y"
   install="apt-get install -y postgresql-9.1 libpq-dev git build-essential"
 fi
 
@@ -60,6 +62,9 @@ if [ -z "$service" ]; then
   echo "This script currently supports upstart"
   exit 2
 fi
+
+echo "Updating your system"
+$update
 
 # Install PostgreSQL with the package manager we found.
 echo "Okay, running: $install"
