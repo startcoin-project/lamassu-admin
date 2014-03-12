@@ -25,6 +25,6 @@
   },
   "license": "unlicense",
   "bin": {
-    "lamassu-admin": "./lib/app.js"
+    "lamassu-admin": "./app.js"
   }
 }
