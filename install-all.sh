@@ -26,6 +26,7 @@ EOF
 
 echo "Hello! This script will install Lamassu stack, including "
 echo "PostgreSQL on this machine."
+echo
 
 if [ "$(whoami)" != "root" ]; then
   echo "This script has to be run as \`root\`"
@@ -125,6 +126,7 @@ echo "Starting lamassu-admin..."
 start lamassu-admin >> lamassu-debug.log
 [ $? -ne 0 ] && fail "Starting lamassu-admin failed"
 
+echo
 echo "Done! Now it's time to configure Lamassu stack."
 echo "Open <machine-ip>:8080 in your browser to access "
 echo "your admin panel."
