@@ -75,9 +75,7 @@ $update >> $debug 2>&1
 echo "Installing PostgreSQL (this might take a while)..."
 $install >> $debug 2>&1
 
-if [ $? -ne 0 ]; then
-  fail "PostgreSQL installation failed"
-fi
+[ $? -ne 0 ] && fail "PostgreSQL installation failed"
 
 # Set up users and databases in Postgres.
 # Remark: do we want lamassu to be a super user?
@@ -94,9 +92,7 @@ echo "Fetching and installing node.js..."
 # Install node in $prefix
 curl "$node" | tar -C"$prefix" --strip-components=1 -zxf-
 
-if [ $? -ne 0 ]; then
-  fail "Node.js installation failed"
-fi
+[ $? -ne 0 ] && fail "Node.js installation failed"
 
 echo "Installing Lamassu stack (this might take a while)..."
 # Install Lamassu stack
