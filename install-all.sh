@@ -78,8 +78,8 @@ fi
 # Remark: do we want lamassu to be a super user?
 password=$(openssl rand -hex 32)
 su - postgres <<EOF
-  dropdb lamassu
-  dropuser lamassu
+  dropdb lamassu 2>/dev/null
+  dropuser lamassu 2>/dev/null
   psql -c "CREATE ROLE lamassu WITH LOGIN SUPERUSER PASSWORD '$password';"
   createdb -O lamassu lamassu
 EOF
