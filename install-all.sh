@@ -35,7 +35,7 @@ node="http://nodejs.org/dist/v0.10.26/node-v0.10.26-linux-x64.tar.gz"
 install=""
 
 if exists apt-get; then
-  install="apt-get install -y postgresql-9.1 git"
+  install="apt-get install -y postgresql-9.1 libpq-dev git"
 fi
 
 if [ -z "$install" ]; then
