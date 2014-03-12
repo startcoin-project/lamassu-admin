@@ -19,6 +19,7 @@ exec $2
 respawn
 start on startup
 env DATABASE_URL=postgres://lamassu:$password@localhost/lamassu
+chdir $(npm -g explore $2 pwd)
 EOF
 }
 
