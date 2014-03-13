@@ -1,7 +1,7 @@
 {
   "name": "lamassu-admin",
   "description": "",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "author": "Lamassu (https://lamassu.is)",
   "engines": {
     "node": "0.10.x"
@@ -25,6 +25,6 @@
   },
   "license": "unlicense",
   "bin": {
-    "lamassu-admin": "./lib/app.js"
+    "lamassu-admin": "./app.js"
   }
 }
