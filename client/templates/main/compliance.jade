@@ -16,39 +16,39 @@
             li.base
               .label Base Limit
               .limit.input_wrap
-                input
+                input#base_limit
                 .currency $
               .verify_type.select_wrap
-                select
+                select#base_verify_type
                   option(value="drivers_license") Driver's License
                   option(value="smartphone") Smartphone
 
             li.extended
               .label Extended Limit
               .limit.input_wrap
-                input
+                input#extended_limit
                 .currency $
               .verify_type.select_wrap
-                select
+                select#extended_verify_type
                   option(value="drivers_license") Driver's License
                   option(value="smartphone") Smartphone
             
             li.maximum
               .label Max Limit
               .limit.input_wrap
-                input
+                input#max_limit
                 .currency $
 
 
         .verify_service
           .label Verification Service
           .service.select_wrap
-            select
+            select#verification_service
               option(value="idology") iDology
           .username.input_wrap
-            input
+            input#verification_service_username
           .password.input_wrap
-            input
+            input#verification_service_password
 
     .bot
 

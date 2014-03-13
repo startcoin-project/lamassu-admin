@@ -9,6 +9,24 @@
     .mid
       .description description
       .settings
+        ul
+          li
+            .label Provider
+            .select_wrap
+              select#exchange_provider
+                option(value="bitstamp") BitStamp
+          li
+            .label ID
+            .input_wrap
+              input#exchange_id
+          li
+            .label API Key
+            .input_wrap
+              input#exchange_api_key
+          li
+            .label Secret
+            .input_wrap
+              input#exchange_secret
 
     .bot
 

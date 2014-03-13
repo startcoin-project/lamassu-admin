@@ -9,6 +9,23 @@
     .mid
       .description description
       .settings
+        ul
+          li
+            .label Price Source
+            .select_wrap
+              select#price_source
+                option(value="bitstamp") BitStamp
+                option(value="bitpay") BitPay
+        .current_price The current price is $500.00.
+        ul
+          li
+            .label Custom Source
+            .input_wrap
+              input#price_custom_url
+          li
+            .label Comission
+            .input_wrap
+              input#comission 
 
     .bot
 

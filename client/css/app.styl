@@ -434,20 +434,21 @@ body
                 min-height 100%
                 float left
                 overflow hidden
-                width 35%
+                width 30%
 
               .settings
                 min-height 100%
+
                 float right
                 overflow hidden
-                width 65%
+                width calc(70% - 11px)
+                border-left 1px solid rgba(0,0,0,0.1)
+                padding-left 10px
 
 
                 .limits //compliance 
 
                   ul
-                    width 100%
-
 
                     li 
                       width 100%
@@ -457,12 +458,13 @@ body
 
                       .label
                         position absolute 
-                        left 0
+                        right calc(60% + 10px)
                         top 0
                         bottom 0
                         width 40%                       
                         padding-top 5px
                         font-size 20px
+                        text-align right
 
                       .limit
                         position absolute 
@@ -497,12 +499,13 @@ body
 
                   .label
                     position absolute 
-                    left 0
                     top 0
                     bottom 0
                     width 40%                       
                     padding-top 5px
                     font-size 20px
+                    right calc(60% + 10px)
+                    text-align right
 
                   .service
                     position absolute 
