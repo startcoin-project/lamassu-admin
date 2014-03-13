@@ -1,5 +1,5 @@
-var Login = require('./Login')
-var Main = require('./Main')
+var Login = require('./Login') //login view
+var Main = require('./Main') //main dashboard view
 
 var App = Backbone.View.extend({
 
@@ -10,9 +10,6 @@ var App = Backbone.View.extend({
     var self = this
 
     self.user.on('change:authenticated', self.authenticated.bind(self))
-
-    //update the display price on relevant changes
-
 
   },
 
@@ -31,8 +28,6 @@ var App = Backbone.View.extend({
     }else{
       $('.display .price .number').html(display.toFixed(2))
     }
-
-
   },
 
   authenticated: function(model, authenticated, options) {
@@ -53,7 +48,7 @@ var App = Backbone.View.extend({
 
   }
 
-});
+})
 
 module.exports = App
 

@@ -1,12 +1,15 @@
 .main_title Compliance
 
 .card
+
   .inner
 
     .top
 
     .mid
-      .description description
+      .description 
+        .description_title Set when users have to verify
+        .description_body You can set up to 2 different limits for users to authentiate via driver's license or smartphone.
       .settings
 
         .limits
@@ -14,40 +17,40 @@
           ul
             li.base
               .label Base Limit
-              .limit
-                input
-              .verify_type
-                select
+              .limit.input_wrap
+                input#base_limit
+                .currency $
+              .verify_type.select_wrap
+                select#base_verify_type
                   option(value="drivers_license") Driver's License
                   option(value="smartphone") Smartphone
 
             li.extended
               .label Extended Limit
-              .limit
-                input
-              .verify_type
-                select
+              .limit.input_wrap
+                input#extended_limit
+                .currency $
+              .verify_type.select_wrap
+                select#extended_verify_type
                   option(value="drivers_license") Driver's License
                   option(value="smartphone") Smartphone
             
             li.maximum
               .label Max Limit
-              .limit
-                input
+              .limit.input_wrap
+                input#max_limit
+                .currency $
 
 
         .verify_service
           .label Verification Service
-          .service
-            select
+          .service.select_wrap
+            select#verification_service
               option(value="idology") iDology
-          .username
-            input
-          .password
-            input
-
-        .save save
-
+          .username.input_wrap
+            input#verification_service_username
+          .password.input_wrap
+            input#verification_service_password
 
     .bot
 

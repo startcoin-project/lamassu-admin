@@ -1,40 +1,34 @@
 .main_title Trading
 
-.form
+.card
 
-  .top
-    .inner
-      .title Your Current Trade Account Settings
+  .inner
 
-  .preview
-    .inner
-      ul
-        li
-          .key provider
-          .value
-        li
-          .key id
-          .value
-        li
-          .key api key
-          .value 
-        li
-          .key secret
-          .value 
+    .top
 
-  .description Update your trade account settings below.
+    .mid
+      .description
+        .description_title Set your trade settings. 
+        .description_body Set or change your current settings. 
+      .settings
+        ul
+          li
+            .label Provider
+            .select_wrap
+              select#exchange_provider
+                option(value="bitstamp") BitStamp
+          li
+            .label ID
+            .input_wrap
+              input#exchange_id
+          li
+            .label API Key
+            .input_wrap
+              input#exchange_api_key
+          li
+            .label Secret
+            .input_wrap
+              input#exchange_secret
 
-  .mid
-    .inner
-      ul
-        li
-          input.provider(value="bitstamp")
-        li
-          input.id(placeholder="Client ID")
-        li
-          input.api_key(placeholder="API Key")
-        li
-          input.secret(placeholder="Secret")
-  .save
-    .inner
-      .save_text save
+    .bot
+

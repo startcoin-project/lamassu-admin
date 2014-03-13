@@ -1,6 +1,4 @@
-
-// this model will keep a current record of price data from various sources
-var PriceData = Backbone.Model.extend({
+var PriceData = Backbone.Model.extend({ //this model keeps a current record of price data from various sources
 
   initialize: function() {
 
@@ -9,53 +7,15 @@ var PriceData = Backbone.Model.extend({
     self.sources = ['bitstamp', 'bitpay']
 
     self.sources.forEach(function(source){
-
       var price_update = 'latest_price:' + source
-
       ss.event.on(price_update, function(price){
-
         self.set(source, price)
-
       })
-
     })
-
   },
-
-  current_price: function(){
-
-
-
-
-  }
+  current_price: function(){}
 
 })
-
-
-
-var Price = Backbone.Model.extend({
-
-  initialize: function() {
-
-    
-  }
-
-})
-
-
-
-var Commission = Backbone.Model.extend({
-
-  initialize: function() {
-
-
-  }
-
-})
-
-
-
-
 
 
 
@@ -101,7 +61,7 @@ module.exports = Backbone.Model.extend({
     var self = this
 
     if (err)
-      //needs to be handled differently in the future
+      //should  be handled differently in the future
       alert('Error returned from user.get: \n\n' + JSON.stringify(err, null, '  '))
 
     if (user != null) {

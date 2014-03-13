@@ -1,48 +1,34 @@
 .main_title Wallet
 
-.form
+.card
 
-  .top
-    .inner
-      .title Your Current Wallet Settings
+  .inner
 
-  .preview
-    .inner
-      ul
-        li
-          .key provider
-          .value
-        li
-          .key GUID
-          .value
-        li
-          .key Password
-          .value
-        li
-          .key From Address
-          .value
+    .top
 
-  .description Update your wallet settings below.
+    .mid
+      .description
+        .description_title Set your wallet settings
+        .description_body Here you can change your current wallet settings. Please fill out all form fields.
+      .settings        
+        ul
+          li
+            .label Provider
+            .select_wrap
+              select#wallet_provider
+                option(value="blockchain") Blockchain.info
+          li
+            .label GUID
+            .input_wrap
+              input#wallet_guid
+          li
+            .label Password
+            .input_wrap
+              input#wallet_password
+          li
+            .label From Address
+            .input_wrap
+              input#wallet_from_address
 
-
-  .mid
-    .inner
-      ul
-        li
-          input.provider(value="blockchain")
-        li
-          input.guid(placeholder="GUID")
-        li
-          input.password(placeholder="Password")
-        li
-          input.from_address(placeholder="From Address")
-
-  .save
-    .inner
-      .save_text save
-
-
-
-
-
+    .bot
 

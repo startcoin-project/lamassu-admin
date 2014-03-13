@@ -4,4 +4,4 @@ module.exports = {
   Main: require('./Main'),
   Login: require('./Login')
   
-};
+}

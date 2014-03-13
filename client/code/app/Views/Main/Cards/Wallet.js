@@ -1,6 +1,6 @@
 module.exports = Backbone.View.extend({
 
-  className: 'main_wallet',
+  className: 'main_wallet main_wrap',
 
   initialize: function(){
 
@@ -8,39 +8,46 @@ module.exports = Backbone.View.extend({
 
     self.$el.html(ss.tmpl['main-wallet'].render()).appendTo('.dash .main').addClass('animated fadeInUp')
 
-    self.user.on('change:wallet', self.fill_preview.bind(self))
+    self.fill_view()
 
-    self.fill_preview()
-
-
-
-    self.$el.find('.save').on('click', function(){
-      var new_wallet = {
-        provider: self.$el.find('.mid ul li').eq(0).find('input').val(),
-        guid: self.$el.find('.mid ul li').eq(1).find('input').val(),
-        password: self.$el.find('.mid ul li').eq(2).find('input').val(),
-        fromAddress: self.$el.find('.mid ul li').eq(3).find('input').val()
-      }
-
-      self.user.set('wallet', new_wallet)
-
-
-    })
-
+    self.$el.find('input').on('keyup', self.update_settings.bind(self))
+    self.$el.find('select').on('change', self.update_settings.bind(self))
 
   },
 
-  fill_preview: function(){
+  update_settings: function(){
+
+    var self = this
+    
+    //define settings object
+    var wallet_settings = {
+      provider: self.$el.find('#wallet_provider').val(),
+      guid: self.$el.find('#wallet_guid').val(),
+      password: self.$el.find('#wallet_password').val(),
+      fromAddress: self.$el.find('#wallet_from_address').val()
+    }
+
+    self.user.set('wallet',  wallet_settings)
+
+  },
+
+  fill_view: function(){ //fill feilds with current settings
 
     var self = this
 
-    var wallet = self.user.get('wallet')
+    var wallet_settings = {
+      provider: 'blockchain',
+      guid: 'none',
+      password: 'none',
+      fromAddress: 'none'
+    }
 
-    self.$el.find('.preview ul li').eq(0).find('.value').html(wallet.provider)
-    self.$el.find('.preview ul li').eq(1).find('.value').html(wallet.guid)
-    self.$el.find('.preview ul li').eq(2).find('.value').html(wallet.password)
-    self.$el.find('.preview ul li').eq(3).find('.value').html(wallet.fromAddress)
+    var wallet = self.user.get('wallet') || wallet_settings
 
+    self.$el.find('#wallet_provider').val(wallet.provider)
+    self.$el.find('#wallet_guid').val(wallet.guid)
+    self.$el.find('#wallet_password').val(wallet.password)
+    self.$el.find('#wallet_from_address').val(wallet.fromAddress)
 
   },
 

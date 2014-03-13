@@ -1,292 +1,8 @@
-var Sources = Backbone.View.extend({
-
-  initialize: function(){
-
-    var self = this
-
-    // pull possible sources from the user model
-    self.sources = self.user.price_data.sources
-
-    // fill in the options
-    self.setup_options()
-
-    // get current source from user model
-    self.selected_source = self.user.get('price').provider
-
-    // if we get any price updates, update the preview
-    self.user.price_data.on('change', self.update_preview.bind(self))
-
-    // fill in the preview
-    self.update_preview()
-
-    //show the data onces it's filled in
-    setTimeout(function(){
-
-      self.$el.find('.preview .value').show().addClass('animated flipInX')
-      self.$el.find('.preview .subtext').show().addClass('animated flipInX')
-
-    }, 700)
-
-
-    var selection = self.sources.indexOf(self.selected_source)
-
-    if(selection === -1){
-
-      self.$el.find('.mid ul li').last().addClass('selected')
-
-    }else{
-
-      self.$el.find('.mid ul li').eq(selection).addClass('selected')
-
-    }
-    
-
-  },
-
-  capture_custom: function(){
-
-    var self = this
-
-    var url = self.$el.find('.custom_input input').val()
-
-    //vaidate url
-
-
-
-
-
-  },
-
-  update_preview: function(){
-
-    var self = this
-
-    self.current_price = (self.user.price_data.get(self.selected_source)/100).toFixed(2)
-
-    if(isNaN(self.current_price)){
-      self.$el.find('.preview .value .number').html('---.--')
-      self.$el.find('.preview .subtext').html(self.selected_source)
-    }else{
-      self.$el.find('.preview .value .number').html(self.current_price)
-      self.$el.find('.preview .subtext').html(self.selected_source)
-    }
-
-  },
-
-  setup_options: function(){
-
-    var self = this
-
-    // append sources to the list
-    self.sources.forEach(function(source, index){
-      var source_item = ss.tmpl['main-price_sources_item'].render({source: ''})
-      self.$el.find('.mid ul li').eq(index).before(source_item)
-
-      self.$el.find('.mid ul li').eq(index).find('.bg').css({background: 'url(/images/'+source+'-blue.png) center center no-repeat'})
-
-      self.$el.find('.mid ul li').eq(index).find('.bg_selected').css({background: 'url(/images/'+source+'-teal.png) center center no-repeat'})
-
-
-
-    })
-
-    // set height for list items
-    var item_height = (100 / (self.sources.length + 1))
-    self.$el.find('.mid ul li').css({height: item_height + '%'})
-
-    // on click of an item
-    self.$el.find('.mid ul li').on('click', function(){
-
-      var index = $(this).index()
-
-      // highlight the item
-      self.$el.find('ul li').removeClass('selected')
-      self.$el.find('ul li').eq(index).addClass('selected')
-
-      self.$el.removeClass('custom_selected')
-
-      if($(this).is(':last-child')){ //this is a custom source
-
-        self.selected_source = 'custom'
-        self.update_preview()
-
-        self.$el.addClass('custom_selected')
-        self.$el.find('.custom_input input').focus()
-        self.$el.find('ul').animate({scrollTop: self.$el.find('ul')[0].scrollHeight}, 250)
-
-
-      }else{ //this is a non-custom source
-
-        
-        self.selected_source = self.sources[index]
-        self.update_preview()
-
-      }
-
-    })
-
-  }
-
-  //respond to clicks to store current selection
-
-  //respond to custom input 
-
-  //give data to main view on submit
-
-
-
-
-})
-
-
-var Commission = Backbone.View.extend({
-
-  initialize: function(options){
-
-    var self = this
-
-    self.parent = options.parent
-
-    var percentages = [1, 2, 3, 4, 5]
-
-    self.selected_commission = self.user.get('price').commission
-
-    //append percentage items to the list
-    percentages.forEach(function(percentage, index){
-      var percentage_item = ss.tmpl['main-price_commissions_item'].render({percentage: percentage.toFixed(2)})
-      self.$el.find('.mid ul li').eq(index).before(percentage_item)
-    })
-
-    //set the height of the list item based on how many there are
-    var item_height = (100 / (percentages.length + 1))
-    self.$el.find('.mid ul li').css({height: item_height + '%'})
-
-    //on click do things
-    self.$el.find('ul li').on('click', function(){
-
-      var index = $(this).index()
-
-      self.$el.find('ul li').removeClass('selected')
-      self.$el.find('ul li').eq(index).addClass('selected')
-
-      self.$el.removeClass('custom_selected')
-
-      //if custom
-      if($(this).is(':last-child')){ //if custom
-
-        self.$el.addClass('custom_selected')
-        self.$el.find('.custom_input input').focus()
-        self.$el.find('ul').animate({scrollTop: self.$el.find('ul')[0].scrollHeight}, 250)
-
-
-
-        //update the preview and current_commission 
-        if(isNaN(self.$el.find('.custom_input input').val()) || self.$el.find('.custom_input input').val() === '' ) {
-          var fill = '-.--'
-        }else{
-          var fill = parseFloat(self.$el.find('.custom_input input').val()).toFixed(2)
-        }
-
-        self.$el.find('.preview .value .number').html(fill)
-
-
-        
-
-
-      } else { //if an option
-
-        self.selected_commission = percentages[index]
-        self.$el.find('.preview .value .number').html(percentages[index].toFixed(2))
-
-      }
-
-    })
-
-    //self.user.on('change:commission', self.update_preview)
-
-    self.$el.find('.preview .value .number').html(self.selected_commission.toFixed(2))
-
-    //show data 
-
-    setTimeout(function(){
-
-      self.$el.find('.preview .value').show().addClass('animated flipInX')
-      self.$el.find('.preview .subtext').show().addClass('animated flipInX')
-
-    }, 700)
-
-    //percentage
-
-    var selection = percentages.indexOf(self.selected_commission)
-
-    if(selection === -1){
-
-      self.$el.find('.mid ul li').last().addClass('selected')
-      self.$el.addClass('custom_selected')
-      self.$el.find('.custom_input input').val(self.selected_commission.toFixed(2))
-      self.$el.find('ul').animate({scrollTop: self.$el.find('ul')[0].scrollHeight}, 250)
-
-
-
-    }else{
-
-      self.$el.find('.mid ul li').eq(selection).addClass('selected')
-
-    }
-
-
-    self.setup_custom()
-
-  },
-
-  setup_custom: function(){
-
-    var self = this
-
-    self.$el.find('.custom_input input').on('keyup', function(){
-
-      if(isNaN($(this).val()) || $(this).val() === '' ) {
-        var fill = '-.--'
-      }else{
-        var commission = parseFloat($(this).val())
-        var fill = commission.toFixed(2)
-        self.selected_commission = commission
-      }
-
-      self.$el.find('.preview .value .number').html(fill)
-
-      self.parent.set_total()
-
-    })
-
-
-
-
-
-  }
-
-
-
-})
-
-
-var Overview = Backbone.View.extend({
-
-
-
-
-
-
-})
-
-
-
-
 
 
 module.exports = Backbone.View.extend({
 
-  className: 'main_price',
+  className: 'main_price main_wrap',
 
   initialize: function(){
 
@@ -294,74 +10,43 @@ module.exports = Backbone.View.extend({
 
     self.$el.html(ss.tmpl['main-price'].render()).appendTo('.dash .main').addClass('animated fadeInUp')
 
-    self.selected_commission = self.user.get('commission')
+    self.fill_view()
 
-    self.sources = new Sources({el: self.$el.find('.source'), parent: self})
-    self.commission = new Commission({el: self.$el.find('.commission'), parent: self})
-
-
-
-
-    self.user.price_data.on('change', self.set_total.bind(self))
-
-    //self.user.on('')
-
-    self.set_total()
-
-    setTimeout(function(){
-
-      self.$el.find('.total .value').show().addClass('animated flipInX')
-      self.$el.find('.total .subtext').show().addClass('animated flipInX')
-
-    }, 700)
-
-    self.$el.find('li').on('click', self.set_total.bind(self))
-
-
-    self.$el.find('.save').on('click', self.update_user.bind(self))
-
-
+    self.$el.find('input').on('keyup', self.update_settings.bind(self))
+    self.$el.find('select').on('change', self.update_settings.bind(self))
 
   },
 
-  set_total: function(){
+  update_settings: function(){
 
     var self = this
-
-    var current_source = self.sources.selected_source
-    var current_commission = self.commission.selected_commission
-
-    var current_price = self.user.price_data.get(current_source)
-
-    var adjusted_price = Math.round(current_price + (current_price * (current_commission/100)))/100
-
-    if(isNaN(adjusted_price)){
-
-      self.$el.find('.total .value .number').html('---.--')
-
-    }else{
-      
-      self.$el.find('.total .value .number').html(adjusted_price.toFixed(2))
-
+    
+    //define settings object
+    var price_settings = {
+      provider: self.$el.find('#price_provider').val(), 
+      custom_url: self.$el.find('#price_custom_url').val(),
+      commission: self.$el.find('#price_commission').val()
     }
 
-    //self.$el.find('.choice_text').fitText(0.9, { minFontSize: '20px', maxFontSize: '30px'})
+    self.user.set('price',  price_settings)
 
   },
 
-  update_user: function(){
+  fill_view: function(){ //fill feilds with current settings
 
     var self = this
 
-    self.user.set({
-      price:{
-        provider: self.sources.selected_source,
-        url: null,
-        commission: (0.01 * self.commission.selected_commission) + 1
-      }
-    })
+    var price_settings = {
+      provider: 'bitstamp', 
+      custom_url: '',
+      commission: 3
+    }
 
-    console.log(self.user)
+    var price = self.user.get('price') || price_settings
+
+    self.$el.find('#price_provider').val(price.provider)
+    self.$el.find('#price_custom_url').val(price.custom_url || 'no url set')
+    self.$el.find('#price_commission').val(price.commission)
 
   },
 
@@ -378,9 +63,6 @@ module.exports = Backbone.View.extend({
 
     }, 500)
 
-
   }
 
-
 })
-

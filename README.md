@@ -7,7 +7,6 @@ Lamassu admin server. First part of Lamassu stack you need to install.
 ```sh
 git clone git@github.com:lamassu/lamassu-admin.git
 cd lamassu-admin
-git checkout newnew
 npm install
 ```
 

@@ -1,88 +1,32 @@
-
-
 .main_title Price
 
-.source
+.card
 
-  .top
-    .inner
-      .title Your Price Source
-
-  .description
-    | This is where your ATM shoud look for price data.
-
-  .mid
-    .inner
-      ul
-        li
-          .choice_text custom
-          .bg
-          .bg_selected
-
-
-  .custom_input
-    input
-    .input_text Custom Source URL
-    .update update
-        
-  .preview
-    .inner
-      .value
-        span.symbol $
-        span.number ---.--
-      .subtext none
-
-
-
-.commission
-
-  .top
-    .inner
-      .title Your Commission
-
-  .preview
-    .inner
-      .value
-        span.symbol %
-        span.number -.--
-      .subtext commission
-
-  .description
-    | This will be automatically added to every transaction. 
-
-  .mid
-    .inner
-      ul
-        li
-          .choice_text custom
-          .bg
-          .bg_selected
-
-
-  .custom_input
-    input(maxlength="4")
-    .input_text Custom Percentage
-    .update update
-        
-
-
-
-
-.total
-
-  .preview
-    .inner
-      .value
-        span.symbol $
-        span.number ---.--
-      .subtext display Price
-
-  .description
-    | Don't forget to save your changes.
-
-        
-
-.save
   .inner
-    .save_text save
+
+    .top
+
+    .mid
+      .description
+        .description_title Set display price
+        .description_body Pick a source then you can add your commission on top. 
+      .settings
+        ul
+          li
+            .label Price Source
+            .select_wrap
+              select#price_provider
+                option(value="bitstamp") BitStamp
+                option(value="bitpay") BitPay
+        .current_price The current price is $500.00.
+        ul
+          li
+            .label Custom Source
+            .input_wrap
+              input#price_custom_url
+          li
+            .label Commission
+            .input_wrap
+              input#price_commission
+    .bot
 

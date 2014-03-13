@@ -2,7 +2,7 @@
 
 module.exports = Backbone.View.extend({
 
-  className: 'main_compliance',
+  className: 'main_compliance main_wrap',
 
   initialize: function(){
 
@@ -10,48 +10,40 @@ module.exports = Backbone.View.extend({
 
     self.$el.html(ss.tmpl['main-compliance'].render()).appendTo('.dash .main').addClass('animated fadeInUp')
 
-    self.$base_limit = self.$el.find('.base .limit input')
-    self.$base_verify = self.$el.find('.base .verify_type select')
-
-    self.$extended_limit = self.$el.find('.extended .limit input')
-    self.$extended_verify = self.$el.find('.extended .verify_type select')
-
-    self.$maximum_limit = self.$el.find('.maximum .limit input')
-
-    self.$verify_service = self.$el.find('.verify_service .service select')
-    self.$verify_username = self.$el.find('.verify_service .username input')
-    self.$verify_password = self.$el.find('.verify_service .password input')
-
     self.fill_view()
 
-    self.$el.find('.save').on('click', function(){
+    self.$el.find('input').on('keyup', self.update_settings.bind(self))
+    self.$el.find('select').on('change', self.update_settings.bind(self))
 
+  },
 
-      //define settings object
-      var compliance_settings = {
-        base: {
-          limit: self.$base_limit.val(),
-          verify_type: self.$base_verify.val()
-        },
-        extended: {
-          limit: self.$extended_limit.val(), 
-          verify_type: self.$extended_verify.val()
-        },
-        maximum: {
-          limit: self.$maximum_limit.val()
-        },
-        currency: 'USD',
-        verification: {
-          service: self.$verify_service.val(),
-          username: self.$verify_username.val(),
-          password: self.$verify_password.val()
+  update_settings: function(){
 
-        }
+    var self = this
+
+    //define settings object
+    var compliance_settings = {
+      base: {
+        limit: self.$el.find('#base_limit').val(),
+        verify_type: self.$el.find('#base_verify_type').val()
+      },
+      extended: {
+        limit: self.$el.find('#extended_limit').val(), 
+        verify_type: self.$el.find('#extended_verify_type').val()
+      },
+      maximum: {
+        limit: self.$el.find('#max_limit').val()
+      },
+      currency: 'USD',
+      verification: {
+        service: self.$el.find('#verification_service').val(),
+        username: self.$el.find('#verification_service_username').val(),
+        password: self.$el.find('#verification_service_password').val()
+
       }
+    }
 
       self.user.set('compliance',  compliance_settings)
-
-    })
 
   },
 
@@ -59,17 +51,17 @@ module.exports = Backbone.View.extend({
 
     var self = this
 
-    self.$base_limit.val(self.user.get('compliance').base.limit)
-    self.$base_verify.val(self.user.get('compliance').base.verify_type)
+    self.$el.find('#base_limit').val(self.user.get('compliance').base.limit)
+    self.$el.find('#base_verify_type').val(self.user.get('compliance').base.verify_type)
 
-    self.$extended_limit.val(self.user.get('compliance').extended.limit)
-    self.$extended_verify.val(self.user.get('compliance').extended.verify_type)
+    self.$el.find('#extended_limit').val(self.user.get('compliance').extended.limit)
+    self.$el.find('#extended_verify_type').val(self.user.get('compliance').extended.verify_type)
 
-    self.$maximum_limit.val(self.user.get('compliance').maximum.limit)
+    self.$el.find('#max_limit').val(self.user.get('compliance').maximum.limit)
 
-    self.$verify_service.val(self.user.get('compliance').verification.service)
-    self.$verify_username.val(self.user.get('compliance').verification.username)
-    self.$verify_password.val('********')
+    self.$el.find('#verification_service').val(self.user.get('compliance').verification.service)
+    self.$el.find('#verification_service_username').val(self.user.get('compliance').verification.username)
+    self.$el.find('#verification_service_password').val('********')
 
   },
 

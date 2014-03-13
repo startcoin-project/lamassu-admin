@@ -1,14 +1,6 @@
-
-
-
-
-
-
-
-
 module.exports = Backbone.View.extend({
 
-  className: 'main_trading',
+  className: 'main_trading main_wrap',
 
   initialize: function(){
 
@@ -16,40 +8,46 @@ module.exports = Backbone.View.extend({
 
     self.$el.html(ss.tmpl['main-trading'].render()).appendTo('.dash .main').addClass('animated fadeInUp')
 
-  
-    self.user.on('change:exchange', self.fill_preview.bind(self))
+    self.fill_view()
 
-    self.fill_preview()
-
-
-    self.$el.find('.save').on('click', function(){
-      var new_exchange = {
-        provider: self.$el.find('.mid ul li').eq(0).find('input').val(),
-        clientId: self.$el.find('.mid ul li').eq(1).find('input').val(),
-        key: self.$el.find('.mid ul li').eq(2).find('input').val(),
-        secret: self.$el.find('.mid ul li').eq(3).find('input').val()
-      }
-
-      self.user.set('exchange', new_exchange)
-
-
-    })
-
-
-
+    self.$el.find('input').on('keyup', self.update_settings.bind(self))
+    self.$el.find('select').on('change', self.update_settings.bind(self))
 
   },
 
-  fill_preview: function(){
+  update_settings: function(){
+
+    var self = this
+    
+    //define settings object
+    var exchange_settings = {
+      provider: self.$el.find('#exchange_provider').val(),
+      key: self.$el.find('#exchange_api_key').val(),
+      clientId: self.$el.find('#exchange_id').val(),
+      secret: self.$el.find('#exchange_secret').val()
+    }
+
+    self.user.set('exchange',  exchange_settings)
+
+  },
+
+  fill_view: function(){ //fill feilds with current settings
 
     var self = this
 
-    var exchange = self.user.get('exchange')
+    var exchange_settings = {
+      provider: 'bitstamp',
+      key: 'none',
+      clientId: 'none',
+      secret: 'none'
+    }
 
-    self.$el.find('.preview ul li').eq(0).find('.value').html(exchange.provider)
-    self.$el.find('.preview ul li').eq(1).find('.value').html(exchange.clientId)
-    self.$el.find('.preview ul li').eq(2).find('.value').html(exchange.key)
-    self.$el.find('.preview ul li').eq(3).find('.value').html(exchange.secret)
+    var exchange = self.user.get('exchange') || exchange_settings
+
+    self.$el.find('#exchange_provider').val(exchange.provider)
+    self.$el.find('#exchange_api_key').val(exchange.key)
+    self.$el.find('#exchange_id').val(exchange.clientId)
+    self.$el.find('#exchange_secret').val(exchange.secret)
 
   },
 

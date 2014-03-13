@@ -1,20 +1,19 @@
-// Example Stylus file
-//
-// Stylus docs:  http://learnboost.github.com/stylus/docs/js.html
-// Nib docs:     http://visionmedia.github.com/nib
 @import 'nib'
 @import './fonts'
 
 //dark_gray = #2d2d2d
 dark_blue = #1d2327
 light_blue = #3e4a52
-dark_gray = #1d2327
+dark_gray = #282828
 light_gray = #3e4a52
 cream = #f6f6f4
 teal = #37e8d7
 teal_shadow = #31d0c1
 teal_film = #effffb
 teal_film_shadow = #e5f5f1
+
+
+tan_gray = #babaae
 
 body, html
   height 100%
@@ -23,10 +22,15 @@ body, html
 
 body
   position relative
-  font-family helvetica, sans-serif
+  font-family Brandon, helvetica, sans-serif
   min-width 960px
   min-height 500px
-  font-size 15px
+  font-size 16px
+
+  ul
+    list-style none
+    margin 0
+    padding 0
 
   .panel
     position absolute
@@ -34,7 +38,7 @@ body
     top 0
     bottom 0
     width 200px
-    background dark_blue
+    background dark_gray
 
     .disbled
       opacity 0.15
@@ -60,11 +64,13 @@ body
       z-index 2
       overflow scroll
 
-
       ul
         color rgba(255,255,255,1)
         z-index 2
         cursor pointer
+        list-style none
+        margin 0
+        padding 0
         
         li
           position relative
@@ -154,10 +160,6 @@ body
           top -1px
           font-size 8px
           left -2px
-
-
-
-
 
 
 
@@ -284,122 +286,222 @@ body
           margin-left 25px
           cursor pointer
 
-      @import './price'
-      @import './wallet'
-      @import './compliance'
+      .main_wrap
+        position absolute
+        top 50px
+        left 20px
+        bottom 20px
+        right 20px
+        color light_blue
 
-      .card
-        position absolute 
-        top 0px
-        bottom 0px
-        left 0px
-        right 0px
-        background #f3f3f3
-        box-shadow 0px 1px 1px rgba(0,0,0,0.2)
-        .inner
-          background white
+        .main_title 
+          position absolute
+          font-size 20px
+          top -35px
+          left 5px
+          color rgba(0,0,0,0.6)
+
+        .card
           position absolute 
-          top 0
-          bottom 3px
-          right 0
-          left 0
+          top 0px
+          bottom 0px
+          left 0px
+          right 0px
+          background #f3f3f3
+          box-shadow 0px 1px 1px rgba(0,0,0,0.2)
+          font-style normal
 
-          .top
+
+          .input_wrap, .select_wrap
+            width 100%
+            position relative
+            height 40px
+
+            input
+              appearance none
+              width calc(100% - 12px)
+              height calc(100% - 12px)
+              border 1px solid tan_gray
+              border-radius 5px
+              background none
+              padding 5px
+              margin 0
+              outline none
+
+            select
+              appearance none
+              width 100%
+              height 100%
+              background url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNDI0cHgiIGhlaWdodD0iNTQ1cHgiIHZpZXdCb3g9IjAgMCA0MjQgNTQ1IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA0MjQgNTQ1IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwb2x5Z29uIGZpbGw9IiNCQ0JFQzAiIHBvaW50cz0iOC4yNDQsMjMzLjc2NCAyMTMuNjkyLDcuMzQ0IDQxOS4xNCwyMzMuNzY0ICIvPg0KPHBvbHlnb24gZmlsbD0iI0JDQkVDMCIgcG9pbnRzPSI0MTkuMTQsMzEyLjQ4NyAyMTMuNjkxLDUzOC45MDYgOC4yNDQsMzEyLjQ4NyAiLz4NCjwvc3ZnPg0K") no-repeat calc(100% - 6px) 50%
+              background-size 12px
+              border-radius 5px
+              border 0
+              padding 5px
+              border 1px solid tan_gray
+              outline none
+
+            input:focus, select:focus
+              border 1px solid teal
+
+          .inner
+            background white
             position absolute 
-            top -50px
-            left 0px
+            top 0
+            bottom 3px
             right 0
-            height 75px
-            border-bottom 1px solid rgba(0,0,0,0.1)
-            pointer-events none
-
-            .title 
-              position absolute 
-              top 16px
-              left 3px
-              color light_gray
-              font-size 20px
-
-
-          .mid
-            position absolute 
-            top 26px
             left 0
-            right 0
-            bottom 51px
-            overflow scroll
-            padding 25px
 
-          .bot
-            position absolute 
-            bottom 0
-            left 0
-            right 0
-            height 50px
-            border-top 1px solid rgba(0,0,0,0.1)
-
-            .save
+            .top
               position absolute 
-              bottom -3px
-              height 54px
-              right 0px
-              text-align center
-              background teal
-              cursor pointer
-              box-shadow 0px 1px 1px rgba(0,0,0,0.2)
-              color white
-              font-size 24px
-              width 100px
-              z-index 60
-              left 50%
-              margin-left -50px
+              top -50px
+              left 0px
+              right 0
+              height 75px
+              border-bottom 1px solid rgba(0,0,0,0.1)
+              pointer-events none
 
-              > .text
-                padding 12px
-                color white
+            .mid
+              position absolute 
+              top 26px
+              left 0
+              right 0
+              bottom 26px
+              overflow scroll
+              padding 25px
 
-              .shadow
-                position absolute 
-                bottom 0
-                left 0
-                right 0
-                height 3px
-                background teal_shadow
-/*
-input
-  display block
-  border 0
-  border-radius 0px
-  margin 0
-  padding 0
-  text-align center
-  font-size 20px
-  color light_gray
-  width 100% 
-  height 50px
-  margin-top 10px
+              .description
+                float left
+                width 30%
 
-input, textarea
-  transition all 0.30s ease-in-out
-  outline none
-  box-shadow inset 0 0 0px 1px light_gray
- 
-input:focus, textarea:focus
-  box-shadow inset 0 0 0px 1px rgba(55, 232, 215, 1)
+                .description_title
+                  height 20px
+                  font-weight bold
 
-select
-  display block
-  font-size 20px
-  border 0
-  border-radius 0px
-  margin 0
-  padding 0
-  height 50px
-  width 100%
-  appearance none
-  outline 0
-  text-align center
-  border 1px solid black
-*/
+                .description_body
+                  padding-top 20px
 
+              .settings
+                float right
+                overflow hidden
+                width calc(70% - 11px)
+                padding-left 10px
+                padding-top 40px
+
+
+                ul
+                  li
+                    width 100%
+                    margin-bottom 10px
+                    height 40px
+                    position relative
+
+                    .label 
+                      position absolute 
+                      left 0
+                      top 0
+                      bottom 0
+                      width 140px                     
+                      padding-top 10px
+                      font-size 20px
+                      text-align right
+                      color tan_gray
+
+                    .input_wrap, .select_wrap
+                      position absolute 
+                      right 0
+                      top 0
+                      bottom 0
+                      width calc(100% - 150px)                   
+                      padding-top 5px
+                      text-align right
+
+                .current_price //price
+                  height 50px
+                  width calc(100% - 150px) 
+                  margin-left 150px                   
+                  padding-top 0px
+                  text-align center
+                  color tan_gray
+
+
+                .limits //compliance 
+
+                  ul
+
+                    li 
+                      width 100%
+                      margin-bottom 10px
+                      height 40px
+                      position relative
+
+                      .label
+                        width 180px 
+
+                      .limit
+                        position absolute 
+                        left 190px
+                        top 0
+                        bottom 0
+                        width calc(20% - 10px)
+
+                        input 
+                          text-align right
+
+                        .currency
+                          position absolute 
+                          top 14px
+                          left 6px
+
+                      .verify_type
+                        position absolute 
+                        right 0
+                        top 0
+                        bottom 0
+                        width calc(80% - 190px)
+
+                .verify_service
+                  position relative 
+                  margin-top 50px
+                  height 140px
+
+                  input
+                    text-align center
+
+                  .label
+                    position absolute 
+                    top 0
+                    bottom 0
+                    left 0
+                    width 180px                      
+                    padding-top 5px
+                    font-size 20px
+                    text-align right
+                    color tan_gray
+
+                  .service
+                    position absolute 
+                    right 0
+                    width calc(100% - 190px)
+
+                  .username
+                    position absolute 
+                    top 50px
+                    right 0
+                    width calc(100% - 190px)
+
+                  .password
+                    position absolute 
+                    top 100px
+                    right 0
+                    width calc(100% - 190px)
+
+
+
+            .bot
+              position absolute 
+              bottom 0
+              left 0
+              right 0
+              height 25px
+              border-top 1px solid rgba(0,0,0,0.1)
 

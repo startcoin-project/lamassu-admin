@@ -1,5 +1,7 @@
-var Models = require('./Models')
-var Views = require('./Views')
+
+
+var Models = require('./Models') //the app's backbone models
+var Views = require('./Views') //the app's backbone views
 
 window.ss = require('socketstream')
 
@@ -15,7 +17,7 @@ ss.server.on('ready', function(){
 
   Backbone.View.prototype.user = new Models.User() // make user available to every view
 
-  $(function(){ // wait for the dom
+  $(function(){ 
 
     window.app = new Views.App() // create main app view
 
