@@ -4,7 +4,7 @@
 //dark_gray = #2d2d2d
 dark_blue = #1d2327
 light_blue = #3e4a52
-dark_gray = #1d2327
+dark_gray = #282828
 light_gray = #3e4a52
 cream = #f6f6f4
 teal = #37e8d7
@@ -38,7 +38,7 @@ body
     top 0
     bottom 0
     width 200px
-    background dark_blue
+    background dark_gray
 
     .disbled
       opacity 0.15
@@ -372,17 +372,22 @@ body
               .description
                 min-height 100%
                 float left
-                overflow hidden
                 width 30%
+
+                .description_title
+                  height 20px
+                  font-weight bold
+
+                .description_body
+                  padding-top 20px
 
               .settings
                 min-height 100%
-
                 float right
                 overflow hidden
                 width calc(70% - 11px)
-                border-left 1px solid rgba(0,0,0,0.1)
                 padding-left 10px
+                padding-top 40px
 
 
                 ul
@@ -394,10 +399,10 @@ body
 
                     .label 
                       position absolute 
-                      right calc(60% + 10px)
+                      left 0
                       top 0
                       bottom 0
-                      width 40%                       
+                      width 140px                     
                       padding-top 10px
                       font-size 20px
                       text-align right
@@ -408,17 +413,15 @@ body
                       right 0
                       top 0
                       bottom 0
-                      width 60%                       
+                      width calc(100% - 150px)                   
                       padding-top 5px
-                      font-size 20px
                       text-align right
 
                 .current_price //price
                   height 50px
-                  width 60%
-                  margin-left 40%                    
+                  width calc(100% - 150px) 
+                  margin-left 150px                   
                   padding-top 0px
-                  font-size 20px
                   text-align center
                   color tan_gray
 
@@ -434,18 +437,11 @@ body
                       position relative
 
                       .label
-                        position absolute 
-                        right calc(60% + 10px)
-                        top 0
-                        bottom 0
-                        width 40%                       
-                        padding-top 5px
-                        font-size 20px
-                        text-align right
+                        width 180px 
 
                       .limit
                         position absolute 
-                        right calc(40% + 10px)
+                        left 190px
                         top 0
                         bottom 0
                         width calc(20% - 10px)
@@ -455,16 +451,15 @@ body
 
                         .currency
                           position absolute 
-                          top 9px
+                          top 14px
                           left 6px
-
 
                       .verify_type
                         position absolute 
                         right 0
                         top 0
                         bottom 0
-                        width 40%
+                        width calc(80% - 190px)
 
                 .verify_service
                   position relative 
@@ -478,27 +473,29 @@ body
                     position absolute 
                     top 0
                     bottom 0
-                    width 40%                       
+                    left 0
+                    width 180px                      
                     padding-top 5px
                     font-size 20px
-                    right calc(60% + 10px)
                     text-align right
+                    color tan_gray
 
                   .service
                     position absolute 
                     right 0
-                    width 60%
+                    width calc(100% - 190px)
+
                   .username
                     position absolute 
                     top 50px
                     right 0
-                    width 60%
+                    width calc(100% - 190px)
 
                   .password
                     position absolute 
                     top 100px
                     right 0
-                    width 60%
+                    width calc(100% - 190px)
 
 
 
