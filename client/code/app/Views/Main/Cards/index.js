@@ -5,9 +5,9 @@ module.exports = {
   Price: require('./Price'), 
   Wallet: require('./Wallet'), 
   Trading: require('./Trading'), 
-  Compliance: require('./Compliance'),
+  Compliance: require('./Compliance')
   //Limits: require('./Limits'), 
   //Languages: require('./Languages'),
   //System: require('./System')
   
-};
+}

@@ -11,8 +11,6 @@ module.exports = Backbone.View.extend({
     self.$el.html(ss.tmpl['main-compliance'].render()).appendTo('.dash .main').addClass('animated fadeInUp')
 
 
-
-
     self.$base_limit = self.$el.find('.base .limit input')
     self.$base_verify = self.$el.find('.base .verify_type select')
 

@@ -8,49 +8,26 @@ module.exports = Backbone.View.extend({
 
     self.$el.html(ss.tmpl['main-trading'].render()).appendTo('.dash .main').addClass('animated fadeInUp')
 
-
-    self.$base_limit = self.$el.find('.base .limit input')
-    self.$base_verify = self.$el.find('.base .verify_type select')
-
-    self.$extended_limit = self.$el.find('.extended .limit input')
-    self.$extended_verify = self.$el.find('.extended .verify_type select')
-
-    self.$maximum_limit = self.$el.find('.maximum .limit input')
-
-    self.$verify_service = self.$el.find('.verify_service .service select')
-    self.$verify_username = self.$el.find('.verify_service .username input')
-    self.$verify_password = self.$el.find('.verify_service .password input')
-
     self.fill_view()
 
-    self.$el.find('.save').on('click', function(){
+    self.$el.find('input').on('keyup', self.update_settings.bind(self))
+    self.$el.find('select').on('change', self.update_settings.bind(self))
 
+  },
 
-      //define settings object
-      var compliance_settings = {
-        base: {
-          limit: self.$base_limit.val(),
-          verify_type: self.$base_verify.val()
-        },
-        extended: {
-          limit: self.$extended_limit.val(), 
-          verify_type: self.$extended_verify.val()
-        },
-        maximum: {
-          limit: self.$maximum_limit.val()
-        },
-        currency: 'USD',
-        verification: {
-          service: self.$verify_service.val(),
-          username: self.$verify_username.val(),
-          password: self.$verify_password.val()
+  update_settings: function(){
 
-        }
-      }
+    var self = this
+    
+    //define settings object
+    var exchange_settings = {
+      provider: self.$el.find('#exchange_provider').val(),
+      key: self.$el.find('#exchange_api_key').val(),
+      clientId: self.$el.find('#exchange_id').val(),
+      secret: self.$el.find('#exchange_secret').val()
+    }
 
-      self.user.set('compliance',  compliance_settings)
-
-    })
+    self.user.set('exchange',  exchange_settings)
 
   },
 
@@ -58,17 +35,19 @@ module.exports = Backbone.View.extend({
 
     var self = this
 
-    self.$base_limit.val(self.user.get('compliance').base.limit)
-    self.$base_verify.val(self.user.get('compliance').base.verify_type)
+    var exchange_settings = {
+      provider: 'bitstamp',
+      key: 'none',
+      clientId: 'none',
+      secret: 'none'
+    }
 
-    self.$extended_limit.val(self.user.get('compliance').extended.limit)
-    self.$extended_verify.val(self.user.get('compliance').extended.verify_type)
+    var exchange = self.user.get('exchange') || exchange_settings
 
-    self.$maximum_limit.val(self.user.get('compliance').maximum.limit)
-
-    self.$verify_service.val(self.user.get('compliance').verification.service)
-    self.$verify_username.val(self.user.get('compliance').verification.username)
-    self.$verify_password.val('********')
+    self.$el.find('#exchange_provider').val(exchange.provider)
+    self.$el.find('#exchange_api_key').val(exchange.key)
+    self.$el.find('#exchange_id').val(exchange.clientId)
+    self.$el.find('#exchange_secret').val(exchange.secret)
 
   },
 
