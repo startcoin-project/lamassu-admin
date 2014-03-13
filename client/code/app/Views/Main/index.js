@@ -1,10 +1,4 @@
-
-
-
 Cards = require('./Cards')
-
-
-
 
 module.exports = Backbone.View.extend({
 
@@ -14,21 +8,19 @@ module.exports = Backbone.View.extend({
 
     var self = this
 
-    this.$el.html(ss.tmpl['main-base'].render()).appendTo('.dash').addClass('animated fadeIn')
+    self.$el.html(ss.tmpl['main-base'].render()).appendTo('.dash').addClass('animated fadeIn')
 
-    $('.menu').show().addClass('animated fadeInUp') //trigger menu show, menu should have its own view
+    //trigger menu show, menu should have its own view
+    $('.menu').show().addClass('animated fadeInUp')
 
     $('.display').show().addClass('animated fadeInUp')
 
     $('.menu .items li').on('click', function(e){
-
       var index = $(this).index()
-
       self.swap(index)
-
     })
 
-    this.swap(2) // will be 0, first screen will be first menu item
+    self.swap(2) // will be 0, first screen will be first menu item
 
   },
 
@@ -36,20 +28,14 @@ module.exports = Backbone.View.extend({
 
     var self = this
 
-    if(index === this.current_index){return}
+    if(index === self.current_index) return
 
     var select_card = function(new_card){
-
       if(self.current != null){self.current.clear()}
-
       self.current = new_card
-
       self.current_index = index
-
       $('.menu .items li').removeClass('selected')
-
       $('.menu .items li').eq(index).addClass('selected')
-
     }
 
     switch (index) {
@@ -87,9 +73,8 @@ module.exports = Backbone.View.extend({
   clear: function(){
 
     var self = this
-
     self.$el.remove()
-
+    
   }
 
 })

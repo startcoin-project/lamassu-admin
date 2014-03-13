@@ -1,14 +1,6 @@
-
-
-
-
-
-
-
-
 module.exports = Backbone.View.extend({
 
-  className: 'main_trading',
+  className: 'main_trading main_wrap',
 
   initialize: function(){
 
@@ -16,40 +8,67 @@ module.exports = Backbone.View.extend({
 
     self.$el.html(ss.tmpl['main-trading'].render()).appendTo('.dash .main').addClass('animated fadeInUp')
 
-  
-    self.user.on('change:exchange', self.fill_preview.bind(self))
 
-    self.fill_preview()
+    self.$base_limit = self.$el.find('.base .limit input')
+    self.$base_verify = self.$el.find('.base .verify_type select')
 
+    self.$extended_limit = self.$el.find('.extended .limit input')
+    self.$extended_verify = self.$el.find('.extended .verify_type select')
+
+    self.$maximum_limit = self.$el.find('.maximum .limit input')
+
+    self.$verify_service = self.$el.find('.verify_service .service select')
+    self.$verify_username = self.$el.find('.verify_service .username input')
+    self.$verify_password = self.$el.find('.verify_service .password input')
+
+    self.fill_view()
 
     self.$el.find('.save').on('click', function(){
-      var new_exchange = {
-        provider: self.$el.find('.mid ul li').eq(0).find('input').val(),
-        clientId: self.$el.find('.mid ul li').eq(1).find('input').val(),
-        key: self.$el.find('.mid ul li').eq(2).find('input').val(),
-        secret: self.$el.find('.mid ul li').eq(3).find('input').val()
+
+
+      //define settings object
+      var compliance_settings = {
+        base: {
+          limit: self.$base_limit.val(),
+          verify_type: self.$base_verify.val()
+        },
+        extended: {
+          limit: self.$extended_limit.val(), 
+          verify_type: self.$extended_verify.val()
+        },
+        maximum: {
+          limit: self.$maximum_limit.val()
+        },
+        currency: 'USD',
+        verification: {
+          service: self.$verify_service.val(),
+          username: self.$verify_username.val(),
+          password: self.$verify_password.val()
+
+        }
       }
 
-      self.user.set('exchange', new_exchange)
-
+      self.user.set('compliance',  compliance_settings)
 
     })
 
-
-
-
   },
 
-  fill_preview: function(){
+  fill_view: function(){ //fill feilds with current settings
 
     var self = this
 
-    var exchange = self.user.get('exchange')
+    self.$base_limit.val(self.user.get('compliance').base.limit)
+    self.$base_verify.val(self.user.get('compliance').base.verify_type)
 
-    self.$el.find('.preview ul li').eq(0).find('.value').html(exchange.provider)
-    self.$el.find('.preview ul li').eq(1).find('.value').html(exchange.clientId)
-    self.$el.find('.preview ul li').eq(2).find('.value').html(exchange.key)
-    self.$el.find('.preview ul li').eq(3).find('.value').html(exchange.secret)
+    self.$extended_limit.val(self.user.get('compliance').extended.limit)
+    self.$extended_verify.val(self.user.get('compliance').extended.verify_type)
+
+    self.$maximum_limit.val(self.user.get('compliance').maximum.limit)
+
+    self.$verify_service.val(self.user.get('compliance').verification.service)
+    self.$verify_username.val(self.user.get('compliance').verification.username)
+    self.$verify_password.val('********')
 
   },
 

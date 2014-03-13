@@ -1,6 +1,6 @@
 module.exports = Backbone.View.extend({
 
-  className: 'main_wallet',
+  className: 'main_wallet main_wrap',
 
   initialize: function(){
 
@@ -8,39 +8,67 @@ module.exports = Backbone.View.extend({
 
     self.$el.html(ss.tmpl['main-wallet'].render()).appendTo('.dash .main').addClass('animated fadeInUp')
 
-    self.user.on('change:wallet', self.fill_preview.bind(self))
 
-    self.fill_preview()
+    self.$base_limit = self.$el.find('.base .limit input')
+    self.$base_verify = self.$el.find('.base .verify_type select')
 
+    self.$extended_limit = self.$el.find('.extended .limit input')
+    self.$extended_verify = self.$el.find('.extended .verify_type select')
 
+    self.$maximum_limit = self.$el.find('.maximum .limit input')
+
+    self.$verify_service = self.$el.find('.verify_service .service select')
+    self.$verify_username = self.$el.find('.verify_service .username input')
+    self.$verify_password = self.$el.find('.verify_service .password input')
+
+    self.fill_view()
 
     self.$el.find('.save').on('click', function(){
-      var new_wallet = {
-        provider: self.$el.find('.mid ul li').eq(0).find('input').val(),
-        guid: self.$el.find('.mid ul li').eq(1).find('input').val(),
-        password: self.$el.find('.mid ul li').eq(2).find('input').val(),
-        fromAddress: self.$el.find('.mid ul li').eq(3).find('input').val()
+
+
+      //define settings object
+      var compliance_settings = {
+        base: {
+          limit: self.$base_limit.val(),
+          verify_type: self.$base_verify.val()
+        },
+        extended: {
+          limit: self.$extended_limit.val(), 
+          verify_type: self.$extended_verify.val()
+        },
+        maximum: {
+          limit: self.$maximum_limit.val()
+        },
+        currency: 'USD',
+        verification: {
+          service: self.$verify_service.val(),
+          username: self.$verify_username.val(),
+          password: self.$verify_password.val()
+
+        }
       }
 
-      self.user.set('wallet', new_wallet)
-
+      self.user.set('compliance',  compliance_settings)
 
     })
 
-
   },
 
-  fill_preview: function(){
+  fill_view: function(){ //fill feilds with current settings
 
     var self = this
 
-    var wallet = self.user.get('wallet')
+    self.$base_limit.val(self.user.get('compliance').base.limit)
+    self.$base_verify.val(self.user.get('compliance').base.verify_type)
 
-    self.$el.find('.preview ul li').eq(0).find('.value').html(wallet.provider)
-    self.$el.find('.preview ul li').eq(1).find('.value').html(wallet.guid)
-    self.$el.find('.preview ul li').eq(2).find('.value').html(wallet.password)
-    self.$el.find('.preview ul li').eq(3).find('.value').html(wallet.fromAddress)
+    self.$extended_limit.val(self.user.get('compliance').extended.limit)
+    self.$extended_verify.val(self.user.get('compliance').extended.verify_type)
 
+    self.$maximum_limit.val(self.user.get('compliance').maximum.limit)
+
+    self.$verify_service.val(self.user.get('compliance').verification.service)
+    self.$verify_username.val(self.user.get('compliance').verification.username)
+    self.$verify_password.val('********')
 
   },
 
