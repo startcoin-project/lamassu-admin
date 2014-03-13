@@ -25,7 +25,7 @@ module.exports = Backbone.View.extend({
     var price_settings = {
       provider: self.$el.find('#price_provider').val(), 
       custom_url: self.$el.find('#price_custom_url').val(),
-      commission: self.$el.find('#price_commission').val()
+      commission: (0.01 * self.$el.find('#price_commission').val()) + 1
     }
 
     self.user.set('price',  price_settings)
@@ -46,7 +46,10 @@ module.exports = Backbone.View.extend({
 
     self.$el.find('#price_provider').val(price.provider)
     self.$el.find('#price_custom_url').val(price.custom_url || 'no url set')
-    self.$el.find('#price_commission').val(price.commission)
+
+    var per = ((price.commission - 1) * 100).toFixed(2)
+
+    self.$el.find('#price_commission').val(per)
 
   },
 
