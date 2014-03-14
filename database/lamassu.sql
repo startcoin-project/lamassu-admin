@@ -134,6 +134,15 @@ CREATE TABLE txlog (
 ALTER TABLE ONLY txlog ADD CONSTRAINT txlog_pkey PRIMARY KEY (id);
 ALTER TABLE public.txlog OWNER TO postgres;
 
+CREATE TABLE devices (
+    id SERIAL,
+    fingerprint character varying(59),
+    name character varying
+);
+
+ALTER TABLE ONLY devices ADD CONSTRAINT devices_pkey PRIMARY KEY (id);
+ALTER TABLE public.devices OWNER TO postgres; -- XXX is this really needed?
+
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
 REVOKE ALL ON SCHEMA public FROM postgres;
