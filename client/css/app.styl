@@ -4,8 +4,7 @@
 //dark_gray = #2d2d2d
 dark_blue = #1d2327
 light_blue = #3e4a52
-dark_gray = #282828
-light_gray = #3e4a52
+
 cream = #f6f6f4
 teal = #37e8d7
 teal_shadow = #31d0c1
@@ -13,7 +12,11 @@ teal_film = #effffb
 teal_film_shadow = #e5f5f1
 
 
+//new
+dark_gray = #2d2d2d
+light_gray = #5f5f5f
 tan_gray = #babaae
+cream_gray = #f5f5f2
 
 body, html
   height 100%
@@ -37,11 +40,11 @@ body
     left 0
     top 0
     bottom 0
-    width 200px
+    width 250px
     background dark_gray
 
     .disbled
-      opacity 0.15
+      opacity 0.25
       pointer-events none
 
     .logo
@@ -51,6 +54,7 @@ body
       right 0
       height 75px
       background url('/images/lamassu-logo.png') 45% 50% no-repeat
+      background-size 55%
       z-index 4
 
     .menu
@@ -60,7 +64,6 @@ body
       left 0
       right 0
       bottom 75px
-      background rgba(0,0,0,0.1)
       z-index 2
       overflow scroll
 
@@ -76,23 +79,27 @@ body
           position relative
           height 50px
           width 100%
-          border-top 1px solid rgba(0,0,0,0.3)
+          //border-top 1px solid rgba(0,0,0,0.3)
           //text-align center
+          color light_gray
+          //font-size 15px
+          font-weight bold
+
           
           .text
             position absolute
-            padding-left 50px
-            padding-top 18px
+            padding-left 85px
+            padding-top 15px
 
           .icon
             position absolute
-            top 23px
-            left 23px
-            width 5px
-            height 5px
-
-            border-radius 50%
-            background teal
+            top 0px
+            left 48px
+            width 30px
+            height 50px
+            background-size 30px 30px
+            background-repeat no-repeat
+            background-position center center
 
         li:hover
           color teal
@@ -103,6 +110,8 @@ body
 
         li.selected
           color teal
+          transition all 0.30s ease-in-out
+          background rgba(0,0,0,0.1)
 
     .display
       display none
@@ -114,6 +123,7 @@ body
       right 0
       text-align center
       z-index 4
+      background rgba(0,0,0,0.1)
 
       .text
         color white
@@ -130,17 +140,17 @@ body
       .price
         color white
         position absolute
-        font-size 28px
+        font-size 30px
         right 0px
         left 0
-        top 16px
-        font-family Raleway
+        top 10px
+        //font-family Raleway
         color teal
-        letter-spacing 2px
+        //letter-spacing 2px
 
         .currency 
           position relative 
-          top -3px
+          top -6px
           font-size 17px
           left -2px
 
@@ -149,7 +159,7 @@ body
         font-size 10px
         position absolute 
         height 12px
-        bottom 32px
+        bottom 34px
         left 0px
         right 0
         text-transform uppercase
@@ -168,8 +178,8 @@ body
     right 0
     top 0
     bottom 0
-    left 200px
-    background cream
+    left 250px
+    background cream_gray
     z-index 20
 
     .login
@@ -272,14 +282,12 @@ body
       .links
         height 15px
         position absolute 
-        right 28px
-        top 20px
+        right 53px
+        top 28px
         left 0
         text-align right
-        font-size 12px
-        text-transform uppercase
-        color rgba(0,0,0,0.6)
-        font-weight bold
+        font-size 14px
+        color tan_gray
 
         li
           float right
@@ -288,18 +296,10 @@ body
 
       .main_wrap
         position absolute
-        top 50px
-        left 20px
-        bottom 20px
-        right 20px
-        color light_blue
-
-        .main_title 
-          position absolute
-          font-size 20px
-          top -35px
-          left 5px
-          color rgba(0,0,0,0.6)
+        top 75px
+        left 50px
+        bottom 50px
+        right 50px
 
         .card
           position absolute 
@@ -310,7 +310,7 @@ body
           background #f3f3f3
           box-shadow 0px 1px 1px rgba(0,0,0,0.2)
           font-style normal
-
+          border-radius 5px
 
           .input_wrap, .select_wrap
             width 100%
@@ -347,25 +347,35 @@ body
             background white
             position absolute 
             top 0
-            bottom 3px
+            bottom 2px
             right 0
             left 0
+            border-radius 3px
 
             .top
               position absolute 
-              top -50px
+              top 0px
               left 0px
               right 0
               height 75px
               border-bottom 1px solid rgba(0,0,0,0.1)
               pointer-events none
 
+
+              .main_title 
+                position absolute
+                font-size 20px
+                left 25px
+                top 25px
+                color black
+
+
             .mid
               position absolute 
-              top 26px
+              top 76px
               left 0
               right 0
-              bottom 26px
+              bottom 11px
               overflow scroll
               padding 25px
 
@@ -416,7 +426,7 @@ body
                       text-align right
 
                 .current_price //price
-                  height 50px
+                  height 30px
                   width calc(100% - 150px) 
                   margin-left 150px                   
                   padding-top 0px
@@ -502,6 +512,6 @@ body
               bottom 0
               left 0
               right 0
-              height 25px
+              height 10px
               border-top 1px solid rgba(0,0,0,0.1)
 
