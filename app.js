@@ -32,16 +32,16 @@ ss.client.templateEngine.use(require('ss-hogan'))
 // if (ss.env === 'production') ss.client.packAssets();
 
 // start server
-if (argv.https) {
+if (argv.http) {
+  server = http.Server(ss.http.middleware)
+}
+else {
   var options = {
     key: fs.readFileSync(argv.key),
     cert: fs.readFileSync(argv.cert)
   }
 
   server = https.createServer(options, ss.http.middleware)
-}
-else {
-  server = http.Server(ss.http.middleware)
 }
 
 server.listen(process.env.PORT || 8080)
