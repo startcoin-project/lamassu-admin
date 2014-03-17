@@ -137,7 +137,8 @@ ALTER TABLE public.txlog OWNER TO postgres;
 CREATE TABLE devices (
     id SERIAL,
     fingerprint character varying(59),
-    name character varying
+    name character varying,
+    confirmed boolean
 );
 
 ALTER TABLE ONLY devices ADD CONSTRAINT devices_pkey PRIMARY KEY (id);
