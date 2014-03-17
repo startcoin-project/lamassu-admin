@@ -12,15 +12,14 @@ function fail() {
 }
 
 function upstart() {
-  service=$1
-  cmd=$2
+  package="$1"
 
-  cat > "/etc/init/$service"".conf" <<EOF
-exec $2
+  cat > "/etc/init/$package"".conf" <<EOF
+exec $package --key /root/$package\.key --cert /root/$package\.crt
 respawn
 start on startup
 env DATABASE_URL=postgres://lamassu:$password@localhost/lamassu
-chdir $(npm -g explore $2 pwd)
+chdir $(npm -g explore $package pwd)
 EOF
 }
 
@@ -105,8 +104,8 @@ npm -g install lamassu-server lamassu-admin >> $debug 2>&1
 
 echo "Installing Lamassu services..."
 if [ "$service" == "upstart" ]; then
-  upstart "lamassu-server" "lamassu-server"
-  upstart "lamassu-admin" "lamassu-admin"
+  upstart "lamassu-server"
+  upstart "lamassu-admin"
 fi
 
 # Bootstrap lamassu database
