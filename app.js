@@ -1,6 +1,13 @@
 #!/usr/bin/env node
+var fs = require('fs')
 var http = require('http')
+var https = require('https')
 var ss = require('socketstream')
+
+var argv = require('yargs')
+  .argv
+
+var server
 
 //define assets for admin app
 ss.client.define('main', {
@@ -25,7 +32,17 @@ ss.client.templateEngine.use(require('ss-hogan'))
 // if (ss.env === 'production') ss.client.packAssets();
 
 // start server
-var server = http.Server(ss.http.middleware)
+if (argv.https) {
+  var options = {
+    key: fs.readFileSync(argv.key),
+    cert: fs.readFileSync(argv.cert)
+  }
+
+  server = https.createServer(options, ss.http.middleware)
+}
+else {
+  server = http.Server(ss.http.middleware)
+}
 
 server.listen(process.env.PORT || 8080)
 
