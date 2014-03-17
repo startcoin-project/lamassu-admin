@@ -135,7 +135,7 @@ openssl req -new -newkey rsa:8092 -days 9999 -nodes -x509 -subj "/C=US/ST=/L=/O=
 chmod 600 *.key *.crt
 
 echo "Starting lamassu-admin..."
-start lamassu-admin >> lamassu-debug.log
+start lamassu-admin >> 2>&1 lamassu-debug.log
 [ $? -ne 0 ] && fail "Starting lamassu-admin failed"
 
 echo
