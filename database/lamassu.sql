@@ -144,13 +144,13 @@ CREATE TABLE devices (
 ALTER TABLE ONLY devices ADD CONSTRAINT devices_pkey PRIMARY KEY (id);
 ALTER TABLE public.devices OWNER TO postgres; -- XXX is this really needed?
 
-CREATE TABLE tokens (
+CREATE TABLE pairing_tokens (
     id SERIAL,
     token character varying(59)
 );
 
-ALTER TABLE ONLY tokens ADD CONSTRAINT tokens_pkey PRIMARY KEY (id);
-ALTER TABLE public.tokens OWNER TO postgres;
+ALTER TABLE ONLY pairing_tokens ADD CONSTRAINT pairing_tokens_pkey PRIMARY KEY (id);
+ALTER TABLE public.pairing_tokens OWNER TO postgres;
 
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
