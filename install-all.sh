@@ -132,6 +132,8 @@ openssl req -new -newkey rsa:8092 -days 9999 -nodes -x509 -subj "/C=US/ST=/L=/O=
 openssl req -new -newkey rsa:8092 -days 9999 -nodes -x509 -subj "/C=US/ST=/L=/O=/CN=$ip:3000" -keyout lamassu-server.key -out lamassu-server.crt >> $debug 2>&1
 [ $? -ne 0 ] && fail "Generating a certificate for lamassu-server failed"
 
+chmod 600 *.key *.crt
+
 echo "Starting lamassu-admin..."
 start lamassu-admin >> lamassu-debug.log
 [ $? -ne 0 ] && fail "Starting lamassu-admin failed"
