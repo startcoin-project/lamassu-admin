@@ -38,7 +38,10 @@ if (argv.http) {
 else {
   var options = {
     key: fs.readFileSync(argv.key),
-    cert: fs.readFileSync(argv.cert)
+    cert: fs.readFileSync(argv.cert),
+    secureProtocol: 'TLSv1_method',
+    ciphers: 'AES128-GCM-SHA256:RC4:HIGH:!MD5:!aNULL:!EDH',
+    honorCipherOrder: true
   }
 
   server = https.createServer(options, ss.http.middleware)
