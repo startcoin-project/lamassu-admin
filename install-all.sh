@@ -122,11 +122,19 @@ npm explore -g lamassu-admin 'cat database/lamassu.sql' |
 
 [ $? -ne 0 ] && fail "Bootstrapping PostgreSQL failed"
 
+ip=$(ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
+
+# Generate SSL certificates for lamassu-server and lamassu-admin.
+echo "Generating SSL certificates..."
+openssl req -new -newkey rsa:8092 -days 9999 -nodes -x509 -subj "/C=US/ST=/L=/O=/CN=$ip:8080" -keyout lamassu-admin.key  -out lamassu-admin.crt >> $debug 2>&1
+[ $? -ne 0 ] && fail "Generating a certificate for lamassu-admin failed"
+
+openssl req -new -newkey rsa:8092 -days 9999 -nodes -x509 -subj "/C=US/ST=/L=/O=/CN=$ip:3000" -keyout lamassu-server.key -out lamassu-server.crt >> $debug 2>&1
+[ $? -ne 0 ] && fail "Generating a certificate for lamassu-server failed"
+
 echo "Starting lamassu-admin..."
 start lamassu-admin >> lamassu-debug.log
 [ $? -ne 0 ] && fail "Starting lamassu-admin failed"
-
-ip=$(ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
 
 echo
 echo "Done! Now it's time to configure Lamassu stack."
