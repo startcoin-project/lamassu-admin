@@ -12,11 +12,45 @@ module.exports = Backbone.View.extend({
 
     self.fill_view()
 
+    self.update_prices()
+
     self.$el.find('input').on('keyup', self.update_settings.bind(self))
     self.$el.find('select').on('change', self.update_settings.bind(self))
 
+    self.user.price_data.on('change', self.update_prices.bind(self))
+    self.$el.find('input').on('keyup', self.update_prices.bind(self))
+    self.$el.find('select').on('change', self.update_prices.bind(self))
+
   },
 
+  update_prices: function(){
+
+
+
+    //pull in current price from selected soruce
+
+    var self = this
+
+    var selected_soruce = self.$el.find('#price_provider').val()
+    var price = self.user.price_data.get(selected_soruce)
+    var current = Math.round(price) / 100 
+
+    var commission = (0.01 * self.$el.find('#price_commission').val()) + 1
+    var display = Math.round(price * commission) / 100 
+    
+    if(isNaN(current)){
+      self.$el.find('.current_price .value').html('---.--')
+    }else{
+      self.$el.find('.current_price .value').html(current.toFixed(2))
+    }
+
+    if(isNaN(display)){
+      self.$el.find('.price_overview .value').html('---.--')
+    }else{
+      self.$el.find('.price_overview .value').html(display.toFixed(2))
+    }
+
+  },
   update_settings: function(){
 
     var self = this
@@ -45,7 +79,7 @@ module.exports = Backbone.View.extend({
     var price = self.user.get('price') || price_settings
 
     self.$el.find('#price_provider').val(price.provider)
-    self.$el.find('#price_custom_url').val(price.custom_url || 'no url set')
+    self.$el.find('#price_custom_url').val(price.custom_url)
 
     var per = ((price.commission - 1) * 100).toFixed(2)
 
