@@ -13,6 +13,26 @@ module.exports = Backbone.View.extend({
     self.$el.find('input').on('keyup', self.update_settings.bind(self))
     self.$el.find('select').on('change', self.update_settings.bind(self))
 
+    console.log(self.user.get('exchange'))
+
+    self.enabled = self.user.get('exchange').enabled
+
+    if(self.enabled){
+      self.$el.find('.toggle .active').css({'display':'block'})
+    }else{
+      self.$el.find('.toggle .inactive').css({'display':'block'})
+      self.$el.find('.settings').addClass('disabled')
+    }
+
+    self.$el.find('.toggle').on('click', function(){
+
+      self.set_toggle.apply(self)
+
+      self.update_settings.apply(self)
+
+    })
+
+
   },
 
   update_settings: function(){
@@ -21,6 +41,7 @@ module.exports = Backbone.View.extend({
     
     //define settings object
     var exchange_settings = {
+      enabled: self.enabled,
       provider: self.$el.find('#exchange_provider').val(),
       key: self.$el.find('#exchange_api_key').val(),
       clientId: self.$el.find('#exchange_id').val(),
@@ -28,6 +49,35 @@ module.exports = Backbone.View.extend({
     }
 
     self.user.set('exchange',  exchange_settings)
+
+  },
+
+  set_toggle: function(){
+
+    var self = this
+
+    if(self.enabled){
+
+      self.enabled = false
+
+      self.$el.find('.settings').addClass('disabled')
+
+
+    }else{
+
+      self.enabled = true
+
+      self.$el.find('.settings').removeClass('disabled')
+
+    }
+
+    if(self.enabled){
+      self.$el.find('.toggle .inactive').css({'display':'none'})
+      self.$el.find('.toggle .active').css({'display':'block'})
+    }else{
+      self.$el.find('.toggle .inactive').css({'display':'block'})
+      self.$el.find('.toggle .active').css({'display':'none'})
+    }
 
   },
 

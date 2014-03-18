@@ -12,6 +12,8 @@ module.exports = Backbone.View.extend({
 
     self.fill_view()
 
+    self.update_prices()
+
     self.$el.find('input').on('keyup', self.update_settings.bind(self))
     self.$el.find('select').on('change', self.update_settings.bind(self))
 
@@ -77,7 +79,7 @@ module.exports = Backbone.View.extend({
     var price = self.user.get('price') || price_settings
 
     self.$el.find('#price_provider').val(price.provider)
-    self.$el.find('#price_custom_url').val(price.custom_url || 'no url set')
+    self.$el.find('#price_custom_url').val(price.custom_url)
 
     var per = ((price.commission - 1) * 100).toFixed(2)
 
