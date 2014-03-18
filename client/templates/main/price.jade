@@ -19,7 +19,11 @@
               select#price_provider
                 option(value="bitstamp") BitStamp
                 option(value="bitpay") BitPay
-        .current_price The current price is $500.00.
+        .current_price 
+          | The current price is 
+          span.currency $
+          span.value ---.--
+          | .
         ul
           li
             .label Custom Source
@@ -29,5 +33,12 @@
             .label Commission
             .input_wrap
               input#price_commission
+              .percent_symbol %
     .bot
+      .price_overview
+
+        | Display Price: 
+        span.currency $
+        span.value ---.--
+
 
