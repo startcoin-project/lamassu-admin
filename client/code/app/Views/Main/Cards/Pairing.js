@@ -7,6 +7,7 @@ module.exports = Backbone.View.extend({
     var self = this
 
     self.$el.html(ss.tmpl['main-pairing'].render()).appendTo('.dash .main').addClass('animated fadeInUp')
+    new QRCode(document.getElementById('qrcode'), 'hello qr');
   },
 
   clear: function(){
