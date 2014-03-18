@@ -7,6 +7,7 @@ exports.actions = function(req, res, ss) {
     startPairing: function(data) {
       config.createPairingToken(function(err, token) {
         if (err) return res(err);
+        res(null, token);
       })
     }
   }
