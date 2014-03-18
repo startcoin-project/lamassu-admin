@@ -1,8 +1,4 @@
-var LamassuConfig = require('lamassu-config');
-
-var psql = process.env.DATABASE_URL || 'postgres://lamassu:lamassu@localhost/lamassu';
-var config = new LamassuConfig(psql);
-
+var config = require('../config.js');
 
 exports.actions = function(req, res, ss) {
 
