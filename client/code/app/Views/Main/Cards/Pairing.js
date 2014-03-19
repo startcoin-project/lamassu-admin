@@ -8,9 +8,8 @@ module.exports = Backbone.View.extend({
 
     self.$el.html(ss.tmpl['main-pairing'].render()).appendTo('.dash .main').addClass('animated fadeInUp')
 
-    self.create_pairing_token(function(err, token){
-      self.display_qr({}, token)
-    });
+
+    self.display_qr();
   },
 
   clear: function(){
@@ -25,18 +24,21 @@ module.exports = Backbone.View.extend({
       self.$el.remove()
 
     }, 500)
-
   },
 
-  create_pairing_token: function(callback){
-    this.user.create_pairing_token(callback)
-  },
+  display_qr: function(){
+    var self = this
 
-  display_qr: function(server, token) {
-    new QRCode(document.getElementById('qrcode'), JSON.stringify({
-      trader: server,
-      token: token
-    }))
+    self.user.create_pairing_token(function(err, token){
+      if (err) return alert('Pairing failed: ' + err.message)
+
+      self.user.get_server_address(function(err, address){
+        new QRCode(document.getElementById('qrcode'), JSON.stringify({
+          token: token,
+          trader: address
+        }))
+      })
+    })
   }
 
 })
