@@ -9,7 +9,7 @@ module.exports = Backbone.View.extend({
     self.$el.html(ss.tmpl['main-pairing'].render()).appendTo('.dash .main').addClass('animated fadeInUp')
 
     self.create_pairing_token(function(err, token){
-      console.dir(arguments)
+      self.display_qr({}, token)
     });
   },
 
@@ -30,6 +30,13 @@ module.exports = Backbone.View.extend({
 
   create_pairing_token: function(callback){
     this.user.create_pairing_token(callback)
+  },
+
+  display_qr: function(server, token) {
+    new QRCode(document.getElementById('qrcode'), JSON.stringify({
+      trader: server,
+      token: token
+    }))
   }
 
 })
