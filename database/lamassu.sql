@@ -152,6 +152,21 @@ CREATE TABLE pairing_tokens (
 ALTER TABLE ONLY pairing_tokens ADD CONSTRAINT pairing_tokens_pkey PRIMARY KEY (id);
 ALTER TABLE public.pairing_tokens OWNER TO postgres;
 
+
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+CREATE TABLE users (
+    id SERIAL,
+    userName character varying(20) not null,
+    salt character varying(180) not null,
+    pwdHash character varying(512) not null
+);
+
+-- ALTER TABLE public.txlog OWNER TO postgres;
+ALTER TABLE ONLY users ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY users ADD CONSTRAINT userName_unique UNIQUE (userName);
+ALTER TABLE public.users OWNER TO postgres;
+
+
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
 REVOKE ALL ON SCHEMA public FROM postgres;
