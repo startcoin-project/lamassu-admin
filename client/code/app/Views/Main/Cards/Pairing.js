@@ -29,10 +29,12 @@ module.exports = Backbone.View.extend({
   display_qr: function(){
     var self = this
 
-    self.user.create_pairing_token(function(err, token){
-      if (err) return alert('Pairing failed: ' + err.message)
+    self.user.get_server_address(function(err, address){
+      if (err) return alert('Getting server address failed: ' + err.message)
 
-      self.user.get_server_address(function(err, address){
+      self.user.create_pairing_token(function(err_, token){
+        if (err_) return alert('Pairing failed: ' + err_.message)
+
         new QRCode(document.getElementById('qrcode'), JSON.stringify({
           token: token,
           trader: address
