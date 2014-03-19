@@ -130,8 +130,11 @@ openssl req -new -newkey rsa:8092 -days 9999 -nodes -x509 -subj "/C=US/ST=/L=/O=
 
 openssl req -new -newkey rsa:8092 -days 9999 -nodes -x509 -subj "/C=US/ST=/L=/O=/CN=$ip:3000" -keyout lamassu-server.key -out lamassu-server.crt >> $debug 2>&1
 [ $? -ne 0 ] && fail "Generating a certificate for lamassu-server failed"
+fingerprint=$(openssl x509 -fingerprint -sha1 -noout -in lamassu-server.crt | sed 's/SHA1 Fingerprint=//')
 
 chmod 600 *.key *.crt
+
+PGPASSWORD="$password" psql -h 127.0.0.1 lamassu lamassu -c "INSERT INTO servers VALUES (DEFAULT, '$ip', 3000, '$fingerprint')" >> $debug 2>&1
 
 echo "Starting lamassu-admin..."
 start lamassu-admin >> $debug 2>&1

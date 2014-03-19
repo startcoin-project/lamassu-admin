@@ -152,6 +152,16 @@ CREATE TABLE pairing_tokens (
 ALTER TABLE ONLY pairing_tokens ADD CONSTRAINT pairing_tokens_pkey PRIMARY KEY (id);
 ALTER TABLE public.pairing_tokens OWNER TO postgres;
 
+
+CREATE table servers (
+    id SERIAL,
+    host character varying,
+    port integer,
+    fingerprint character varying(59)
+);
+ALTER TABLE ONLY servers ADD CONSTRAINT servers_pkey PRIMARY KEY (id);
+ALTER TABLE public.servers OWNER TO postgres;
+
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
 REVOKE ALL ON SCHEMA public FROM postgres;
