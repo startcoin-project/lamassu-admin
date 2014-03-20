@@ -146,7 +146,8 @@ ALTER TABLE public.devices OWNER TO postgres; -- XXX is this really needed?
 
 CREATE TABLE pairing_tokens (
     id SERIAL,
-    token character varying(64)
+    token character varying(64),
+    created bigint
 );
 
 ALTER TABLE ONLY pairing_tokens ADD CONSTRAINT pairing_tokens_pkey PRIMARY KEY (id);
