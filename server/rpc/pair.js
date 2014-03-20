@@ -1,4 +1,6 @@
+var ip = require('ip');
 var config = require('../config.js');
+var fingerprint = require('../fingerprint.js');
 
 exports.actions = function(req, res, ss) {
   req.use('session');
@@ -9,6 +11,13 @@ exports.actions = function(req, res, ss) {
         if (err) return res(err);
         res(null, token);
       })
+    },
+    get_server_address: function(data) {
+      res(null, {
+        host: '255.255.255.255',
+        port: 3000,
+        fingerprint: fingerprint()
+      });
     }
   }
 }
