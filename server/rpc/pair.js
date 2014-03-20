@@ -1,4 +1,3 @@
-var ip = require('ip');
 var config = require('../config.js');
 var fingerprint = require('../fingerprint.js');
 
