@@ -15,8 +15,8 @@ module.exports = Backbone.View.extend({
 
     console.log(self.user.get('exchange'))
 
-    self.enabled = self.user.get('exchange').enabled
-
+    self.enabled = self.user.get('exchange') !== null;
+    
     if(self.enabled){
       self.$el.find('.toggle .active').css({'display':'block'})
     }else{

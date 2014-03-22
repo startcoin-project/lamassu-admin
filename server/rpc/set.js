@@ -35,13 +35,16 @@ exports.actions = function(req, res, ss) {
       config.load(function(err, results) {
         if (err) return callback(err);
 
-        var provider = data.provider;
-        var settings = results.config.exchanges.plugins.settings[provider];
+        var provider = data.enabled ? data.provider : null;
         results.config.exchanges.plugins.current.trade = provider;
-        Object.keys(data).forEach(function(key) {
-          if (key !== 'provider')
-            settings[key] = data[key];
-        });
+
+        if (provider) {
+          var settings = results.config.exchanges.plugins.settings[provider];
+          Object.keys(data).forEach(function(key) {
+            if (key !== 'provider' && key !== 'enabled')
+              settings[key] = data[key];
+          });          
+        }
 
         config.saveExchangesConfig(results.config, res);
       });
