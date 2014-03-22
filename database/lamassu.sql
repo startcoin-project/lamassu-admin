@@ -5,8 +5,6 @@ SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
-CREATE ROLE postgres LOGIN INHERIT;
-
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 SET search_path = public, pg_catalog;
@@ -19,7 +17,6 @@ CREATE TABLE user_config (
     type character varying(50),
     data character varying
 );
-ALTER TABLE public.user_config OWNER TO postgres;
 ALTER TABLE ONLY user_config ADD CONSTRAINT user_config_pkey PRIMARY KEY (id);
 
 COPY user_config (id, type, data) FROM stdin;
@@ -130,9 +127,7 @@ CREATE TABLE txlog (
     errorMessage character varying
 );
 
--- ALTER TABLE public.txlog OWNER TO postgres;
 ALTER TABLE ONLY txlog ADD CONSTRAINT txlog_pkey PRIMARY KEY (id);
-ALTER TABLE public.txlog OWNER TO postgres;
 
 CREATE TABLE devices (
     id SERIAL,
@@ -142,7 +137,6 @@ CREATE TABLE devices (
 );
 
 ALTER TABLE ONLY devices ADD CONSTRAINT devices_pkey PRIMARY KEY (id);
-ALTER TABLE public.devices OWNER TO postgres; -- XXX is this really needed?
 
 CREATE TABLE pairing_tokens (
     id SERIAL,
@@ -151,7 +145,6 @@ CREATE TABLE pairing_tokens (
 );
 
 ALTER TABLE ONLY pairing_tokens ADD CONSTRAINT pairing_tokens_pkey PRIMARY KEY (id);
-ALTER TABLE public.pairing_tokens OWNER TO postgres;
 
 
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -162,16 +155,5 @@ CREATE TABLE users (
     pwdHash character varying(512) not null
 );
 
--- ALTER TABLE public.txlog OWNER TO postgres;
 ALTER TABLE ONLY users ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 ALTER TABLE ONLY users ADD CONSTRAINT userName_unique UNIQUE (userName);
-ALTER TABLE public.users OWNER TO postgres;
-
-
--- Name: public; Type: ACL; Schema: -; Owner: postgres
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO PUBLIC;
-
-
