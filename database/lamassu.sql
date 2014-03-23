@@ -167,7 +167,7 @@ CREATE TABLE users (
     id SERIAL,
     userName character varying(20) not null,
     salt character varying(180) not null,
-    pwdHash character varying(512) not null
+    pwdhash character varying(684) not null
 );
 
 -- ALTER TABLE public.txlog OWNER TO postgres;
