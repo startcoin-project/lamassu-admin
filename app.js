@@ -47,7 +47,7 @@ else {
   server = https.createServer(options, ss.http.middleware)
 }
 
-server.listen(process.env.PORT || 8080)
+server.listen(process.env.PORT || 8081)
 
 
 // start socketstream
