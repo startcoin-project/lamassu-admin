@@ -1,6 +1,6 @@
 module.exports = Backbone.View.extend({
 
-  className: 'main_price main_wrap',
+  className: 'main_pairing main_wrap',
 
   initialize: function(){
 
