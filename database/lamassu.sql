@@ -131,7 +131,7 @@ ALTER TABLE ONLY txlog ADD CONSTRAINT txlog_pkey PRIMARY KEY (id);
 
 CREATE TABLE devices (
     id SERIAL,
-    fingerprint character varying(59),
+    fingerprint character varying(59) not null unique,
     name character varying,
     authorized boolean
 );
