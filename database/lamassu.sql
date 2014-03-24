@@ -13,11 +13,10 @@ SET default_with_oids = false;
 
 -- Name: user_config; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 CREATE TABLE user_config (
-    id integer NOT NULL,
-    type character varying(50),
-    data character varying
+  id serial PRIMARY KEY,
+  type text NOT NULL,
+  data json NOT NULL
 );
-ALTER TABLE ONLY user_config ADD CONSTRAINT user_config_pkey PRIMARY KEY (id);
 
 COPY user_config (id, type, data) FROM stdin;
 1	exchanges	{"exchanges" : {\
@@ -112,48 +111,38 @@ COPY user_config (id, type, data) FROM stdin;
 }
 \.
 
-
--- Name: txlog ; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
-CREATE TABLE txlog (
-    id SERIAL,
-    timestamp timestamp,
-    type character varying(10),
-    exchange character varying(50),
-    address character varying(50),
-    satoshis integer not null,
-    currency character varying(10),
-    rate float,
-    status character varying(20),
-    errorMessage character varying
-);
-
-ALTER TABLE ONLY txlog ADD CONSTRAINT txlog_pkey PRIMARY KEY (id);
-
 CREATE TABLE devices (
-    id SERIAL,
-    fingerprint character varying(59),
-    name character varying,
-    authorized boolean
+  id serial PRIMARY KEY,
+  fingerprint text NOT NULL UNIQUE,
+  name text,
+  authorized boolean
 );
-
-ALTER TABLE ONLY devices ADD CONSTRAINT devices_pkey PRIMARY KEY (id);
 
 CREATE TABLE pairing_tokens (
-    id SERIAL,
-    token character varying(64),
-    created bigint
+  id serial PRIMARY KEY,
+  token text,
+  created timestamp
 );
 
-ALTER TABLE ONLY pairing_tokens ADD CONSTRAINT pairing_tokens_pkey PRIMARY KEY (id);
-
+CREATE TABLE transactions (
+  id uuid PRIMARY KEY,
+  status text NOT NULL,
+  txHash text,
+  deviceId integer REFERENCES devices ON DELETE RESTRICT,
+  toAddress text NOT NULL,
+  satoshis integer,
+  currencyCode text,
+  fiat decimal,
+  rate decimal,
+  error text,
+  created timestamp NOT NULL DEFAULT now(),
+  completed timestamp
+);
 
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 CREATE TABLE users (
-    id SERIAL,
-    userName character varying(20) not null,
-    salt character varying(180) not null,
-    pwdHash character varying(512) not null
+  id serial PRIMARY KEY,
+  userName text NOT NULL UNIQUE,
+  salt text NOT NULL,
+  pwdHash text NOT NULL
 );
-
-ALTER TABLE ONLY users ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-ALTER TABLE ONLY users ADD CONSTRAINT userName_unique UNIQUE (userName);
