@@ -45,7 +45,7 @@ module.exports = Backbone.View.extend({
         };
 
 
-        new QRCode(document.getElementById('qrcode'), JSON.stringify(qr))
+        new QRCode(document.getElementById('qr-code'), JSON.stringify(qr))
       })
     })
   }
