@@ -15,7 +15,8 @@
     "lamassu-config": "git+https://github.com/lamassu/lamassu-config#master",
     "async": "~0.2.10",
     "lodash": "~2.4.1",
-    "yargs": "^1.2.1"
+    "yargs": "^1.2.1",
+    "ip": "^0.3.0"
   },
   "scripts": {
     "start": "node app.js",
