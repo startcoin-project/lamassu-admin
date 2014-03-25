@@ -19,6 +19,7 @@ exec $package --key /root/$package\.key --cert /root/$package\.crt
 respawn
 start on startup
 env DATABASE_URL=postgres://lamassu:$password@localhost/lamassu
+env NODE_ENV=production
 chdir $(npm -g explore $package pwd)
 EOF
 }
