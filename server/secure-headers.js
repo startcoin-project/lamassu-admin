@@ -1,7 +1,6 @@
 module.exports = function(options) {
   return function(req, res, next) {
     var frameOptions = 'SAMEORIGIN';
-    var CSP = 'default-src \'none\'; script-src \'self\'; connect-src: \'self\'; img-src: \'self\'; style-src: \'self\';'
 
     res.setHeader('X-Frame-Options', frameOptions);
     res.setHeader('Frame-Options', frameOptions);
