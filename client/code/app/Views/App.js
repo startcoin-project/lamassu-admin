@@ -9,6 +9,14 @@ var App = Backbone.View.extend({
 
     var self = this
 
+    var scrollDiv, scrollbarWidth
+    scrollDiv = document.createElement("div")
+    scrollDiv.className = "scrollbar-measure"
+    document.body.appendChild(scrollDiv)
+    scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth
+    $('<style>.scroller { margin-right: '+ -scrollbarWidth+'px}</style>').appendTo('head')
+    document.body.removeChild(scrollDiv)
+
     self.user.on('change:authenticated', self.authenticated.bind(self))
 
   },
