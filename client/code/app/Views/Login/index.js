@@ -8,52 +8,33 @@ module.exports = Backbone.View.extend({
 
     self.$el.html(ss.tmpl['login-base'].render()).appendTo('.dash')
 
-    self.$el.children().children().addClass('animated flipInX')
-
-    self.$el.find('.submit').on('click', self.login.bind(this))
-
     self.$el.find('input').each(function(index, element){
 
       var $e = $(element)
       var value = $e.val()
 
+      $e.keyup(function(){
+        var username = self.$el.find('#login_username').val()
+        var password = self.$el.find('#login_password').val()
+        self.user.login(username, password)
+      })
+
       $e.focus(function(){
-
         if ($e.val() === value ){
-
-          if (value === 'your password' ){ $e.prop('type', 'password') }
-
+          if (value === 'password') 
+            $e.prop('type', 'password') 
           $e.val('')
-
         }
-
-
       })
 
       $e.blur(function(){
-
-        if ($e.val() === '' ){
-
-          if (value === 'your password' ){ $e.removeProp('type', 'password') }
-
+        if ($e.val() === ''){
+          if (value === 'password') 
+            $e.prop('type', 'text')
           $e.val(value)
-
         }
-
       })
-
-
     })
-
-
-  },
-
-  login: function(){
-
-    var self = this
-
-    self.user.login() 
-
   },
 
   clear: function(){

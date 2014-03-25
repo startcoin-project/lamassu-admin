@@ -3,6 +3,7 @@ var config = require('../config.js');
 exports.actions = function(req, res, ss) {
 
   req.use('session')
+  req.use('user.authenticated')
 
   return {
 

@@ -1,10 +1,13 @@
 .box
-  .message
-    | Please login!
-  .email
-    input(type="text", value="your email", autocorrect="off", autocapitalize="off")
-  .password
-    input(value="your password", autocorrect="off", autocapitalize="off")
-  .submit 
-    | Login
-    .shadow
+  .logo
+  .notify
+  .form
+    .inner
+      .message
+        | Log into your machine.
+      .email
+        .input_wrap
+          input(type="text", value="username", autocorrect="off", autocapitalize="off")#login_username
+      .password
+        .input_wrap
+          input(value="password", autocorrect="off", autocapitalize="off")#login_password

@@ -47,12 +47,24 @@ module.exports = Backbone.Model.extend({
 
   },
 
-  login: function(){
+
+  login: function(username, password){
+
+    var self = this
+
+    console.log('here')
 
     //login and return user
+    ss.rpc('user.authenticate', username, password, function(err, authd, user){
 
-    //for now just get the user
-    ss.rpc('get.user', this.authenticate.bind(this))
+      //make auth return user in the future
+
+      if(authd){
+        ss.rpc('get.user', self.authenticate.bind(self))
+      }
+
+    })
+
 
   },
 
