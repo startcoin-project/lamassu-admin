@@ -7,6 +7,8 @@ var ss = require('socketstream')
 var argv = require('yargs')
   .argv
 
+var secureHeaders = require('./server/secure-headers.js')
+
 var server
 
 //define assets for admin app
@@ -49,6 +51,7 @@ else {
 
 server.listen(process.env.PORT || 8081)
 
+ss.http.middleware.append(secureHeaders({ https: !argv.http }));
 
 // start socketstream
 ss.start(server)
