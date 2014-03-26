@@ -13,7 +13,7 @@ module.exports = Backbone.View.extend({
     self.$el.find('input').on('keyup', self.update_settings.bind(self))
     self.$el.find('select').on('change', self.update_settings.bind(self))
 
-    self.enabled = self.user.get('exchange') !== null;
+    self.enabled = self.user.get('exchange') !== null
 
     if(self.enabled){
       self.$el.find('.toggle .active').css({'display':'block'})
