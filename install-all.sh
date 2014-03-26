@@ -12,15 +12,15 @@ function fail() {
 }
 
 function upstart() {
-  service=$1
-  cmd=$2
+  package="$1"
 
-  cat > "/etc/init/$service"".conf" <<EOF
-exec $2
+  cat > "/etc/init/$package"".conf" <<EOF
+exec $package --key /root/$package\.key --cert /root/$package\.crt
 respawn
 start on startup
 env DATABASE_URL=postgres://lamassu:$password@localhost/lamassu
-chdir $(npm -g explore $2 pwd)
+env NODE_ENV=production
+chdir $(npm -g explore $package pwd)
 EOF
 }
 
@@ -105,8 +105,8 @@ npm -g install lamassu-server lamassu-admin >> $debug 2>&1
 
 echo "Installing Lamassu services..."
 if [ "$service" == "upstart" ]; then
-  upstart "lamassu-server" "lamassu-server"
-  upstart "lamassu-admin" "lamassu-admin"
+  upstart "lamassu-server"
+  upstart "lamassu-admin"
 fi
 
 # Bootstrap lamassu database
@@ -122,11 +122,21 @@ npm explore -g lamassu-admin 'cat database/lamassu.sql' |
 
 [ $? -ne 0 ] && fail "Bootstrapping PostgreSQL failed"
 
-echo "Starting lamassu-admin..."
-start lamassu-admin >> lamassu-debug.log
-[ $? -ne 0 ] && fail "Starting lamassu-admin failed"
-
 ip=$(ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
+
+# Generate SSL certificates for lamassu-server and lamassu-admin.
+echo "Generating SSL certificates..."
+openssl req -new -newkey rsa:8092 -days 9999 -nodes -x509 -subj "/C=US/ST=/L=/O=/CN=$ip:8080" -keyout lamassu-admin.key  -out lamassu-admin.crt >> $debug 2>&1
+[ $? -ne 0 ] && fail "Generating a certificate for lamassu-admin failed"
+
+openssl req -new -newkey rsa:8092 -days 9999 -nodes -x509 -subj "/C=US/ST=/L=/O=/CN=$ip:3000" -keyout lamassu-server.key -out lamassu-server.crt >> $debug 2>&1
+[ $? -ne 0 ] && fail "Generating a certificate for lamassu-server failed"
+
+chmod 600 *.key *.crt
+
+echo "Starting lamassu-admin..."
+start lamassu-admin >> $debug 2>&1
+[ $? -ne 0 ] && fail "Starting lamassu-admin failed"
 
 echo
 echo "Done! Now it's time to configure Lamassu stack."

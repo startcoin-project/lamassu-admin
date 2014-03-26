@@ -1,6 +1,15 @@
 #!/usr/bin/env node
+var fs = require('fs')
 var http = require('http')
+var https = require('https')
 var ss = require('socketstream')
+
+var argv = require('yargs')
+  .argv
+
+var secureHeaders = require('./server/secure-headers.js')
+
+var server
 
 //define assets for admin app
 ss.client.define('main', {
@@ -25,10 +34,24 @@ ss.client.templateEngine.use(require('ss-hogan'))
 // if (ss.env === 'production') ss.client.packAssets();
 
 // start server
-var server = http.Server(ss.http.middleware)
+if (argv.http) {
+  server = http.Server(ss.http.middleware)
+}
+else {
+  var options = {
+    key: fs.readFileSync(argv.key),
+    cert: fs.readFileSync(argv.cert),
+    secureProtocol: 'TLSv1_method',
+    ciphers: 'AES128-GCM-SHA256:RC4:HIGH:!MD5:!aNULL:!EDH',
+    honorCipherOrder: true
+  }
 
-server.listen(process.env.PORT || 8080)
+  server = https.createServer(options, ss.http.middleware)
+}
 
+server.listen(process.env.PORT || 8081)
+
+ss.http.middleware.append(secureHeaders({ https: !argv.http }));
 
 // start socketstream
 ss.start(server)

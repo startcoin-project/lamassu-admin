@@ -74,8 +74,15 @@ module.exports = Backbone.Model.extend({
       self.set({authenticated: false})
 
     }
+  },
+
+  create_pairing_token: function(callback){
+    ss.rpc('pair.create_pairing_token', callback)
+  },
+
+  get_server_address: function(callback){
+    ss.rpc('pair.get_server_address', callback)
   }
-  
 })
 
 

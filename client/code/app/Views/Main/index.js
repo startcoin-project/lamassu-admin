@@ -58,12 +58,15 @@ module.exports = Backbone.View.extend({
         select_card(new Cards.Compliance())
         break
       case 6:
-        select_card(new Cards.Limits())
+        select_card(new Cards.Pairing())
         break
       case 7:
-        select_card(new Cards.Languages())
+        select_card(new Cards.Limits())
         break
       case 8:
+        select_card(new Cards.Languages())
+        break
+      case 9:
         select_card(new Cards.System())
         break
     }
