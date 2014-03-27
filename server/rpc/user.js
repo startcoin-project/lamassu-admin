@@ -7,14 +7,14 @@ exports.actions = function(req, res, ss) {
   return {
 
     authenticate: function(username, password){      
-      config.authenticateUser(username, password, function(err, authenticated){
+      config.authenticateUser(username, password, function(err, user){
         if (err){
           return res(err)
         }
 
-        if (authenticated){
+        if (user){
 
-          req.session.userId = 1 //session is authenticated when it has a userId
+          req.session.userId = user.id //session is authenticated when it has a userId
           req.session.save()
 
           res(null, true)
