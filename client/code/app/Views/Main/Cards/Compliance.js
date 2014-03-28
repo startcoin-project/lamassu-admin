@@ -23,14 +23,6 @@ module.exports = Backbone.View.extend({
 
     //define settings object
     var compliance_settings = {
-      base: {
-        limit: self.$el.find('#base_limit').val(),
-        verify_type: self.$el.find('#base_verify_type').val()
-      },
-      extended: {
-        limit: self.$el.find('#extended_limit').val(), 
-        verify_type: self.$el.find('#extended_verify_type').val()
-      },
       maximum: {
         limit: self.$el.find('#max_limit').val()
       },
@@ -50,12 +42,6 @@ module.exports = Backbone.View.extend({
   fill_view: function(){ //fill feilds with current settings
 
     var self = this
-
-    self.$el.find('#base_limit').val(self.user.get('compliance').base.limit)
-    self.$el.find('#base_verify_type').val(self.user.get('compliance').base.verify_type)
-
-    self.$el.find('#extended_limit').val(self.user.get('compliance').extended.limit)
-    self.$el.find('#extended_verify_type').val(self.user.get('compliance').extended.verify_type)
 
     self.$el.find('#max_limit').val(self.user.get('compliance').maximum.limit)
 
