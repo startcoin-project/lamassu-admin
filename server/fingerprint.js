@@ -5,7 +5,6 @@ var cert = '/root/lamassu-server.crt';
 var fingerprint = null;
 
 module.exports = function () {
-  console.dir(fingerprint);
   return fingerprint;
 };
 
