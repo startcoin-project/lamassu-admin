@@ -1,6 +1,6 @@
 var LamassuConfig = require('lamassu-config');
 var psql = process.env.DATABASE_URL || 'postgres://lamassu:lamassu@localhost/lamassu';
-var config = module.exports = new LamassuConfig(psql, 10000);
+var config = module.exports = new LamassuConfig(psql, 10);
 
 setInterval(function() {
   config.cleanExpiredPairingTokens(function(err) {
