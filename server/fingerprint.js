@@ -13,7 +13,7 @@ exec('openssl x509 -fingerprint -sha1 -noout -in ' + cert + ' | sed \'s/SHA1 Fin
   if (err) throw err;
   // Should we throw if there's anything in `stderr`? Are there any unusual
   // warnings that would cause this to crash?
-  fingerprint = stdout;
+  fingerprint = stdout.trim();
 });
 
 // XXX(mmalecki) this could be nicer but SocketStream.
