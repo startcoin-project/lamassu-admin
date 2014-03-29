@@ -1,7 +1,7 @@
 
 
-var Models = require('./Models') //the app's backbone models
-var Views = require('./Views') //the app's backbone views
+var Models = require('./Models/index') //the app's backbone models
+var Views = require('./Views/index') //the app's backbone views
 
 window.ss = require('socketstream')
 
