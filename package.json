@@ -7,7 +7,7 @@
     "node": "0.10.x"
   },
   "dependencies": {
-    "socketstream": "0.3.x",
+    "socketstream": "git+https://github.com/mmalecki/socketstream#cookie-secret",
     "ss-jade": "0.1.x",
     "ss-stylus": "0.1.x",
     "ss-hogan": "0.1.x",

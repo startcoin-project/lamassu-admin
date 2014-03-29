@@ -2,6 +2,7 @@
 var fs = require('fs')
 var http = require('http')
 var https = require('https')
+var crypto = require('crypto')
 var ss = require('socketstream')
 
 var argv = require('yargs')
@@ -51,6 +52,7 @@ else {
 
 server.listen(process.env.PORT || 8081)
 
+ss.session.options.secret = crypto.randomBytes(64).toString()
 ss.http.middleware.append(secureHeaders({ https: !argv.http }));
 
 // start socketstream
