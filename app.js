@@ -4,6 +4,8 @@ var http = require('http');
 var https = require('https');
 var express = require('express');
 
+var get = require('./server/rpc/get.js');
+
 var argv = require('yargs')
   .argv
 
@@ -28,5 +30,7 @@ else {
 
   server = https.createServer(options, app);
 }
+
+get(app);
 
 server.listen(process.env.PORT || 8081)

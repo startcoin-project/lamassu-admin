@@ -1,10 +1,10 @@
 var async = require('async');
 var config = require('../config.js');
 
-var price_settings = function(callback) {
-  config.load(function(err, results) {
-    if (err) return callback(err);
-    callback(null, {
+var priceSettings = function (req, res) {
+  config.load(function (err, results) {
+    if (err) return res.json(500, err);
+    res.json(200, {
       provider: results.config.exchanges.plugins.current.ticker,
       commission: results.config.exchanges.settings.commission,
       custom_url: null
@@ -12,33 +12,37 @@ var price_settings = function(callback) {
   });
 };
 
-var wallet_settings = function(callback) {
-  config.load(function(err, results) {
-    if (err) return callback(err);
+var walletSettings = function (req, res) {
+  config.load(function (err, results) {
+    if (err) return res.json(500, err);
 
     var provider = results.config.exchanges.plugins.current.transfer;
     var settings = results.config.exchanges.plugins.settings[provider];
     settings.provider = provider;
-    callback(null, settings);
+    res.json(200, settings);
   });
 };
 
-var exchange_settings = function(callback) {
+var exchangeSettings = function (req, res) {
   config.load(function(err, results) {
-    if (err) return callback(err);
+    if (err) return res.json(500, err);
 
     var provider = results.config.exchanges.plugins.current.trade;
     if (!provider) {
-      return callback(null, null);
+      return res.json(200, null);
     }
 
     var settings = results.config.exchanges.plugins.settings[provider];
     settings.provider = provider;
-    callback(null, settings);
+    res.json(200, settings);
   });
-}
+};
 
-var compliance_settings = function(callback) {
+var currencySettings = function (req, res) {
+  res.json(200, { type:'USD', symbol:'$' });
+};
+
+var complianceSettings = function(callback) {
   config.load(function(err, results) {
     if (err) return callback(err);
 
@@ -67,72 +71,26 @@ var compliance_settings = function(callback) {
   });
 };
 
+var userSettings = function (req, res) {
+  async.parallel({
+    price: priceSettings,
+    wallet: walletSettings,
+    exchange: exchangeSettings,
+    compliance: complianceSettings
+  }, function (err, results) {
 
+    if (err) //if err don't try to return data
+      return res.json(500, err);
 
-exports.actions = function(req, res, ss) {
+    res.json(200, results);
+  });
+};
 
-  req.use('session')
-  req.use('user.authenticated')
-
-  return {
-
-    price: function() {
-
-      //return price settings to the client
-      price_settings(res);
-
-    }, 
-    
-    wallet: function(){
-
-      //return wallet settings to the client
-      wallet_settings(res);
-
-    }, 
-    
-    exchange: function() {
-
-      //return exchange settings to the client
-      exchange_settings(res);
-
-    },
-
-    currency: function() {
-
-      //defaults to usd for now
-      res({type:'USD', symbol:'$'})
-
-    },
-
-    compliance: function() {
-
-      //return compliance settings
-      compliance_settings(res);
-
-    },
-
-    user: function() { //grabs all price/wallet/exhange data
-      
-      async.parallel({
-        price: price_settings,
-        wallet: wallet_settings,
-        exchange: exchange_settings,
-        compliance: compliance_settings
-      }, function(err, results) {
-
-        if (err) //if err don't try to return data
-          return res(err)
-
-        var user = {
-          price: results.price,
-          wallet: results.wallet,
-          exchange: results.exchange,
-          compliance: results.compliance
-        };
-
-        //return data to the client
-        res(null, user);
-      });
-    }
-  }
-}
+module.exports = function (app) {
+  app.get('/price', priceSettings);
+  app.get('/wallet', walletSettings);
+  app.get('/exchange', exchangeSettings);
+  app.get('/currency', currencySettings);
+  app.get('/compliance', complianceSettings);
+  app.get('/user', userSettings);
+};
