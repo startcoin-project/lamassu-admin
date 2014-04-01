@@ -1,41 +1,21 @@
 #!/usr/bin/env node
-var fs = require('fs')
-var http = require('http')
-var https = require('https')
-var ss = require('socketstream')
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
+var express = require('express');
 
 var argv = require('yargs')
   .argv
 
-var secureHeaders = require('./server/secure-headers.js')
+var app = express();
 
-var server
+var server;
 
-//define assets for admin app
-ss.client.define('main', {
-  view: 'app.jade',
-  css:  ['libs', 'app.styl'],
-  code: ['libs', 'app'],
-  tmpl: '*'
-})
-
-// serve main client on the root url
-ss.http.route('/', function(req, res){ 
-  res.serveClient('main')
-});
-
-// code formatters
-ss.client.formatters.add(require('ss-jade'))
-ss.client.formatters.add(require('ss-stylus'))
-
-ss.client.templateEngine.use(require('ss-hogan'))
-
-// minimize and pack assets if you type: SS_ENV=production node app.js
-// if (ss.env === 'production') ss.client.packAssets();
+app.use(require('./server/secure-headers.js')({ https: !argv.http }));
 
 // start server
 if (argv.http) {
-  server = http.Server(ss.http.middleware)
+  server = http.Server(app);
 }
 else {
   var options = {
@@ -46,14 +26,7 @@ else {
     honorCipherOrder: true
   }
 
-  server = https.createServer(options, ss.http.middleware)
+  server = https.createServer(options, app);
 }
 
 server.listen(process.env.PORT || 8081)
-
-ss.http.middleware.append(secureHeaders({ https: !argv.http }));
-
-// start socketstream
-ss.start(server)
-
-var price_feed = require('./server/price/feed')
