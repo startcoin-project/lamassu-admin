@@ -47,14 +47,6 @@ var complianceSettings = function(callback) {
     if (err) return callback(err);
 
     var default_settings =  {
-      base: {
-        limit: 100,
-        verify_type: 'drivers_license'
-      },
-      extended: {
-        limit: 400,
-        verify_type: 'smartphone'
-      },
       maximum: {
         limit: 500
       },
