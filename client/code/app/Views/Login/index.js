@@ -8,15 +8,34 @@ module.exports = Backbone.View.extend({
 
     self.$el.html(ss.tmpl['login-base'].render()).appendTo('.dash')
 
+    var $logIn = self.$el.find('#log-in');
+    var $loggingIn = self.$el.find('#logging-in');
+    var $authenticationFailed = self.$el.find('#authentication-failed');
+
     self.$el.find('input').each(function(index, element){
 
       var $e = $(element)
       var value = $e.val()
 
-      $e.keyup(function(){
-        var username = self.$el.find('#login_username').val()
-        var password = self.$el.find('#login_password').val()
-        self.user.login(username, password)
+      $e.keyup(function (e) {
+        // Only try logging in when Enter is pressed.
+        if (e.keyCode !== 13) {
+          return;
+        }
+
+        var username = self.$el.find('#login_username').val();
+        var password = self.$el.find('#login_password').val();
+
+        $logIn.hide();
+        $authenticationFailed.hide();
+        $loggingIn.show();
+
+        self.user.login(username, password, function (err, authenticated) {
+          if (!authenticated) {
+            $loggingIn.hide();
+            $authenticationFailed.show();
+          }
+        });
       })
 
       $e.focus(function(){

@@ -3,8 +3,12 @@
   .notify
   .form
     .inner
-      .message
+      #log-in.message
         | Log into your machine.
+      #logging-in.message(style="display: none")
+        | Logging you in...
+      #authentication-failed.message(style="display: none")
+        | Authentication failed
       .email
         .input_wrap
           input(type="text", value="username", autocorrect="off", autocapitalize="off")#login_username
