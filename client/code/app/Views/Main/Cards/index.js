@@ -4,7 +4,6 @@ module.exports = {
   //Notifications: require('./Notifications'), 
   Price: require('./Price'), 
   Wallet: require('./Wallet'), 
-  Trading: require('./Trading'), 
   Compliance: require('./Compliance'),
   Pairing: require('./Pairing')
   //Limits: require('./Limits'), 
