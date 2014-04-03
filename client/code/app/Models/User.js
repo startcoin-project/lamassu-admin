@@ -48,7 +48,7 @@ module.exports = Backbone.Model.extend({
   },
 
 
-  login: function(username, password){
+  login: function(username, password, callback){
 
     var self = this
 
@@ -60,6 +60,8 @@ module.exports = Backbone.Model.extend({
       if(authd){
         ss.rpc('get.user', self.authenticate.bind(self))
       }
+
+      callback(err, authd);
 
     })
 
