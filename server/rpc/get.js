@@ -2,44 +2,44 @@ var async = require('async');
 var config = require('../config.js');
 
 var price_settings = function(callback) {
-  config.load(function(err, results) {
+  config.load(function(err, config) {
     if (err) return callback(err);
     callback(null, {
-      provider: results.config.exchanges.plugins.current.ticker,
-      commission: results.config.exchanges.settings.commission,
+      provider: config.exchanges.plugins.current.ticker,
+      commission: config.exchanges.settings.commission,
       custom_url: null
     });
   });
 };
 
 var wallet_settings = function(callback) {
-  config.load(function(err, results) {
+  config.load(function(err, config) {
     if (err) return callback(err);
 
-    var provider = results.config.exchanges.plugins.current.transfer;
-    var settings = results.config.exchanges.plugins.settings[provider];
+    var provider = config.exchanges.plugins.current.transfer;
+    var settings = config.exchanges.plugins.settings[provider];
     settings.provider = provider;
     callback(null, settings);
   });
 };
 
 var exchange_settings = function(callback) {
-  config.load(function(err, results) {
+  config.load(function(err, config) {
     if (err) return callback(err);
 
-    var provider = results.config.exchanges.plugins.current.trade;
+    var provider = config.exchanges.plugins.current.trade;
     if (!provider) {
       return callback(null, null);
     }
 
-    var settings = results.config.exchanges.plugins.settings[provider];
+    var settings = config.exchanges.plugins.settings[provider];
     settings.provider = provider;
     callback(null, settings);
   });
 }
 
 var compliance_settings = function(callback) {
-  config.load(function(err, results) {
+  config.load(function(err, config) {
     if (err) return callback(err);
 
     var default_settings =  {
@@ -56,7 +56,7 @@ var compliance_settings = function(callback) {
       }
     };
 
-    var compliance = results.config.exchanges.settings.compliance || default_settings;
+    var compliance = config.exchanges.settings.compliance || default_settings;
 
     callback(null, compliance);
   });
