@@ -7,8 +7,8 @@
 
     .mid.scroller
       .description 
-        .description_title Set when users have to verify
-        .description_body You can set up to 2 different limits for users to authentiate via driver's license or smartphone.
+        .description_title Set transaction limits
+        .description_body You can set a maximum transaction limit for your ATMs.
       .settings
 
         .limits
@@ -19,17 +19,6 @@
               .limit.input_wrap
                 input#max_limit
                 .currency $
-
-
-        .verify_service
-          .label Verification Service
-          .service.select_wrap
-            select#verification_service
-              option(value="idology") iDology
-          .username.input_wrap
-            input#verification_service_username
-          .password.input_wrap
-            input#verification_service_password
 
     .bot
 

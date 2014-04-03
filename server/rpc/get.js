@@ -53,11 +53,6 @@ var compliance_settings = function(callback) {
       },
       maximum: {
         limit: 500
-      },
-      verification: {
-        service: 'idology',
-        username: 'default_user',
-        password: '********'
       }
     };
 

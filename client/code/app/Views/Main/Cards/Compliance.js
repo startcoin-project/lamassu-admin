@@ -26,13 +26,7 @@ module.exports = Backbone.View.extend({
       maximum: {
         limit: self.$el.find('#max_limit').val()
       },
-      currency: 'USD',
-      verification: {
-        service: self.$el.find('#verification_service').val(),
-        username: self.$el.find('#verification_service_username').val(),
-        password: self.$el.find('#verification_service_password').val()
-
-      }
+      currency: 'USD'
     }
 
       self.user.set('compliance',  compliance_settings)
@@ -44,10 +38,6 @@ module.exports = Backbone.View.extend({
     var self = this
 
     self.$el.find('#max_limit').val(self.user.get('compliance').maximum.limit)
-
-    self.$el.find('#verification_service').val(self.user.get('compliance').verification.service)
-    self.$el.find('#verification_service_username').val(self.user.get('compliance').verification.username)
-    self.$el.find('#verification_service_password').val('********')
 
   },
 
