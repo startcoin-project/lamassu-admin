@@ -31,7 +31,7 @@ module.exports = Backbone.Model.extend({
 
     ['price', 'wallet', 'exchange', 'compliance'].forEach(function (key) {
       self.on('change:' + key, function () {
-        ss.rpc('set.' + key, function (err, res) {
+        ss.rpc('set.' + key, self.get(key), function (err, res) {
           // If setting was successfully saved, emit `'saved:' + key` to
           // let the frontend know about it. This is quite racy, but since
           // it's based on `set` method, there's no way to get a callback
