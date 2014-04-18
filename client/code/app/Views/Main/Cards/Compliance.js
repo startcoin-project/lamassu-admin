@@ -17,7 +17,7 @@ module.exports = Backbone.View.extend({
 
   },
 
-  update_settings: function(){
+  update_settings: function(ev){
 
     var self = this
 
@@ -30,6 +30,14 @@ module.exports = Backbone.View.extend({
     }
 
       self.user.set('compliance',  compliance_settings)
+
+      self.user.once('saved:compliance', function (err) {
+        var class_ = err ? 'failed-save' : 'successful-save';
+        ev.target.classList.add(class_);
+        setTimeout(function () {
+          ev.target.classList.remove(class_);
+        }, 500);
+      });
 
   },
 

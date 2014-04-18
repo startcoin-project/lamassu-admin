@@ -27,24 +27,19 @@ module.exports = Backbone.Model.extend({
 
     self.price_data = new PriceData()
 
-    ss.rpc('get.user', this.authenticate.bind(this))
+    ss.rpc('get.user', this.authenticate.bind(this));
 
-    self.on('change:price', function(){
-      ss.rpc('set.price', self.get('price'), function(err, res){})
-    })
-
-    self.on('change:wallet', function(){
-      ss.rpc('set.wallet', self.get('wallet'), function(err, res){})
-    })
-
-    self.on('change:exchange', function(){
-      ss.rpc('set.exchange', self.get('exchange'), function(err, res){})
-    })
-
-    self.on('change:compliance', function(){
-      ss.rpc('set.compliance', self.get('compliance'), function(err, res){})
-    })
-
+    ['price', 'wallet', 'exchange', 'compliance'].forEach(function (key) {
+      self.on('change:' + key, function () {
+        ss.rpc('set.' + key, self.get(key), function (err, res) {
+          // If setting was successfully saved, emit `'saved:' + key` to
+          // let the frontend know about it. This is quite racy, but since
+          // it's based on `set` method, there's no way to get a callback
+          // for this save. `Model#save` would probably be more appropriate.
+          self.trigger('saved:' + key, err);
+        });
+      });
+    });
   },
 
 
