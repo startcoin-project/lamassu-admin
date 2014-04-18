@@ -35,17 +35,11 @@ module.exports = Backbone.View.extend({
       self.user.create_pairing_token(function(err_, token){
         if (err_) return alert('Pairing failed: ' + err_.message)
 
-        var qr = { // Compress the structure a bit.
-          a: {
-            h: address.host,
-            p: address.port,
-            f: address.fingerprint.replace(/:/g, '')
-          },
-          t: token
-        };
-
-
-        new QRCode(document.getElementById('qr-code'), JSON.stringify(qr))
+        var qr = [address.host, address.port, address.fingerprint.replace(/:/g, '').toUpperCase(), token.toUpperCase()].join('$');
+        var qrcode = new QRCode(document.getElementById('qr-code'), {
+          mode: 1 << 1
+        });
+        qrcode.makeCode(qr);
       })
     })
   }
