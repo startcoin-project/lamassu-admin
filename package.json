@@ -1,7 +1,7 @@
 {
   "name": "lamassu-admin",
   "description": "",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "author": "Lamassu (https://lamassu.is)",
   "engines": {
     "node": "0.10.x"
@@ -12,7 +12,7 @@
     "ss-stylus": "0.1.x",
     "ss-hogan": "0.1.x",
     "request": "^2.34.0",
-    "lamassu-config": "0.3.2",
+    "lamassu-config": "0.3.3",
     "async": "~0.2.10",
     "lodash": "~2.4.1",
     "yargs": "^1.2.1",
