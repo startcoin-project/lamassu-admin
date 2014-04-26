@@ -1,13 +1,15 @@
+'use strict';
+
 var config = require('../config.js');
 
-exports.actions = function(req, res, ss) {
+exports.actions = function (req, res, ss) {
 
-  req.use('session')
-  req.use('user.authenticated')
+  req.use('session');
+  req.use('user.authenticated');
 
   return {
 
-    price: function(data) {
+    price: function (data) {
       config.load(function (err, results) {
         if (err) return res(err);
         results.exchanges.settings.commission = data.commission;
@@ -18,7 +20,7 @@ exports.actions = function(req, res, ss) {
     
     wallet: function(data) {
       config.load(function(err, results) {
-        if (err) return callback(err);
+        if (err) return res(err);
 
         var provider = data.provider;
         var settings = results.exchanges.plugins.settings[provider];
@@ -34,13 +36,14 @@ exports.actions = function(req, res, ss) {
 
     exchange: function(data) {
       config.load(function(err, results) {
-        if (err) return callback(err);
+        if (err) return res(err);
 
         var provider = data.enabled ? data.provider : null;
         results.exchanges.plugins.current.trade = provider;
 
         if (provider) {
-          var settings = results.exchanges.plugins.settings[provider];
+          var settings = results.exchanges.plugins.settings[provider] ||
+                         (results.exchanges.plugins.settings[provider] = {});
           Object.keys(data).forEach(function(key) {
             if (key !== 'provider' && key !== 'enabled')
               settings[key] = data[key];

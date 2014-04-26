@@ -1,3 +1,5 @@
+'use strict';
+
 var async = require('async');
 var config = require('../config.js');
 
@@ -32,11 +34,11 @@ var exchange_settings = function(callback) {
       return callback(null, null);
     }
 
-    var settings = config.exchanges.plugins.settings[provider];
+    var settings = config.exchanges.plugins.settings[provider] || {};
     settings.provider = provider;
     callback(null, settings);
   });
-}
+};
 
 var compliance_settings = function(callback) {
   config.load(function(err, config) {
