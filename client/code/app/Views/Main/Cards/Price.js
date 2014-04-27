@@ -25,29 +25,43 @@ module.exports = Backbone.View.extend({
 
   update_prices: function(){
 
-
-
     //pull in current price from selected soruce
 
     var self = this;
 
     var selected_source = self.$el.find('#price_provider').val();
-    var price = self.user.price_data.get(selected_source);
+    var priceRec = self.user.price_data.get(selected_source);
+    if (!priceRec) return;
+
+    var price = priceRec.rate;
+    var currency = priceRec.currency;
     var current = Math.round(price) / 100 ;
+
+    // Since this doesn't work well on older FF, add currency manually
+    var formattedPrice = current.toLocaleString('en-US', {
+      useGrouping: true,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2
+    }) + ' <span class="currency">' + currency + '</span>';
 
     var commission = (0.01 * self.$el.find('#price_commission').val()) + 1;
     var display = Math.round(price * commission) / 100;
-    
-    if(isNaN(current)){
+    var formattedDisplay = display.toLocaleString('en-US', {
+      useGrouping: true,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2
+    }) + ' <span class="currency">' + currency + '</span>';
+
+    if(!price) {
       self.$el.find('.current_price .value').html('---.--');
     }else{
-      self.$el.find('.current_price .value').html(current.toFixed(2));
+      self.$el.find('.current_price .value').html(formattedPrice);
     }
 
-    if(isNaN(display)){
+    if(!price) {
       self.$el.find('.price_overview .value').html('---.--');
     }else{
-      self.$el.find('.price_overview .value').html(display.toFixed(2));
+      self.$el.find('.price_overview .value').html(formattedDisplay);
     }
 
   },

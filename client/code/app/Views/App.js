@@ -26,13 +26,23 @@ var App = Backbone.View.extend({
     var self = this
 
     var price_source = self.user.get('price').provider
-    var price = self.user.price_data.get(price_source)
+    var priceRec = self.user.price_data.get(price_source)
+    if (!priceRec) return;
+    var price = priceRec.rate;
+    var currency = priceRec.currency;
     var display = Math.round(price * self.user.get('price').commission) / 100 
 
-    if(isNaN(display)){
+    // Since this doesn't work well on older FF, add currency manually
+    var formattedDisplay = display.toLocaleString('en-US', {
+      useGrouping: true,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2
+    }) + ' <span class="currency">' + currency + '</span>';
+
+    if(!price) {
       $('.display .price .number').html('---.--')
     }else{
-      $('.display .price .number').html(display.toFixed(2))
+      $('.display .price .number').html(formattedDisplay);
     }
   },
 
