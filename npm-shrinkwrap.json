@@ -1,6 +1,6 @@
 {
   "name": "lamassu-admin",
-  "version": "0.3.5",
+  "version": "0.3.7",
   "dependencies": {
     "socketstream": {
       "version": "0.3.10",
