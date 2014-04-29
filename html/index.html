@@ -22,8 +22,30 @@
     <script src="assets/js/libs/modernizr.custom.min.js" type="text/javascript"></script>
   </head>
   <body class='stats-waiting init-charts'>
-    <div id='floating-bar' class='floating-bar'><a href="">Update Machine</a></div>
-    <div id='js-outer-wrap'>
+    <div class='login'>
+      <div class='vwrapper'>
+        <div class='vwrapper__inner'>
+          <form action='#' class='login__form validate-form' method='post'>
+            <div class='copy text--centered'>
+              <h1 class='as-h2'>Log into your machine</h1>
+              <div class='copy__micro--wide'>
+                <p class='text--soft'>Please use your yubikey to login. <a href="#">Take a look here</a> if you are unsure how this works.</p>
+              </div>
+            </div>
+            <div class='form-field-wrap'>
+              <label class='is-hidden' for='yubikey_auth'>Enter your yubikey</label>
+              <input class='required' data-error='Incorrect yubikey entered!' id='yubikey_auth' name='yubikey_auth' type='password'>
+            </div>
+            <div class='form-field-wrap text--centered'>
+              <button class='btn btn--primary' type='submit'>
+                Log in
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id='js-outer-wrap' style="display:none">
       <div id='menu'>
         <nav class='navigation navigation--global' id='js-global-nav' role='navigation'>
           <div id='js-global-nav__content'>
