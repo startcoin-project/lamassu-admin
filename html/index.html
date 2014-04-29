@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<!--[if lt IE 8]> <html class="no-js lt-ie10 lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9 ie" lang="en"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10 ie" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class='no-js modern-browser' lang='en'>
+  <!--<![endif]-->
+  <head>
+    <meta charset='utf-8'>
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+    <title>Lamassu Backend UI</title>
+    <meta name='description'>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.5' name='viewport'>
+    <!--[if lte IE 8]>
+      <link href="assets/css/old-ie.css" media="screen" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link href="assets/css/styles.css" media="screen" rel="stylesheet" type="text/css" />
+    <!--<![endif]-->
+    <link href="assets/css/print.css" media="print" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/selectize.css" />
+    <script src="assets/js/libs/modernizr.custom.min.js" type="text/javascript"></script>
+  </head>
+  <body class='stats-waiting init-charts'>
+    <div id='floating-bar' class='floating-bar'><a href="">Update Machine</a></div>
+    <div id='js-outer-wrap'>
+      <div id='menu'>
+        <nav class='navigation navigation--global' id='js-global-nav' role='navigation'>
+          <div id='js-global-nav__content'>
+            <div class='scale'>
+              <div class='navigation__header cf'>
+                <img class="logo" src="assets/img/lamassu-logo.png" />
+              </div>
+              <ul class='nav--primary nav--primary--upper'>
+                <li class='is-current nav--primary__item'>
+                    <a href="#" data-page="dashboard"><span class='icon icon--dashboard'>
+                    <i></i>
+                    Dashboard
+                  </span>
+                  </a>
+      
+                </li>
+                <li class='nav--primary__item'>
+                    <a href="#" data-page="notifications"><span class='icon icon--notifications'>
+                    <i></i>
+                    Notifications
+                  </span>
+                  </a>
+      
+                </li>
+              </ul>
+              <ul class='nav--primary'>
+                <li class='nav--primary__item'>
+                    <a href="#" data-page="languages"><span class='icon icon--languages'>
+                    <i></i>
+                    Languages
+                  </span>
+                  </a>
+      
+                </li>
+                <li class='nav--primary__item'>
+                    <a href="#" data-page="exchanges"><span class='icon icon--exchanges'>
+                    <i></i>
+                    Exchanges
+                  </span>
+                  </a>
+      
+                </li>
+                <li class='nav--primary__item'>
+                    <a href="#" data-page="commissions"><span class='icon icon--commissions'>
+                    <i></i>
+                    Commissions
+                  </span>
+                  </a>
+      
+                </li>
+                <li class='nav--primary__item'>
+                    <a href="#" data-page="limits"><span class='icon icon--limits'>
+                    <i></i>
+                    Limits
+                  </span>
+                  </a>
+      
+                </li>
+                <li class='nav--primary__item'>
+                    <a href="#" data-page="notify-me"><span class='icon icon--notify'>
+                    <i></i>
+                    Notify me
+                  </span>
+                  </a>
+      
+                </li>
+                <li class='nav--primary__item nav--primary__item--separated'>
+                    <a href="#" data-page="sleep"><span class='icon icon--sleep'>
+                    <i></i>
+                    Send to sleep
+                  </span>
+                  </a>
+      
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div id='js-inner-wrap'>
+        <div class='wrapper wrapper--outer wrapper--header'>
+          <div class='container'>
+            <header class='header  cf' role='banner'>
+              <div class='navigation-toggle'>
+                    <a class="navigation-toggle__btn" id="js-global-nav-open" href="#menu"><span>
+                  <i>Global navigation</i>
+                </span>
+                </a>
+            
+              </div>
+              <ul class='nav nav--tertiary fr'>
+                <li class='nav--tertiary__item'>
+                        <a href="/support"><span class='icon icon--support'>
+                    <i></i>
+                    Support
+                  </span>
+                  </a>
+            
+                </li>
+                <li class='nav--tertiary__item'>
+                        <a href="/faq/"><span class='icon icon--faq'>
+                    <i></i>
+                    FAQ
+                  </span>
+                  </a>
+            
+                </li>
+                <li class='nav--tertiary__item'>
+                        <a href="#"><span class='icon icon--logout'>
+                    <i></i>
+                    Logout
+                  </span>
+                  </a>
+            
+                </li>
+              </ul>
+            </header>
+          </div>
+        </div>
+        <div class='wrapper wrapper--outer wrapper--main'>
+          <div id='page-container' class='container'>
+
+            <!-- Dashboard -->
+            <div id='page-dashboard' class='page grid grid--dashboard grid--half-gutter'>
+              <div class='grid__unit grid__unit--results'>
+                <div class='panel panel--multi'>
+                  <div class='panel__header panel__header--multi'>
+                    <div class='block'>
+                      <div class='copy'>
+                        <div class='copy__micro--desktop'>
+                          <h2 class='panel__header__title'>Today's Results</h2>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='block block--results'>
+                    <div class='vwrapper'>
+                      <div class='vwrapper__inner'>
+                        <div class='grid grid--doughnuts cf'>
+                          <div class='grid__unit'>
+                            <div class='chart'>
+                              <div class='doughnut'>
+                                <canvas data-highest='100' data-today='50' id='js-chart-btcs'></canvas>
+                                <div class='chart__stat'>
+                                  <div class='vwrapper'>
+                                    <div class='vwrapper__inner'>
+                                      <span class='chart__stat__text'>
+                                        <b>2299.32</b>
+                                        BTC sold
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class='grid__unit'>
+                            <div class='chart'>
+                              <div class='doughnut'>
+                                <canvas data-highest='250' data-today='35' id='js-chart-revenue'></canvas>
+                                <div class='chart__stat'>
+                                  <div class='vwrapper'>
+                                    <div class='vwrapper__inner'>
+                                      <span class='chart__stat__text'>
+                                        <b>1299.23</b>
+                                        USD revenue
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='grid__unit grid__unit--fullness'>
+                <div class='panel panel--multi'>
+                  <div class='panel__header'>
+                    <div class='block'>
+                      <div class='copy'>
+                        <div class='copy__micro'>
+                          <div class='flag flag--progress'>
+                            <div class='flag__body'>
+                              <span class='progress-bar'>
+                                <span class='progress-bar__amount' style='width: 25%'></span>
+                              </span>
+                            </div>
+                            <div class='flag__aside'>
+                              <h2 class='panel__header__title stats-fade'>25% Full</h2>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='grid__unit grid__unit--transactions'>
+                <div class='panel panel--multi'>
+                  <div class='panel__header panel__header--multi'>
+                    <div class='block'>
+                      <div class='copy'>
+                        <div class='copy__micro--desktop'>
+                          <h2 class='panel__header__title'>Last Transactions</h2>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='block'>
+                    <div class='feed feed--gradient'>
+                      <table class='latest-transactions'>
+                        <tbody>
+                          <tr>
+                            <td class='latest-transactions__time'>10.45 am</td>
+                            <td class='latest-transactions__amount'>1 bitcoin</td>
+                          </tr>
+                          <tr>
+                            <td class='latest-transactions__time'>10.34 am</td>
+                            <td class='latest-transactions__amount'>0.245 bitcoin</td>
+                          </tr>
+                          <tr>
+                            <td class='latest-transactions__time'>10.32 am</td>
+                            <td class='latest-transactions__amount'>1.564 bitcoin</td>
+                          </tr>
+                          <tr>
+                            <td class='latest-transactions__time'>09.45 am</td>
+                            <td class='latest-transactions__amount'>0.451 bitcoin</td>
+                          </tr>
+                          <tr>
+                            <td class='latest-transactions__time'>09.34 am</td>
+                            <td class='latest-transactions__amount'>1.12 bitcoin</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='grid__unit grid__unit--figures'>
+                <div class='panel panel--multi'>
+                  <div class='block'>
+                    <div class='stats flag flag--stats'>
+                      <div class='flag__aside'>
+                        <div class='flag flag--stats-nested'>
+                          <div class='flag__body'>
+                            <b class='as-h1 stats__total stats-fade'>$8129.00</b>
+                          </div>
+                          <div class='flag__aside'>
+                            <span class='meta meta--stats stats-fade'>more than in September</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class='flag__body'>
+                        <div class='months cf'>
+                          <div class='months__item'>
+                            <div class='months__item__bg'>
+                              <span class='months__item__month'>Jan</span>
+                              <span class='months__item__amount' style='height: 35%'></span>
+                            </div>
+                          </div>
+                          <div class='months__item'>
+                            <div class='months__item__bg'>
+                              <span class='months__item__month'>Feb</span>
+                              <span class='months__item__amount' style='height: 32.5%'></span>
+                            </div>
+                          </div>
+                          <div class='months__item'>
+                            <div class='months__item__bg'>
+                              <span class='months__item__month'>Mar</span>
+                              <span class='months__item__amount' style='height: 74%'></span>
+                            </div>
+                          </div>
+                          <div class='months__item'>
+                            <div class='months__item__bg'>
+                              <span class='months__item__month'>Apr</span>
+                              <span class='months__item__amount' style='height: 62.5%'></span>
+                            </div>
+                          </div>
+                          <div class='months__item'>
+                            <div class='months__item__bg'>
+                              <span class='months__item__month'>May</span>
+                              <span class='months__item__amount' style='height: 55%'></span>
+                            </div>
+                          </div>
+                          <div class='months__item'>
+                            <div class='months__item__bg'>
+                              <span class='months__item__month'>Jun</span>
+                              <span class='months__item__amount' style='height: 75%'></span>
+                            </div>
+                          </div>
+                          <div class='months__item months__item--selected'>
+                            <div class='months__item__bg'>
+                              <span class='months__item__month'>Jul</span>
+                              <span class='months__item__amount' style='height: 85%'></span>
+                            </div>
+                          </div>
+                          <div class='months__item'>
+                            <div class='months__item__bg'>
+                              <span class='months__item__month'>Aug</span>
+                              <span class='months__item__amount'></span>
+                            </div>
+                          </div>
+                          <div class='months__item'>
+                            <div class='months__item__bg'>
+                              <span class='months__item__month'>Sep</span>
+                              <span class='months__item__amount'></span>
+                            </div>
+                          </div>
+                          <div class='months__item'>
+                            <div class='months__item__bg'>
+                              <span class='months__item__month'>Oct</span>
+                              <span class='months__item__amount'></span>
+                            </div>
+                          </div>
+                          <div class='months__item'>
+                            <div class='months__item__bg'>
+                              <span class='months__item__month'>Nov</span>
+                              <span class='months__item__amount'></span>
+                            </div>
+                          </div>
+                          <div class='months__item'>
+                            <div class='months__item__bg'>
+                              <span class='months__item__month'>Dec</span>
+                              <span class='months__item__amount'></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+            <!-- Languages -->
+            <div id='page-languages' class='hidden page main  panel' role='main'>
+              <div class='panel__header'>
+                <div class='block'>
+                  <div class='copy'>
+                    <div>
+                      <h2 class='panel__header__title'>Languages</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='block'>
+                <form action='#' method='post'>
+                  <article class='module'>
+                    <div class='copy'>
+                      <h1 class='as-h4'>Default language</h1>
+                    </div>
+                    <div class='grid grid--form grid--dbl-gutter cf'>
+                      <div class='grid__unit'>
+                        <div class='copy'>
+                          <p>This language would be automatically chosen if the user doesn't select anything on the machine interface.</p>
+                        </div>
+                      </div>
+                      <div class='grid__unit grid__unit--fields'>
+                        <ul class='form-fields'>
+                          <li>
+                            <div class='flag flag--form-field'>
+                              <div class='flag__aside'>
+                                <label for='language_1'>1</label>
+                              </div>
+                              <div class='flag__body'>
+                                <div class='form-field-wrap'>
+                                  <div class='custom-select-wrap'>
+                                    <div class='custom-select-wrap__inner'>
+                                      <div class='custom-select'>
+                                        <select id='language_1' name='language_1'>
+                                          <option value='GBR'>English</option>
+                                          <option value='DEU'>German</option>
+                                          <option value='ESP'>Spanish</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+                  <article class='module'>
+                    <div class='copy'>
+                      <h1 class='as-h4'>Additional languages</h1>
+                    </div>
+                    <div class='grid grid--form grid--dbl-gutter cf'>
+                      <div class='grid__unit'>
+                        <div class='copy'>
+                          <p>The user has the opportunity to choose between the following languages on the machine interface.</p>
+                        </div>
+                      </div>
+                      <div class='grid__unit grid__unit--fields'>
+                        <ul class='form-fields'>
+                          <li>
+                            <div class='flag flag--form-field'>
+                              <div class='flag__aside'>
+                                <label for='language_2'>2</label>
+                              </div>
+                              <div class='flag__body'>
+                                <div class='form-field-wrap'>
+                                  <div class='custom-select-wrap'>
+                                    <div class='custom-select-wrap__inner'>
+                                      <div class='custom-select'>
+                                        <select id='language_2' name='language_2'>
+                                          <option value='GBR'>English</option>
+                                          <option value='DEU'>German</option>
+                                          <option value='ESP'>Spanish</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class='flag flag--form-field'>
+                              <div class='flag__aside'>
+                                <label for='language_1'>3</label>
+                              </div>
+                              <div class='flag__body'>
+                                <div class='form-field-wrap'>
+                                  <div class='custom-select-wrap'>
+                                    <div class='custom-select-wrap__inner'>
+                                      <div class='custom-select'>
+                                        <select id='language_3' name='language_3'>
+                                          <option value='GBR'>English</option>
+                                          <option value='DEU'>German</option>
+                                          <option value='ESP'>Spanish</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+                </form>
+              </div>
+            </div>
+
+            <!-- Notify -->
+            <div id='page-notify-me' class='hidden page main  panel' role='main'>
+              <div class='panel__header'>
+                <div class='block'>
+                  <div class='copy'>
+                    <div>
+                      <h2 class='panel__header__title'>Notification settings</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='block'>
+                <form action='#' method='post'>
+                  <article class='module'>
+                    <div class='copy'>
+                      <h1 class='as-h4'>Email &amp; SMS</h1>
+                    </div>
+                    <div class='grid grid--form grid--dbl-gutter cf'>
+                      <div class='grid__unit'>
+                        <div class='copy'>
+                          <p>If you want to get notified when something happens on your machine, please fill in your email address or telephone number.</p>
+                        </div>
+                      </div>
+                      <div class='grid__unit grid__unit--fields'>
+                        <ul class='form-fields'>
+                          <li>
+                            <div class='form-field-wrap'>
+                              <label class='is-hidden' for='telephone'>Telephone number</label>
+                              <input id='telephone' name='telephone' placeholder='Telephone'>
+                            </div>
+                          </li>
+                          <li>
+                            <div class='form-field-wrap'>
+                              <label class='is-hidden' for='email'>Email address</label>
+                              <input id='email' name='email' placeholder='Email address' type='email'>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+                  <article class='module'>
+                    <div class='copy'>
+                      <h1 class='as-h4'>When do I get notified?</h1>
+                    </div>
+                    <div class='grid grid--form grid--dbl-gutter cf'>
+                      <div class='grid__unit'>
+                        <div class='copy'>
+                          <p>Choose which of the following items you will recieve notifications for.</p>
+                        </div>
+                      </div>
+                      <div class='grid__unit grid__unit--fields'>
+                        <ul class='form-fields'>
+                          <li>
+                            <span class='checkbox-field'>
+                              <input id='notify_exchange' name='notify_exchange' type='checkbox'>
+                              <label for='notify_exchange'>
+                                On every exchange
+                              </label>
+                            </span>
+                          </li>
+                          <li>
+                            <span class='checkbox-field'>
+                              <input checked='checked' id='notify_security' name='notify_security' type='checkbox'>
+                              <label for='notify_security'>
+                                Penetration attempt alarm
+                              </label>
+                            </span>
+                          </li>
+                          <li>
+                            <span class='checkbox-field'>
+                              <input checked='checked' id='notify_error' name='notify_error' type='checkbox'>
+                              <label for='notify_error'>
+                                When the machine shows an error
+                              </label>
+                            </span>
+                          </li>
+                          <li>
+                            <span class='checkbox-field'>
+                              <input id='notify_limit' name='notify_limit' type='checkbox'>
+                              <label for='notify_limit'>
+                                When the daily limit reaches 95%
+                              </label>
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+                </form>
+              </div>
+            </div>
+
+            <!-- Commissions -->
+            <div id='page-commissions' class='hidden page main  panel' role='main'>
+              <div class='panel__header'>
+                <div class='block'>
+                  <div class='copy'>
+                    <div>
+                      <h2 class='panel__header__title'>Commissions</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='block'>
+                <form action='#' method='post'>
+                  <article class='module'>
+                    <div class='copy'>
+                      <h1 class='as-h4'>Your commission percentage</h1>
+                    </div>
+                    <div class='grid grid--form grid--form--midset cf'>
+                      <div class='grid__unit'>
+                        <div class='copy'>
+                          <p>Please choose from one of the two following options to set your commission rate. You may either charge by percentage or set a fixed fee.</p>
+                        </div>
+                      </div>
+                      <div class='grid__unit grid__unit--fields'>
+                        <ul class='form-fields form-fields--multi toggle-field-group'>
+                          <!--
+                            <li class='is-invalid'></li>
+                          -->
+                          <li>
+                            <div class='field-and-label toggle-field'>
+                              <div class='field-and-label__field'>
+                                <div class='toggle-field__checkbox'>
+                                  <span class='checkbox-field'>
+                                    <input checked='checked' id='commission_type_percentage' name='commission_type' type='checkbox' value='percentage'>
+                                    <label for='commission_type_percentage'>
+                                      <span class='is-hidden'>Percentage</span>
+                                    </label>
+                                  </span>
+                                </div>
+                                <div class='field-and-label__input'>
+                                  <div class='form-field-wrap'>
+                                    <div class='field-helper field-helper--percent'>
+                                      <input id='commission_percentage' maxlength='5' name='commission_percentage' type='text'>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class='field-and-label__label'>
+                                <label for='commission_percentage'>of transaction</label>
+                              </div>
+                            </div>
+                          </li>
+                          <!--
+                            <li class='is-invalid'></li>
+                          -->
+                          <li>
+                            <div class='field-and-label toggle-field'>
+                              <div class='field-and-label__field'>
+                                <div class='toggle-field__checkbox'>
+                                  <span class='checkbox-field'>
+                                    <input id='commission_type_fixed' name='commission_type' type='checkbox' value='fixed'>
+                                    <label for='commission_type_fixed'>
+                                      <span class='is-hidden'>Amount</span>
+                                    </label>
+                                  </span>
+                                </div>
+                                <div class='field-and-label__input field-and-label__input--integer'>
+                                  <div class='form-field-wrap'>
+                                    <input id='commission_fixed' maxlength='5' name='commission_fixed' type='text'>
+                                  </div>
+                                </div>
+                                <div class='field-and-label__input field-and-label__input--symbol'>
+                                  <div class='form-field-wrap'>
+                                    <div class='custom-select-wrap'>
+                                      <div class='custom-select-wrap__inner'>
+                                        <div class='custom-select'>
+                                          <select id='commission_fixed_currency' name='commission_fixed_currency'>
+                                            <option value='USD'>&dollar;</option>
+                                            <option value='EUR'>&euro;</option>
+                                            <option value='GBP'>&pound;</option>
+                                            <option value='YEN'>&yen;</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class='field-and-label__label'>
+                                <label for='commission_fixed'>fixed fee</label>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                        <!--
+                          <div class='copy'>
+                            <strong class='error-flash'>
+                              <span>&#10006;</span>
+                              You haven't selected a commission!
+                            </strong>
+                          </div>
+                        -->
+                      </div>
+                    </div>
+                    <div class='island island--bordered text--centered push-top'>
+                      <div class='copy'>
+                        <p class='as-h4'>Displayed price: $103.4 + $0.5</p>
+                      </div>
+                    </div>
+                  </article>
+                </form>
+              </div>
+            </div>
+
+            <!-- Notifications -->
+            <div id='page-notifications' class='hidden page main  panel' role='main'>
+              <div class='panel__header'>
+                <div class='block'>
+                  <div class='copy'>
+                    <div>
+                      <h2 class='panel__header__title'>Notifications</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='block'>
+                <div class='loading-wrapper is-loading'>
+                  <article class='notification'>
+                    <div class='flag flag--notification'>
+                      <div class='flag__aside'>
+                        <img alt="Standby" src="assets/img/notifications/icon-standby.png" />
+                      </div>
+                      <div class='flag__body'>
+                        <div class='copy'>
+                          <div class='copy__micro--wide'>
+                            <p>Your machine was manually shut down. Please <a href="#">contact support</a> if you were not responsible for shutting down the machine.</p>
+                          </div>
+                          <div class='copy__micro'>
+                            <time class='meta'>34 minutes ago</time>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                  <article class='notification'>
+                    <div class='flag flag--notification'>
+                      <div class='flag__aside'>
+                        <img alt="Warning" src="assets/img/notifications/icon-warning.png" />
+                      </div>
+                      <div class='flag__body'>
+                        <div class='copy'>
+                          <div class='copy__micro--wide'>
+                            <p>An error occured. The machine shut down automatically.</p>
+                          </div>
+                          <div class='copy__micro'>
+                            <time class='meta'>34 minutes ago</time>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                  <article class='notification'>
+                    <div class='flag flag--notification'>
+                      <div class='flag__aside'>
+                        <img alt="Success" src="assets/img/notifications/icon-success.png" />
+                      </div>
+                      <div class='flag__body'>
+                        <div class='copy'>
+                          <p>Successful exchange. A user just got 0.658 BTC for their 10&euro;. You earned 1.45&euro;.</p>
+                          <div class='copy__micro'>
+                            <time class='meta'>34 minutes ago</time>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                  <article class='notification'>
+                    <div class='flag flag--notification'>
+                      <div class='flag__aside'>
+                        <img alt="Standby" src="assets/img/notifications/icon-standby.png" />
+                      </div>
+                      <div class='flag__body'>
+                        <div class='copy'>
+                          <div class='copy__micro--wide'>
+                            <p>Your machine was manually shut down. Please <a href="#">contact support</a> if you were not responsible for shutting down the machine.</p>
+                          </div>
+                          <div class='copy__micro'>
+                            <time class='meta'>34 minutes ago</time>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                  <article class='notification'>
+                    <div class='flag flag--notification'>
+                      <div class='flag__aside'>
+                        <img alt="Warning" src="assets/img/notifications/icon-warning.png" />
+                      </div>
+                      <div class='flag__body'>
+                        <div class='copy'>
+                          <div class='copy__micro--wide'>
+                            <p>An error occured. The machine shut down automatically.</p>
+                          </div>
+                          <div class='copy__micro'>
+                            <time class='meta'>34 minutes ago</time>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                  <article class='notification'>
+                    <div class='flag flag--notification'>
+                      <div class='flag__aside'>
+                        <img alt="Success" src="assets/img/notifications/icon-success.png" />
+                      </div>
+                      <div class='flag__body'>
+                        <div class='copy'>
+                          <div class='copy__micro--wide'>
+                            <p>Successful exchange. A user just got 0.658 BTC for their 10&euro;. You earned 1.45&euro;.</p>
+                          </div>
+                          <div class='copy__micro'>
+                            <time class='meta'>34 minutes ago</time>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                  <article class='notification'>
+                    <div class='flag flag--notification'>
+                      <div class='flag__aside'>
+                        <img alt="Standby" src="assets/img/notifications/icon-standby.png" />
+                      </div>
+                      <div class='flag__body'>
+                        <div class='copy'>
+                          <div class='copy__micro--wide'>
+                            <p>Your machine was manually shut down. Please <a href="#">contact support</a> if you were not responsible for shutting down the machine.</p>
+                          </div>
+                          <div class='copy__micro'>
+                            <time class='meta'>34 minutes ago</time>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                  <article class='notification'>
+                    <div class='flag flag--notification'>
+                      <div class='flag__aside'>
+                        <img alt="Warning" src="assets/img/notifications/icon-warning.png" />
+                      </div>
+                      <div class='flag__body'>
+                        <div class='copy'>
+                          <div class='copy__micro--wide'>
+                            <p>An error occured. The machine shut down automatically.</p>
+                          </div>
+                          <div class='copy__micro'>
+                            <time class='meta'>34 minutes ago</time>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                  <article class='notification'>
+                    <div class='flag flag--notification'>
+                      <div class='flag__aside'>
+                        <img alt="Success" src="assets/img/notifications/icon-success.png" />
+                      </div>
+                      <div class='flag__body'>
+                        <div class='copy'>
+                          <div class='copy__micro--wide'>
+                            <p>Successful exchange. A user just got 0.658 BTC for their 10&euro;. You earned 1.45&euro;.</p>
+                          </div>
+                          <div class='copy__micro'>
+                            <time class='meta'>34 minutes ago</time>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exchanges -->
+            <div id='page-exchanges' class='hidden page main  panel' role='main'>
+              <div class='panel__header'>
+                <div class='block'>
+                  <div class='copy'>
+                    <div>
+                      <h2 class='panel__header__title'>Exchanges</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='block'>
+                <form action='#' method='post'>
+
+                  <article class='module' id='exchanges-ticker'>
+                    <div class='copy'>
+                      <h1 class='as-h4'>Price Ticker</h1>
+                    </div>
+                    <div class='grid grid--form grid--form--offset cf'>
+                      <div class='grid__unit'>
+                        <div class='copy'>
+                          <p>Your Bitcoin price feed.</p>
+                        </div>
+                      </div>
+                      <div class='grid__unit grid__unit--fields'>
+                        <ul class='form-fields form-fields--multi'>
+                          <li>
+                            <div class='flag flag--form-field flag--form-field--bg'>
+                              <div class='flag__body'>
+                                <div class='grid grid--form-fields cf'>
+                                  <div class='grid__unit'>
+                                    <div class='form-field-wrap'>
+                                      <input class='bg--white selectize' id='exchanges-ticker-current' 
+                                        name='exchanges-plugins-current-ticker' placeholder='API Type' />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+
+                          <li class="template">
+                            <div class='flag flag--form-field flag--form-field--bg'>
+                              <div class='flag__body'>
+                                <div class='grid grid--form-fields cf'>
+                                  <div class='grid__unit full-width'>
+                                    <div class='form-field-wrap'>
+                                      <input class='bg--white' placeholder=''>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class='module' id='exchanges-trade'>
+                    <div class='copy'>
+                      <h1 class='as-h4'>Trading Exchange <span class="optional">(optional)</span></h1>
+                    </div>
+                    <div class='grid grid--form grid--form--offset cf'>
+                      <div class='grid__unit'>
+                        <div class='copy'>
+                          <p>Your Bitcoin exchange, for buying bitcoins to cover sales.</p>
+                        </div>
+                      </div>
+                      <div class='grid__unit grid__unit--fields'>
+                        <ul class='form-fields form-fields--multi'>
+                          <li>
+                            <div class='flag flag--form-field flag--form-field--bg'>
+                              <div class='flag__body'>
+                                <div class='grid grid--form-fields cf'>
+                                  <div class='grid__unit'>
+                                    <div class='form-field-wrap'>
+                                      <input class='bg--white' id='exchanges-trade-current'
+                                        name='exchanges-plugins-current-trade' placeholder='Trading Exchange'>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+
+                          <li class="template">
+                            <div class='flag flag--form-field flag--form-field--bg'>
+                              <div class='flag__body'>
+                                <div class='grid grid--form-fields cf'>
+                                  <div class='grid__unit full-width'>
+                                    <div class='form-field-wrap'>
+                                      <input class='bg--white' placeholder=''>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class='module' id='exchanges-transfer'>
+                    <div class='copy'>
+                      <h1 class='as-h4'>Bitcoin Wallet</h1>
+                    </div>
+                    <div class='grid grid--form grid--form--offset cf'>
+                      <div class='grid__unit'>
+                        <div class='copy'>
+                          <p>Bitcoin reserve, for sending bitcoins to end user.</p>
+                        </div>
+                      </div>
+                      <div class='grid__unit grid__unit--fields'>
+                        <ul class='form-fields form-fields--multi'>
+
+                          <li>
+                            <div class='flag flag--form-field flag--form-field--bg'>
+                              <div class='flag__body'>
+                                <div class='grid grid--form-fields cf'>
+                                  <div class='grid__unit'>
+                                    <div class='form-field-wrap'>
+                                      <input class='bg--white' id='exchanges-transfer-current'
+                                        name='exchanges-plugins-current-transfer' placeholder='Bitcoin Wallet'>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+
+                          <li class="template">
+                            <div class='flag flag--form-field flag--form-field--bg'>
+                              <div class='flag__body'>
+                                <div class='grid grid--form-fields cf'>
+                                  <div class='grid__unit full-width'>
+                                    <div class='form-field-wrap'>
+                                      <input class='bg--white' placeholder=''>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+
+                </form>
+              </div>
+            </div>
+
+            <!-- Limits -->
+            <div id='page-limits' class='hidden page main  panel' role='main'>
+              <div class='panel__header'>
+                <div class='block'>
+                  <div class='copy'>
+                    <div>
+                      <h2 class='panel__header__title'>Limits</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='block'>
+                <form action='#' method='post'>
+                  <article class='module'>
+                    <div class='copy'>
+                      <h1 class='as-h4'>Overall limits</h1>
+                    </div>
+                    <div class='grid grid--form cf'>
+                      <div class='grid__unit'>
+                        <div class='copy'>
+                          <p>Set the limits for your machine. Deposits will be disabled if one of the limits to the right is reached.</p>
+                        </div>
+                      </div>
+                      <div class='grid__unit grid__unit--fields'>
+                        <ul class='form-fields form-fields--multi form-fields--fr'>
+                          <li>
+                            <div class='field-and-label'>
+                              <div class='field-and-label__field'>
+                                <div class='field-and-label__input'>
+                                  <div class='form-field-wrap'>
+                                    <div class='field-helper field-helper--dollar'>
+                                      <input id='limit_daily_dollar' maxlength='5' name='limit_daily_dollar' type='text'>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class='field-and-label__label'>
+                                <label for='limit_daily_dollar'>per day</label>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class='field-and-label'>
+                              <div class='field-and-label__field'>
+                                <div class='field-and-label__input'>
+                                  <div class='form-field-wrap'>
+                                    <div class='field-helper field-helper--btc'>
+                                      <input id='limit_daily_btc' maxlength='5' name='limit_daily_btc' type='text'>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class='field-and-label__label'>
+                                <label for='limit_daily_btc'>per day</label>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class='field-and-label'>
+                              <div class='field-and-label__field'>
+                                <div class='field-and-label__input'>
+                                  <div class='form-field-wrap'>
+                                    <div class='field-helper field-helper--dollar'>
+                                      <input id='limit_transaction' maxlength='5' name='limit_transaction' type='text'>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class='field-and-label__label'>
+                                <label for='limit_transaction'>per transaction</label>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+                  <article class='module'>
+                    <div class='copy'>
+                      <h1 class='as-h4'>Select bills</h1>
+                    </div>
+                    <div class='grid grid--form grid--form--midset cf'>
+                      <div class='grid__unit'>
+                        <div class='copy'>
+                          <p>Click to enable or disable the bill denominations you want to accept in this machine</p>
+                        </div>
+                      </div>
+                      <div class='grid__unit grid__unit--fields'>
+                        <div class='fr'>
+                          <ul class='nav nav--bills nav--block'>
+                            <li>
+                              <div class='bill-checkbox-field'>
+                                <input id='bill_accept_1' name='bill_accept_1' type='checkbox' value='1'>
+                                <label for='bill_accept_1'>
+                                  <span>$1</span>
+                                </label>
+                              </div>
+                            </li>
+                            <li>
+                              <div class='bill-checkbox-field'>
+                                <input id='bill_accept_5' name='bill_accept_5' type='checkbox' value='1'>
+                                <label for='bill_accept_5'>
+                                  <span>$5</span>
+                                </label>
+                              </div>
+                            </li>
+                            <li>
+                              <div class='bill-checkbox-field'>
+                                <input id='bill_accept_10' name='bill_accept_10' type='checkbox' value='1'>
+                                <label for='bill_accept_10'>
+                                  <span>$10</span>
+                                </label>
+                              </div>
+                            </li>
+                            <li>
+                              <div class='bill-checkbox-field'>
+                                <input id='bill_accept_20' name='bill_accept_20' type='checkbox' value='1'>
+                                <label for='bill_accept_20'>
+                                  <span>$20</span>
+                                </label>
+                              </div>
+                            </li>
+                            <li>
+                              <div class='bill-checkbox-field'>
+                                <input id='bill_accept_50' name='bill_accept_50' type='checkbox' value='1'>
+                                <label for='bill_accept_50'>
+                                  <span>$50</span>
+                                </label>
+                              </div>
+                            </li>
+                            <li>
+                              <div class='bill-checkbox-field'>
+                                <input id='bill_accept_100' name='bill_accept_100' type='checkbox' value='1'>
+                                <label for='bill_accept_100'>
+                                  <span>$100</span>
+                                </label>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                </form>
+              </div>
+            </div>
+
+          </div>        
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<script src="assets/js/libs/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="assets/js/vendor/selectize.js"></script>
+<script src="assets/js/scripts.js" type="text/javascript"></script>
+<script src="assets/js/new.js" type="text/javascript"></script>
