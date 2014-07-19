@@ -36,12 +36,12 @@ time.
 node app.js
 ```
 
-Then, [open it](http://localhost:8080).
+Then, [open it](http://localhost:8081).
 
 ## Deployment
 
 ### Heroku
-Both `lamassu-admin` and [`lamassu-server`](https://github.com/lamassu/lamassu-server) 
+Both `lamassu-admin` and [`lamassu-server`](https://github.com/lamassu/lamassu-server)
 are deployable to Heroku.
 
 First, you need to get a [Heroku](https://heroku.com) account and install the
