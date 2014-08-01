@@ -1,15 +1,14 @@
 #!/usr/bin/env node
-var fs = require('fs')
-var http = require('http')
-var https = require('https')
-var ss = require('socketstream')
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
+var ss = require('socketstream');
 
-var argv = require('yargs')
-  .argv
+var argv = require('yargs').argv;
 
-var secureHeaders = require('./server/secure-headers.js')
+var secureHeaders = require('./server/secure-headers.js');
 
-var server
+var server;
 
 //define assets for admin app
 ss.client.define('main', {
@@ -17,25 +16,25 @@ ss.client.define('main', {
   css:  ['libs', 'app.styl'],
   code: ['libs', 'app'],
   tmpl: '*'
-})
+});
 
 // serve main client on the root url
-ss.http.route('/', function(req, res){ 
-  res.serveClient('main')
+ss.http.route('/', function(req, res) {
+  res.serveClient('main');
 });
 
 // code formatters
-ss.client.formatters.add(require('ss-jade'))
-ss.client.formatters.add(require('ss-stylus'))
+ss.client.formatters.add(require('ss-jade'));
+ss.client.formatters.add(require('ss-stylus'));
 
-ss.client.templateEngine.use(require('ss-hogan'))
+ss.client.templateEngine.use(require('ss-hogan'));
 
 // minimize and pack assets if you type: SS_ENV=production node app.js
 // if (ss.env === 'production') ss.client.packAssets();
 
 // start server
 if (argv.http) {
-  server = http.Server(ss.http.middleware)
+  server = http.Server(ss.http.middleware);
 }
 else {
   var options = {
@@ -44,16 +43,16 @@ else {
     secureProtocol: 'TLSv1_method',
     ciphers: 'AES128-GCM-SHA256:RC4:HIGH:!MD5:!aNULL:!EDH',
     honorCipherOrder: true
-  }
+  };
 
-  server = https.createServer(options, ss.http.middleware)
+  server = https.createServer(options, ss.http.middleware);
 }
 
-server.listen(process.env.PORT || 8081)
+server.listen(process.env.PORT || 8081);
 
 ss.http.middleware.append(secureHeaders({ https: !argv.http }));
 
 // start socketstream
-ss.start(server)
+ss.start(server);
 
-var price_feed = require('./server/price/feed')
+var price_feed = require('./server/price/feed');
