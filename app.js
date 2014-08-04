@@ -37,6 +37,11 @@ if (argv.http) {
   server = http.Server(ss.http.middleware);
 }
 else {
+  if (argv.cert) {
+    var fingerprint = require('./server/fingerprint');
+    fingerprint.setCertificate(argv.cert);
+  }
+
   var options = {
     key: fs.readFileSync(argv.key),
     cert: fs.readFileSync(argv.cert),
