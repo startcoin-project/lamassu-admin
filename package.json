@@ -1,13 +1,13 @@
 {
   "name": "lamassu-admin",
   "description": "Lamassu admin server. First part of Lamassu stack you need to install.",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "author": "Lamassu (https://lamassu.is)",
   "engines": {
     "node": "0.10.x"
   },
   "dependencies": {
-    "socketstream": "0.3.x",
+    "socketstream": "0.3.10",
     "ss-jade": "0.1.x",
     "ss-stylus": "0.1.x",
     "ss-hogan": "0.1.x",
