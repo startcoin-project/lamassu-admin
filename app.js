@@ -39,7 +39,6 @@ if (argv.http) {
 else {
   if (argv.cert) {
     var fingerprint = require('./server/fingerprint');
-    fingerprint.setCertificate(argv.cert);
   }
 
   var options = {
