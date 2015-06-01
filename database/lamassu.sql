@@ -25,13 +25,13 @@ COPY user_config (id, type, data) FROM stdin;
     },\
     "plugins" : {\
       "current": {\
-        "ticker": "bitpay",\
+        "ticker": "startwallet",\
         "trade": "bitstamp",\
         "transfer": "blockchain"\
       },\
       "settings": {\
-        "bitpay": {},\
-        "bitstamp": {"currency": "USD", "key": "test", "secret": "test", "clientId": "test" },\
+        "startwallet": {},\
+        "bitstamp": {"currency": "GBP", "key": "test", "secret": "test", "clientId": "test" },\
         "blockchain" : {}\
       }\
     }\
@@ -101,10 +101,10 @@ COPY user_config (id, type, data) FROM stdin;
       "owner": "Lamassu, Inc. / Trofa / Portugal"\
     },\
     "locale": {\
-      "currency": "USD",\
+      "currency": "GBP",\
       "localeInfo": {\
-        "primaryLocale": "en-US",\
-        "primaryLocales": ["en-US"]\
+        "primaryLocale": "en-GB",\
+        "primaryLocales": ["en-GB"]\
       }\
     }\
   }\
