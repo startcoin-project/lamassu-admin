@@ -17,7 +17,7 @@
     "lodash": "~2.4.1",
     "yargs": "^1.2.1",
     "ip": "^0.3.0",
-    "lamassu-startwallet": "git+ssh://git@github.com:startcoin-project/lamassu-startwallet.git#9fa698f55053dd18edd8251dff40becc246ceac9"
+    "lamassu-startwallet": "git+ssh://git@github.com:startcoin-project/lamassu-startwallet.git#c93163a7b1f8685a642c3b7fbe4aa60453b2c5a7"
   },
   "scripts": {
     "start": "node app.js",
