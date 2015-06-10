@@ -21,7 +21,7 @@
     "lamassu-bitcoinaverage": "~0.2.0",
     "lamassu-bitstamp": "~0.2.0",
     "lamassu-bitpay": "~0.3.0",
-    "lamassu-startwallet": "git+ssh://git@github.com:startcoin-project/lamassu-startwallet.git#622173285239c187c730c9d1732ca7f478207342"
+    "lamassu-startwallet": "git+ssh://git@github.com:startcoin-project/lamassu-startwallet.git#776a4354572c881b86b656a9b07d2e4d67b6d846"
   },
   "scripts": {
     "start": "node app.js",
